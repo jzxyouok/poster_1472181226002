@@ -8,14 +8,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import cn.dmesoft.haibao.common.service.CrudService;
 import cn.dmesoft.haibao.modules.haibao.dao.PosterDao;
 import cn.dmesoft.haibao.modules.haibao.entity.Poster;
-import cn.dmesoft.haibao.modules.haibao.utils.Config;
 import cn.dmesoft.haibao.modules.haibao.web.PosterController;
 
 /**
@@ -29,8 +27,11 @@ public class PosterService extends CrudService<PosterDao, Poster> {
 
 	private static String SAVE_DIR_PATH = null;
 
-	private static final String HTML_FRONT = Config.getString("html_front");
-	private static final String HTML_BEHIND = Config.getString("html_behind");
+	@Value("${html_front}")
+	private String HTML_FRONT;
+
+	@Value("${html_behind}")
+	private String HTML_BEHIND;
 
 	static {
 		String dirPath = PosterController.class.getClassLoader().getResource("").getPath();
