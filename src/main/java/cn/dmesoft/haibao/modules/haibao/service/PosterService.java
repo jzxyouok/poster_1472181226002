@@ -28,10 +28,10 @@ public class PosterService extends CrudService<PosterDao, Poster> {
 	private static String SAVE_DIR_PATH = null;
 
 	@Value("${html_front}")
-	private String HTML_FRONT;
+	private String htmlFront;
 
 	@Value("${html_behind}")
-	private String HTML_BEHIND;
+	private String htmlBehind;
 
 	static {
 		String dirPath = PosterController.class.getClassLoader().getResource("").getPath();
@@ -89,7 +89,7 @@ public class PosterService extends CrudService<PosterDao, Poster> {
 		OutputStream outs = null;
 		try {
 			outs = getPosterStream(poster);
-			outs.write((HTML_FRONT + poster.getContent() + HTML_BEHIND).getBytes());
+			outs.write((htmlFront + poster.getContent() + htmlBehind).getBytes());
 			poster.setContent(null);
 		} catch (Exception e) {
 			throw e;
