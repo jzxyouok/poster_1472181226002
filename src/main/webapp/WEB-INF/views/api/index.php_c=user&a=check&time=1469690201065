@@ -1,0 +1,2 @@
+
+{"success":true,"code":200,"msg":"操作成功","obj":{"id":1,"loginName":"test@qq.com","xd":84590000,"role":0,"sex":0,"phone":"","tel":"","qq":"","headImg":null,"idNum":null,"idPhoto":null,"regTime":1425093623000,"extType":0,"property":"{\"myTplId\":8}","companyId":null,"deptName":null,"deptId":0,"checkEmail":"","name":"test","email":"test@qq.com","type":4,"status":1,"relType":null,"companyTplId":null,"roleIdList":[0]},"map":null,"list":null}

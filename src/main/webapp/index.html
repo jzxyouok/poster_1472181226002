@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>H5页面制作工具</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<!--top nav-->
+<div class="top-warp">
+    <h1 class="logo"><a href="/">H5页面制作工具</a></h1>
+    <div class="top-menu">
+        <ul>
+            <li id="text">
+                <span class="icon-font-size">&#xea61;</span>
+                <i>文本</i>
+            </li>
+            <li>
+                <span class="icon-ungroup">&#xea59;</span>
+                <i>背景</i>
+            </li>
+            <li>
+                <span class="icon-music">&#xe911;</span>
+                <i>音乐</i>
+            </li>
+            <li>
+                <span class="icon-film">&#xe913;</span>
+                <i>视频</i>
+            </li>
+            <li>
+                <span class="icon-image">&#xe90d;</span>
+                <i>图片</i>
+            </li>
+            <li>
+                <span class="icon-stack">&#xe92e;</span>
+                <i>形状</i>
+            </li>
+            <li>
+                <span class="icon-images">&#xe90e;</span>
+                <i>图集</i>
+            </li>
+            <li>
+                <span class="icon-loop2">&#xea2e;</span>
+                <i>互动</i>
+            </li>
+            <li>
+                <span class="icon-table2">&#xea71;</span>
+                <i>表单</i>
+            </li>
+            <li>
+                <span class="icon-magic-wand">&#xe997;</span>
+                <i>特效</i>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="t-right-menu">
+        <button type="button" class="btn btn-default btn-sm" id="save">保存</button>
+        <button type="button" class="btn btn-default btn-sm" id="alltest">设置</button>
+        <button type="button" class="btn btn-default btn-sm">发布</button>
+        <button type="button" class="btn btn-danger btn-sm">退出</button>
+    </div>
+</div>
+<div class="main">
+    <!--left-->
+    <div class="m-left">
+        <ul class="m-l-nav">
+            <li class="hover">模板中心</li>
+            <li>我的模板</li>
+        </ul>
+
+        <div class="m-l-con">
+            <div class="m-l-c-block">
+                <ul>
+                    <li><img src="images/m1.png" alt=""></li>
+                    <li><img src="images/m2.png" alt=""></li>
+                    <li><img src="images/m3.png" alt=""></li>
+                    <li><img src="images/m4.png" alt=""></li>
+                    <li><img src="images/m5.png" alt=""></li>
+                    <li><img src="images/m6.png" alt=""></li>
+                    <li><img src="images/m7.png" alt=""></li>
+                    <li><img src="images/m8.png" alt=""></li>
+                    <li><img src="images/m9.png" alt=""></li>
+                    <li><img src="images/m3.png" alt=""></li>
+                    <li><img src="images/m4.png" alt=""></li>
+                    <li><img src="images/m5.png" alt=""></li>
+                </ul>
+            </div>
+
+            <div class="m-l-c-block">
+                <p>您的模板为空</p>
+            </div>
+        </div>
+    </div>
+
+    <!--middle-->
+    <div class="m-middle">
+        <div class="m-m-content" id="core-canvas">
+
+        </div>
+
+        <div class="m-m-menu">
+            <ul>
+                <li><span class="icon-undo2">&#xe967;</span></li>
+                <li><span class="icon-redo2">&#xe968;</span></li>
+                <li><span class="icon-play">&#xe912;</span></li>
+                <li class="copy"><span class="icon-copy">&#xe92c;</span></li>
+                <li class="grey"><span class="icon-music">&#xe911;</span></li>
+                <li class="grey"><span class="icon-magic-wand">&#xe997;</span></li>
+                <li class="grey"><span class="icon-tanle2">&#xea71;</span></li>
+                <li class="list"><span class="icon-list">&#xe9ba;</span></li>
+                <li><span class="icon-cog">&#xe994;</span></li>
+            </ul>
+        </div>
+    </div>
+    
+    <!--right-->
+    <div class="m-right">
+        <div class="m-r-top">
+            我的页面
+            <span class="icon-copy">&#xe92c;</span>
+        </div>
+
+        <div class="m-r-page-list">
+            <ul>
+                <li>页面1</li>
+                <li>页面2</li>
+                <li>页面3</li>
+            </ul>
+        </div>
+
+        <div class="m-r-page-add">+</div>
+    </div>
+</div>
+
+<!--弹框区-->
+<div class="bomb-box">
+    <div id="text-tool">
+        <div class="t-t-top" id="text-move">
+            <span>组件设置</span>
+            <i class="fr" id="textclose">X</i>
+        </div>
+
+        <ul class="t-t-nav">
+            <li class="hover">动画</li>
+            <li>样式</li>
+            <li>触发</li>
+        </ul>
+
+        <div id="assembly-box">
+            <div class="assembly-box" style="display: block">
+                <span class="public-tit">方式</span>
+                <ul id="add-animate">
+                    <b>选择动画类型</b>
+                    <li class="rubberBand">抖动</li>
+                    <li class="swing">摆动</li>
+                    <li class="wobble">弹入</li>
+                    <li class="bounceInDown">下滑</li>
+                    <li class="bounceInLeft">左滑入</li>
+                    <li class="bounceInRight">右滑入</li>
+                    <li class="bounceInUp">上滑</li>
+                </ul>
+                <span class="public-tit">时间</span>
+                <span class="public-tit">延迟</span>
+                <a href="#" id="save-animate">确定</a>
+                <a href="#" id="cancel-animate"  class="danger">清除动画</a>
+            </div>
+
+            <div class="assembly-box" id="add-css">
+                <ul>
+                    <li>基础样式</li>
+                    <li>边框样式</li>
+                    <li>阴影样式</li>
+                </ul>
+
+                <a href="#" id="save-css">确定</a>
+                <a href="#" id="cancel-css" class="danger">清除样式</a>
+            </div>
+
+            <div class="assembly-box" id="add-trigger">
+                <p>正在开发当中···</p>
+                <a href="#" id="save-trigger">确定</a>
+                <a href="#" id="cancel-trigger" class="danger">清除</a>
+            </div>
+
+        </div>
+    </div>
+    <div id="text-edit">
+        <ul>
+            <li>24 <span class="icon-expand_more">&#xe5cf;</span></li>
+            <li><span class="icon-underline">&#xf0cd;</span></li>
+            <li><span class="icon-bold">&#xf032;</span></li>
+            <li><span class="icon-italic">&#xf033;</span></li>
+            <li><span class="icon-align-left">&#xf036;</span></li>
+            <li><span class="icon-sort">&#xe164;</span></li>
+            <li><span class=""></span></li>
+            <li><span class=""></span></li>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/basic.js"></script>
+<script type="text/javascript" src="js/core.js"></script>
+</body>
+</html>

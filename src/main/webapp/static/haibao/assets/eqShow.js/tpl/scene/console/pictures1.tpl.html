@@ -1,0 +1,74 @@
+<div class="modal-header no-line">
+    <button type=button class=close data-dismiss=modal aria-label=Close ng-click=cancel()><span
+            aria-hidden=true>×</span></button>
+    <h4 class=modal-title>{{imageOption.title}} <a class=bbs-help-tip-media target=_blank
+                                                   href="http://bbs.eqxiu.com/forum.php?mod=viewthread&tid=1934&page=1&extra=#pid6696"></a>
+        <span class=action>{{imageOption.desc}}</span></h4></div>
+<div class="dialog-contain cropimage">
+    <div class="crop-content dialog-content clearfix">
+        <div class=image-con style=width:100% ng-hide=imageOption.showCrop>
+            <div class=add-img ng-click="addPictures($event, 0, 'first')"><i>点击添加图片</i>
+                <p style="padding-top: 5px;font-size: 14px"><i>（最多可添加6张图片）</i></p></div>
+        </div>
+        <div class=clearfix ng-show=imageOption.showCrop>
+            <div class=picture-img>
+                <div class=image_crop ng-class="{'bg-crop': !cropOption.showItems}"><img id=img_preview
+                                                                                         eqx-pictures-crop-preview
+                                                                                         index={{imageOption.currentImage.index}}
+                                                                                         ng-src="{{imageOption.currentImage.originSrc ? PREFIX_FILE_HOST + imageOption.currentImage.originSrc : PREFIX_FILE_HOST + imageOption.currentImage.src}}">
+                </div>
+                <div class=img-abbre>
+                    <ul class=clearfix>
+                        <li ng-repeat="child in properties.children"
+                            ng-class="{active: imageOption.currentImage.index === $index}"
+                            ng-style="{'background-image':  child.originSrc ? 'url(' + PREFIX_FILE_HOST + child.originSrc + ')' : 'url(' + PREFIX_FILE_HOST + child.src + ')'}"
+                            ng-click=changePicture($index)>
+                            <div class=img-set ng-show=child.src.length>
+                                <div class="delete-img hint--top hint--rounded" data-hint=删除图片
+                                     ng-click=delPicture($index)><span class=eqf-wrong2></span></div>
+                                <div class="abbre hint--bottom hint--rounded" data-hint=更换图片
+                                     ng-click="addPictures($event, $index)"><span class=eqf-top-pic></span></div>
+                            </div>
+                            <p class=eqf-plus2 ng-hide=child.src.length
+                               ng-click="addPictures($event, $index, 'more')"></p></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cut-size picture-size" ng-show=cropOption.showItems>
+                <ul>
+                    <li ng-repeat="item in cropOption.cropItems">
+                        <div class=radio-square style=margin-top:7px ng-class="{checked:cropOption.currentItem== item}">
+                            <em></em> <input type=radio id={{item.desc}} name=cropSize ng-model=cropOption.currentItem
+                                             ng-value=item ng-change=cropItemChange(item)></div>
+                        <label for={{item.desc}}>{{item.desc}}</label><span ng-if="item.lock != null"><input
+                            type=checkbox id=lock ng-model=item.lock ng-change=cropItemChange(item)><label
+                            for=lock>锁定</label></span></li>
+                </ul>
+                <ul style=margin-top:10px class=picture-set>
+                    <li class=clearfix><span class="switch-circle on"
+                                             ng-class="{on: properties.autoPlay, off: !properties.autoPlay}"
+                                             ng-click="properties.autoPlay = !properties.autoPlay"><i></i></span>{{properties.autoPlay
+                        ? ('自动切换') : ('手动切换')}}
+                    </li>
+                    <li><p><i>切换时间：</i>{{properties.interval / 1000}}<i>秒</i></p></li>
+                    <li class=switch-time style="padding-top: 5px">
+                        <div ui-slider-t min=1000 max=5000 step=1000 class=slider ng-model=properties.interval
+                             ng-class="{disable: !properties.autoPlay}"></div>
+                        <div class=time-mark ng-hide=properties.autoPlay></div>
+                    </li>
+                    <li><p>切换动画</p></li>
+                    <li>
+                        <eqx-select class="select-sm border-width select-contain" model=properties.picStyle
+                                    change=getMyScenes()>
+                            <eqx-select-option value=pic ng-repeat="pic in picStyles">{{pic.desc}}</eqx-select-option>
+                        </eqx-select>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer no-line"><a class=modal-cancle ng-click=cancel()
+                                     ng-style="{'margin-left': imageOption.showCrop ? 25 : 0}">取消</a> <a
+        class="btn btn-primary" ng-click=ok() ng-show=imageOption.showCrop>确定</a></div>
+<div class=loading-mask ng-show=imageOption.showLoading><img ng-src={{HB_STATIC}}assets/images/oval.svg></div>

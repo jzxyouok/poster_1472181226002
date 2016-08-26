@@ -1,0 +1,36 @@
+<div class=dialog-contain>
+    <div class=dialog-head><h1>图集组件</h1>
+        <p ng-show=!authError>图集中可以添加多张图片</p>
+        <p ng-show=authError>{{authError}}</p></div>
+    <div class=pic-contain>
+        <div class="pic-head clearfix pic-same">
+            <div class=select-img><a ng-click=choosePic()>选择图片</a> <span>最多可选择6张图片</span></div>
+            <div class="select-style clearfix"><select ng-model=properties.picStyle
+                                                       ng-options="pic.desc for pic in picStyles"></select><span
+                    class=bg-color ng-style="{'background-color': properties.bgColor}"></span> <span
+                    class=select-bg-color colorpicker=rgba ng-model=properties.bgColor>背景颜色</span></div>
+        </div>
+        <div class="pic-img-list pic-same">
+            <ul class=clearfix>
+                <li eqx-pictures-image-click ng-class="{hover: currentImageIndex === $index}"
+                    ng-repeat="img in properties.children track by $index"><img class=pic-img
+                                                                                ng-src="{{PREFIX_FILE_HOST + img.src}}">
+                    <i class=delete-img><img ng-src="{{HB_STATIC}}assets/images/bg_07.png"></i></li>
+            </ul>
+        </div>
+        <div class=pic-preview
+             ng-style="{'background-color': properties.bgColor, width: position.width, height: position.height}"></div>
+        <div class=operation-pre><a class=cut eqx-pictures-image-crop>裁切</a></div>
+        <div class="pic-same pic-play clearfix">
+            <div class="set-play clearfix"><span ng-show=properties.autoPlay><span class="button on"
+                                                                                   ng-click="properties.autoPlay = false"><i></i></span>已开启自动播放</span>
+                <span ng-show=!properties.autoPlay><span class="button off"
+                                                         ng-click="properties.autoPlay = true"><i></i></span>已关闭自动播放</span>
+            </div>
+            <div class="btn-content btn-contain" style=padding:0><a class="btn-grey0 cancel" style=margin-right:8px
+                                                                    ng-click=cancel()>取消</a> <a class="btn-main login"
+                                                                                                ng-click=ok()>确定</a>
+            </div>
+        </div>
+    </div>
+</div>

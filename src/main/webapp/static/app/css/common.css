@@ -1,0 +1,13 @@
+.templates {display: none}
+.template {display:none}
+
+.pagination input{width:20px;}
+
+
+body{
+    /*background-color: transparent;*/
+    /*!*overflow: hidden;*!*/
+    /*background-image: url('../../images/bg.jpg');*/
+    /*background-size: cover;*/
+    /*background-position: 50% 50%;*/
+}

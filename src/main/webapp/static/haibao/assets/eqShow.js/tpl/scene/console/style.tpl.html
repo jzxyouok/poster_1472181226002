@@ -1,0 +1,278 @@
+<div ng-if="activeTab == 'style'" ng-controller=StyleConsoleCtrl>
+    <div class=yangshi>
+        <section>
+            <div class="style_list border-bottom pl20" ng-show="elemDef.type!='m' && elemDef.type!='b'"
+                 ng-class={active:showBasic} ng-init="showBasic=true" ng-click="openExpore('showBasic');">
+                <span>基础样式</span><b class=caret ng-show=showBasic></b><b class="caret off" ng-show=!showBasic></b></div>
+            <div class=style_con_hei ng-show="elemDef.type=='m'">
+                <div class="style_list_angel clearfix"><label>标签内容</label>
+                    <div class="color_select clearfix"><input class=flo_right style=width:140px style-input
+                                                              elem-id={{elemDef.id}} ng-model=model.content
+                                                              css-item=content type="text"></div>
+                </div>
+                <div style=border-bottom:none class="style_list_angel clearfix"><label>地图位置</label>
+                    <div class="color_select clearfix" style=text-align:right><i class=eqf-map
+                                                                                 style=margin-right:5px></i><a
+                            class=primary style="text-decoration: underline;line-height: 20px" ng-click=setPosition()>{{model.address}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class=style_con_hei ng-if="elemDef.type=='g'" ng-show=showBasic>
+                <div class="style_list_angel clearfix"><label>广告代码</label>
+                    <div class="color_select clearfix"><textarea class=flo_right style="height: 120px" insert-html
+                                                                 content={{proModel.content}}
+                                                                 target="#nr #{{elemDef.id}} .ad-contain"
+                                                                 elem-id={{elemDef.id}} ng-model=proModel.content>
+           </textarea><input style=display:none style-input elem-id={{elemDef.id}} ng-model=model.width css-item=width
+                             type="text"> <input style=display:none style-input elem-id={{elemDef.id}}
+                                                 ng-model=model.height css-item=height type="text"></div>
+                </div>
+                <div class="style_list_angel clearfix"><label>广告尺寸</label>
+                    <div class="color_select clearfix"><select class=flo_right ng-change=changeSize(size)
+                                                               ng-model=proModel.size
+                                                               style="width:150px;border:1px solid #C9C9C9"
+                                                               ng-options="size.value as size.name for size in adSizes"></select>
+                    </div>
+                </div>
+            </div>
+            <div class=style_con_hei ng-if="elemDef.type=='b'">
+                <div class="style_list_angel clearfix"
+                     ng-init="styles=[{name:'默认',value:'default'},{name:'黑色',value:'black'},{name:'粉色',value:'pink'}]">
+                    <label>配色风格</label>
+                    <div class="color_select clearfix"><select class=flo_right ng-model=boardsModel.style
+                                                               style="width:140px;border:1px solid #C9C9C9"
+                                                               ng-options="style.value as style.name for style in styles"></select>
+                    </div>
+                </div>
+                <div class="style_list_angel clearfix"><label>我要留言</label>
+                    <div class="color_select clearfix"><input class=flo_right style=width:140px style-input
+                                                              elem-id={{elemDef.id}} ng-model=boardsModel.meslabel
+                                                              css-item=content maxlength=10 type="text"> <span
+                            str=boardsModel.meslabel strlen class=strlen max=10>4/10</span></div>
+                </div>
+                <div style=border-bottom:none class="style_list_angel clearfix"><label>更多留言</label>
+                    <div class="color_select clearfix"><input class=flo_right style=width:140px style-input
+                                                              elem-id={{elemDef.id}} ng-model=boardsModel.morelabel
+                                                              css-item=content maxlength=10 type="text"> <span
+                            str=boardsModel.morelabel strlen class=strlen max=10>4/10</span></div>
+                </div>
+            </div>
+            <div ng-class="{'h-scroll':scrollShow && showBasic}">
+                <div eqd-scroll style="height: 100%" change-pos=changePos(pos) disable-mouse=true
+                     prevent-exception=true>
+                    <div ng-show="showBasic && elemDef.type!='m'" class=style_con_hei>
+                        <div class="style_list_angel clearfix" ng-show="elemDef.type=='201' || elemDef.type=='401'">
+                            <label>文字内容</label>
+                            <div class="color_select clearfix"><input class=flo_right style=width:155px
+                                                                      elem-id={{elemDef.id}} ng-model=model.content
+                                                                      type="text"></div>
+                        </div>
+                        <div class="style_list_angel clearfix"
+                             ng-if="(elemDef.type == '201' || elemDef.type == '401' || elemDef.type == '2') && isEditor">
+                            <label>文字大小</label>
+                            <div class="touming clearfix"><p class=num><input class=short type=number min=12 max=72
+                                                                              style-input elem-id={{elemDef.id}}
+                                                                              css-item=fontSize
+                                                                              ng-model="model.fontSize"></p>
+                                <div class=slider ui-slider-t his-records=true ng-model=model.fontSize min=12
+                                     max=72></div>
+                            </div>
+                        </div>
+                        <div class="style_list_angel clearfix" ng-if="elemDef.type!='t'
+            && elemDef.type!='b' && elemDef.type != 'x' && elemDef.type != 'g'"><label
+                                ng-if="elemDef.type!='201' && elemDef.type!='401'">背景颜色</label><label
+                                ng-if="elemDef.type=='201' || elemDef.type=='401'">文字背景</label>
+                            <div class="color_select clearfix"><a class="input_kuang flo_lef"
+                                                                  ng-style="{backgroundColor: model.backgroundColor}"
+                                                                  ng-model=model.backgroundColor colorpicker=rgba></a>
+                                <input class=flo_right style=width:100px style-input elem-id={{elemDef.id}}
+                                       ng-model=model.backgroundColor css-item=backgroundColor type="text"></div>
+                        </div>
+                        <div class="style_list_angel clearfix"
+                             ng-if="elemDef.type == '2' || elemDef.type == '201' || elemDef.type == '401' ||elemDef.type == '8' || (''+elemDef.type).charAt(0) == '6' || elemDef.type == 'r' || elemDef.type == 'c' || (elemDef.type == 'h' && !elemDef.properties.src) || elemDef.type == 'w01' || elemDef.type == 'w02'">
+                            <label ng-if="elemDef.type != 'h'">文字颜色</label><label
+                                ng-if="elemDef.type == 'h'">形状颜色</label>
+                            <div class="color_select clearfix"><a class="input_kuang flo_lef"
+                                                                  ng-style="{backgroundColor: model.color}"
+                                                                  ng-model=model.color colorpicker=rgba></a> <input
+                                    class=flo_right style=width:100px style-input elem-id={{elemDef.id}}
+                                    ng-model=model.color css-item=color type="text"></div>
+                        </div>
+                        <div class="style_list_angel clearfix" ng-if="elemDef.type == 'h' && elemDef.properties.src"
+                             ng-repeat="shapeColor in shapeAttrs"><label>形状颜色{{$index+1}}</label>
+                            <div class="color_select clearfix"><a class="input_kuang flo_lef"
+                                                                  ng-style="{backgroundColor: shapeColor.fill}"
+                                                                  ng-model=shapeColor.fill colorpicker=rgba
+                                                                  y={{scrollTop}}></a> <input class=flo_right
+                                                                                              style=width:100px
+                                                                                              style-input
+                                                                                              elem-id={{elemDef.id}}
+                                                                                              ng-model=shapeColor.fill
+                                                                                              type="text"></div>
+                        </div>
+                        <div class="style_list_angel clearfix"
+                             ng-if="elemDef.type!='b' && elemDef.type!='201' && elemDef.type!='401' && elemDef.type!='t' && elemDef.type != 'g'">
+                            <label>透明度</label>
+                            <div class="touming clearfix"><p class=num><input class=short type=number min=0 max=100
+                                                                              limit-input style-input
+                                                                              elem-id={{elemDef.id}} css-item=opacity
+                                                                              ng-model="model.opacity"></p>
+                                <div class=slider ui-slider-t his-records=true ng-model=model.opacity min=0
+                                     max=100></div>
+                            </div>
+                        </div>
+                        <div class="style_list_angel clearfix"
+                             ng-if="elemDef.type == '8' || (''+elemDef.type).charAt(0) == '6' || elemDef.type == '2' || (''+elemDef.type).charAt(0) == '5'">
+                            <div><label>边距</label>
+                                <div class="touming clearfix"><p class=num><input class=short min=0 max=20 limit-input
+                                                                                  class="input_kuang short" type=number
+                                                                                  style-input css-item=padding
+                                                                                  ng-model="model.paddingTop"></p>
+                                    <div class=slider his-records=true ui-slider-t ng-model=model.paddingTop min=0
+                                         max=20></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="style_list_angel clearfix"
+                             ng-if="elemDef.type == '8' || (''+elemDef.type).charAt(0) == '6' || elemDef.type == '2' || (''+elemDef.type).charAt(0) == '5'">
+                            <div><label>行高</label>
+                                <div class="touming clearfix"><p class=num><input class=short min=0 max=3 limit-input
+                                                                                  step=0.1 class="input_kuang short"
+                                                                                  type=number style-input
+                                                                                  css-item=lineHeight
+                                                                                  ng-model=model.lineHeight
+                                                                                  ng-blur="lineHeightEmpty();"></p>
+                                    <div class=slider his-records=true ui-slider-t fixed=1 ng-model=model.lineHeight
+                                         min=0 max=3></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="style_list_angel clearfix" ng-if="elemDef.type == '201' || elemDef.type == '401'">
+                            <label>昵称类型</label>
+                            <div class="touming clearfix"><select style="border:1px solid #ccc;height:20px;width:155px"
+                                                                  ng-model=model.niketype>
+                                <option value=own>浏览者昵称头像</option>
+                                <option value=share>分享者昵称头像</option>
+                            </select></div>
+                        </div>
+                        <div class="style_list_angel clearfix"
+                             ng-if="elemDef.type == '4' || elemDef.type == '2' || elemDef.type == 's' || elemDef.type == 'v' || elemDef.type == 'l' || elemDef.type == '8' || elemDef.type == 'm' || elemDef.type == 'i' || elemDef.type == 'd' || elemDef.type == '401' || elemDef.type == '201' || elemDef.type == '403' || elemDef.type == 'w02' || elemDef.type == 'w01'">
+                            <div><label>固定组件</label>
+                                <div class="touming clearfix" ng-show=longPage><input class=short type=checkbox
+                                                                                      ng-model=model.lock
+                                                                                      style="float:left;width:20px">
+                                    <div style=padding-top:4px>固定组件位置(长页面)</div>
+                                </div>
+                                <div ng-show=!longPage class="touming clearfix" tooltip-placement=bottom
+                                     tooltip=固定组件只能在长页面内使用><input disabled class=short type=checkbox ng-model=model.lock
+                                                                  style="float:left;width:20px">
+                                    <div style=padding-top:4px>固定组件位置(长页面)</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="elemDef.type == 't'" ng-controller=chartStyleCtrl>
+                            <div ng-include="tplUrl + 'scene/console/chartStyle.tpl.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section
+                ng-show="elemDef.type!='g' && elemDef.type!='b' && elemDef.type!='m' && elemDef.type!='201' && elemDef.type!='401'&& elemDef.type!='t'">
+            <div class="style_list border-bottom pl20" ng-click="openExpore('showBorder');"><span>边框样式</span><b
+                    class=caret ng-show=showBorder></b><b class="caret off" ng-show=!showBorder></b></div>
+            <div ng-show=showBorder class=style_con_hei>
+                <div class="style_list_angel clearfix"><label>尺寸</label>
+                    <div class="touming clearfix"><p class=num><input class="input_kuang short" limit-input type=number
+                                                                      min=0 max=20 style-input css-item=borderWidth
+                                                                      ng-model="model.borderWidth"></p>
+                        <div class="slider hint--right" ui-slider-t his-records=true ng-model=model.borderWidth min=0
+                             max=20></div>
+                    </div>
+                </div>
+                <div class="style_list_angel clearfix"><label>弧度</label>
+                    <div class="touming clearfix"><p class=num><input class="input_kuang short" type=number min=0
+                                                                      max={{maxRadius}} limit-input style-input
+                                                                      css-item=borderRadius
+                                                                      ng-model="model.borderRadius"></p>
+                        <div class=slider his-records=true ui-slider-t ng-model=model.borderRadius min=0
+                             max={{maxRadius}}></div>
+                    </div>
+                </div>
+                <div class="style_list_angel clearfix"><label>样式</label>
+                    <div class=touming><select style="border:1px solid #ccc;height:20px;width:155px" style-input
+                                               css-item=borderStyle ng-model=model.borderStyle>
+                        <option value=solid>直线</option>
+                        <option value=dashed>破折线</option>
+                        <option value=dotted>点状线</option>
+                        <option value=double>双划线</option>
+                        <option value=groove>3D凹槽</option>
+                        <option value=ridge>3D垄状</option>
+                        <option value=inset>3D内嵌</option>
+                        <option value=outset>3D外嵌</option>
+                    </select></div>
+                </div>
+                <div class="style_list_angel clearfix"><label>颜色</label>
+                    <div class="color_select clearfix"><input class="flo_right short" style=width:100px style-input
+                                                              ng-model=model.borderColor css-item=borderColor
+                                                              type="text"> <a class="input_kuang flo_lef"
+                                                                              ng-style="{backgroundColor: model.borderColor}"
+                                                                              ng-model=model.borderColor
+                                                                              colorpicker=rgba></a></div>
+                </div>
+                <div class="style_list_angel clearfix">
+                    <div><label>旋转</label>
+                        <div class="touming clearfix"><p class=num><input min=0 max=360 limit-input style-input
+                                                                          css-item=transform class="input_kuang short"
+                                                                          type=number ng-model="model.transform"></p>
+                            <div his-records=true class=slider ui-slider-t ng-model=model.transform min=0 max=360></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section
+                ng-show="elemDef.type!='g' && elemDef.type!='b' && elemDef.type!='m' && elemDef.type!='201' && elemDef.type!='401'&& elemDef.type!='t'">
+            <div class="style_list border-bottom border-top pl20" ng-click="openExpore('showShadow');"><span>阴影样式</span><b
+                    class=caret ng-show=showShadow></b><b class="caret off" ng-show=!showShadow></b></div>
+            <div ng-show=showShadow class=style_con_hei>
+                <div class="style_list_angel clearfix"><label>大小</label>
+                    <div class="touming clearfix">
+                        <div class=slider his-records=true ui-slider-t ng-model=tmpModel.boxShadowSize min=0
+                             max=20></div>
+                        <p class=num><input limit-input class="input_kuang short" min=0 max=20 type=number style-input
+                                            css-item=boxShadow ng-model="tmpModel.boxShadowSize"></p></div>
+                </div>
+                <div class="style_list_angel clearfix"><label>模糊</label>
+                    <div class="touming clearfix">
+                        <div class=slider his-records=true ui-slider-t ng-model=tmpModel.boxShadowBlur min=0
+                             max=20></div>
+                        <p class=num><input limit-input class="input_kuang short" min=0 max=20 type=number style-input
+                                            css-item=boxShadow ng-model="tmpModel.boxShadowBlur"></p></div>
+                </div>
+                <div class="style_list_angel clearfix"><label>颜色</label>
+                    <div class="clearfix color_select"><input class="flo_right short" style=width:100px style-input
+                                                              ng-model=tmpModel.boxShadowColor css-item=boxShadow
+                                                              type="text"> <a class="input_kuang flo_lef"
+                                                                              ng-style="{backgroundColor: tmpModel.boxShadowColor}"
+                                                                              ng-model=tmpModel.boxShadowColor
+                                                                              colorpicker=rgba
+                                                                              colorpicker-fixed-position=true></a></div>
+                </div>
+                <div class="style_list_angel clearfix"><label>方向</label>
+                    <div class="touming clearfix">
+                        <div class=slider his-records=true ui-slider-t ng-model=tmpModel.boxShadowDirection min=0
+                             max=359></div>
+                        <p class=num><input limit-input class="input_kuang short" min=0 max=359 type=number style-input
+                                            css-item=boxShadow ng-model="tmpModel.boxShadowDirection"></p></div>
+                </div>
+            </div>
+        </section>
+        <section ng-if="isEditor && elemDef.type!='g'" ng-include="tplUrl + 'scene/console/compstyle.tpl.html'"
+                 ng-controller=CompStyleCtrl></section>
+    </div>
+    <div class=btn-option><a class="btn btn-sm green" ng-click=cancel()>确定</a> <a class="btn btn-sm out-red"
+                                                                                  ng-click=clear()
+                                                                                  ng-if="elemDef.type!='t'">清除样式</a>
+    </div>
+</div>

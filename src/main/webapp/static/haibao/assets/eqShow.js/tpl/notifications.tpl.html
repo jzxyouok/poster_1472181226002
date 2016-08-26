@@ -1,0 +1,1 @@
+<div ng-class="['alert', 'alert-'+notification.type]" ng-repeat="notification in notifications.getCurrent()" notification-fadeout=""><button class="close" ng-click="removeNotification(notification)">×</button> {{notification.message}}</div>

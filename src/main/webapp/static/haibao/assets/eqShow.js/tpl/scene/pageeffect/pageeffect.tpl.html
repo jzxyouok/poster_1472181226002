@@ -1,0 +1,35 @@
+<div class="modal-header no-line">
+    <button type=button class=close data-dismiss=modal aria-label=Close ng-click=cancel()><span
+            aria-hidden=true>×</span></button>
+    <h4 class=modal-title>页面特效 <a class=bbs-help-tip-media target=_blank
+                                  href="http://bbs.eqxiu.com/forum.php?mod=viewthread&tid=1939&extra="></a> <span
+            class=action>在设置界面可看到效果</span></h4></div>
+<div class=dialog-contain>
+    <div class="form_console dialog-content">
+        <div class=modify_area>
+            <div class=effect-list>
+                <ul>
+                    <li ng-class="{'select-effect': controlView.effectIndex == $index || controlView.effectType == effect.type}"
+                        ng-repeat="effect in effectList" ng-click="selectEffect(effect, $index)">{{effect.name}}
+                    </li>
+                </ul>
+            </div>
+            <div class=effect-detail>
+                <div class=scratch-effect ng-show="controlView.effectType == 'scratch'"
+                     ng-include="tplUrl + 'scene/pageeffect/scratch.tpl.html'" ng-controller=scratchEffectCtrl></div>
+                <div class=finger-effect ng-show="controlView.effectType == 'finger'"
+                     ng-include="tplUrl + 'scene/pageeffect/finger.tpl.html'" ng-controller=fingerEffectCtrl></div>
+                <div class=fall-effect ng-show="controlView.effectType == 'fallingObject'"
+                     ng-include="tplUrl + 'scene/pageeffect/fall.tpl.html'" ng-controller=fallEffectCtrl></div>
+                <div class=snow-effect ng-show="controlView.effectType == 'snowFly'"
+                     ng-include="tplUrl + 'scene/pageeffect/snow.tpl.html'" ng-controller=snowEffectCtrl></div>
+                <div class=firework-effect ng-show="controlView.effectType == 'fireWorks'"
+                     ng-include="tplUrl + 'scene/pageeffect/fireworks.tpl.html'" ng-controller=fireWorksCtrl></div>
+                <div class=none-effect ng-show="controlView.effectType == 'none'"
+                     ng-include="tplUrl + 'scene/pageeffect/none.tpl.html'" ng-controller=noneEffectCtrl></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer no-line"><a class=modal-cancle ng-click=cancel()>取消</a> <a class="btn btn-primary"
+                                                                                    ng-click=confirm()>确定</a></div>

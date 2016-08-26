@@ -1,0 +1,55 @@
+
+{
+			"success": true,
+			"code": 200,
+			"msg": "success",
+			"obj": {
+				"id": 8831324,
+				"name": "test",
+				"createUser": "1",
+				"createTime": "1469621922000",
+				"type": 101,
+				"pageMode": 0,
+				"eqcode": "",
+				"cover": "default_thum.jpg",
+				"property":"{\"triggerLoop\":true,\"slideNumber\":true,\"autoFlipTime\":3,\"shareDes\":\"\",\"eqAdType\":1,\"hideEqAd\":false}",
+								
+				"image": {
+					"imgSrc": "default_thum.jpg",
+					"isAdvancedUser": 0,
+                    "lastPageId":0,
+                    "hideEqAd":0},
+				"isTpl": 0,
+				"isPromotion": 0,
+				"isShow": 0,
+				"status": 1,
+				"tagId"   : 0,
+				"openLimit": 0,
+				"submitLimit": 0,
+				"startDate": null,
+				"endDate": null,
+				"accessCode": null, 
+				"loadingLogo": null,
+				"thirdCode": null,
+				"updateTime": "2016-07-28 15:07",
+				"publishTime": 1469690169,
+				"price": 0,
+				"applyTemplate": 0,
+				"applyPromotion": 0,
+				"sourceId": null,
+				"code": "U707787E47",
+				"description":"",
+				"sort": 0,
+				"bgAudio": {
+					"url": "",
+					"type": "3"
+					},
+				"pageCount": 0,
+				"dataCount": 0,
+				"showCount": 2,
+				"userLoginName": null,
+				"userName": null
+			},
+			"map": null,
+			"list": null
+		}

@@ -1,0 +1,58 @@
+<section class=exemplarPreview ng-click=cancel();>
+    <div class=reviewCancel ng-click=cancel();><em class=eqf-wrong></em></div>
+    <div class=review ng-click=$event.stopPropagation();>
+        <div class=reviewScene>
+            <div class=author><span class=authorPic> <em
+                    ng-if="avatar === undefined" class=eqf-top-contact></em></span> <span class=authorName>{{currentTpl.tpl.userName}}</span>
+            </div>
+            <div class=scene>
+                <div class=sceneContent>
+                    <iframe id=reviewFrame frameborder=0 ng-src={{reviewForIframe}}></iframe>
+                </div>
+            </div>
+        </div>
+        <div class=exemplar-info>
+            <div class=title><span>{{currentTpl.tpl.name}}</span></div>
+            <div class=description><span
+                    ng-if="currentTpl.tpl.description.length<=70">{{currentTpl.tpl.description}}</span> <span
+                    ng-if="currentTpl.tpl.description.length>70 && !openDescription">{{currentTpl.tpl.description.substring(0,67)}}...<a
+                    ng-click=showMoreDescription(true);>更多</a></span> <span ng-if=openDescription>{{currentTpl.tpl.description}}<a
+                    ng-click=showMoreDescription(false);>收起</a></span></div>
+            <div class=tag><span ng-repeat="tag in tags">{{tag.name}}</span></div>
+            <div class=price>
+                <div ng-if="currentTpl.tpl.price > 0" class=priceShow><span class=activePrice>{{currentTpl.tpl.disCountFlag ? currentTpl.tpl.disCountPrice : currentTpl.tpl.price}}</span>
+                    <span class=measureUnit>秀点</span>
+                    <div ng-if=currentTpl.tpl.disCountFlag class=origin-price><span>原价{{currentTpl.tpl.price}}秀点</span>
+                    </div>
+                </div>
+                <div ng-if="currentTpl.tpl.price == 0 || currentTpl.tpl.price ==null" class=priceShow><span
+                        class=freePrice>免费使用</span></div>
+                <div ng-if=currentTpl.tpl.disCountFlag class=activity>
+                    <div class=info>距离活动结束</div>
+                    <div class=leftDay><span>{{currentTpl.tpl.disCountTime}}</span>天</div>
+                </div>
+            </div>
+            <div class=createScene><a class="btn btn-sm green" ng-click=newScene();>使用该样例</a></div>
+            <div ng-show=copySuccess class=copySuccessMessage><span>复制成功，快去分享吧！</span></div>
+            <div class=link><input type=text class=form-control value={{reviewUrl}} ng-readonly=true
+                                   ng-mouseover=inputSelected($event,true); ng-mouseleave=inputSelected($event,false);>
+                <a class="btn btn-sm" url="{{canvasUrl + '/v/' + currentTpl.tpl.code}}" ng-click=copy($event.target)>复制链接</a>
+            </div>
+            <div ng-if=qrCodeShow class="ercode qrcodeShow" qr-code-size=120 qr-url={{reviewUrl}}></div>
+            <div class=QRCode><a class="btn btn-sm" ng-mouseover="qrCodeShow = true;"
+                                 ng-mouseleave="qrCodeShow = false;"><em class=eqf-QRcode></em>扫描二维码查看</a></div>
+        </div>
+    </div>
+    <div class=exemplarList ng-click=$event.stopPropagation();>
+        <div class=headText>你可能喜欢...</div>
+        <div class=exemplar>
+            <div class=subExemplar ng-repeat="exemplar in similarExemplars" ng-mouseover=showName($event.target,true)
+                 ng-mouseleave="showName($event.target, false)"><img src="{{fileDomain + exemplar.cover}}"
+                                                                     ng-click=showAnotherExemplar(exemplar);>
+                <div class=subExemplarName><span ng-if="exemplar.name.length <= 11">{{exemplar.name}}</span> <span
+                        ng-if="exemplar.name.length > 11">{{exemplar.name.substring(0,9)}}...</span></div>
+            </div>
+        </div>
+        <div class=changeExemplar ng-click=changeAnotherExemplars()><em class=eqf-refresh></em>&nbsp;&nbsp;换一批</div>
+    </div>
+</section>

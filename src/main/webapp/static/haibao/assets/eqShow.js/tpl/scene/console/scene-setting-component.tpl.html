@@ -1,0 +1,279 @@
+<div class=scene-setting-component>
+    <div class=setting-bg></div>
+    <div class=left-con ng-mousedown=closeSetting($event)>
+        <div class="phone-view nr" scene-view id=phoneView scene-id={{sceneId}} scene-name={{scene.name}}
+             scene-cover="{{PREFIX_FILE_HOST + coverUrl}}" scene-description={{scene.description}}
+             ng-click=$event.stopPropagation() ng-mousedown=$event.stopPropagation()></div>
+        <div class=phone ng-click=$event.stopPropagation() ng-mousedown=$event.stopPropagation()><h4 class=name>
+            {{showPhoneTitle}}</h4></div>
+        <div class=ctrl-panel ng-click=$event.stopPropagation() ng-mousedown=$event.stopPropagation()><a class=next-page
+                                                                                                         ng-click=nextPage()>下一页</a>
+            <a class=pre-page ng-click=prePage()>上一页</a></div>
+    </div>
+    <div class="scene-setting-info fade">
+        <div class=form-contain>
+            <ul class="nav nav-tabs">
+                <li ng-class="{active:tabid=='customset'}"><a ng-click="changeTab('customset')">常用设置</a></li>
+                <li ng-class="{active:tabid=='shareset'}"><a ng-click="changeTab('shareset')">分享设置</a></li>
+                <li ng-class="{active:tabid=='companyset'}"><a ng-click="changeTab('companyset')">高级设置</a></li>
+            </ul>
+            <div style="position: fixed;top: 40px;bottom: 80px;left: 0;right: 0">
+                <form class=form-horizontal role=form eqd-scroll style="height: 100%" name=myForm
+                      ng-show="tabid=='customset'" novalidate disable-mouse=true prevent-exception=true>
+                    <div class="basic-setting clearfix">
+                        <div class="content clearfix">
+                            <div class="basic-info clearfix">
+                                <div class=left>
+                                    <div class=cover-img><a ng-click=openImageModal();><img
+                                            ng-src="{{PREFIX_FILE_HOST + coverUrl}}"> <em>更换封面</em></a></div>
+                                </div>
+                                <div class=right>
+                                    <div class="setting-group setting-name"><em style=margin-bottom:5px>标题</em>
+                                        <div class=setting-value><input name=name type=text class="form-control name"
+                                                                        ng-class="{redborder:(!scene.name || countCharacters(scene.name.trim())>48)}"
+                                                                        id=name placeholder=场景名称
+                                                                        ng-change=changeSceneName();maxLength24()
+                                                                        ng-focus=changeView() ng-model=scene.name
+                                                                        stop-propagation> <span class=input-tip>{{(scene.name?countCharacters(scene.name.trim()):0)}}/48</span>
+                                        </div>
+                                    </div>
+                                    <div class="setting-group setting-description"><em style=line-height:48px>描述</em>
+                                        <div class=setting-value><textarea style=font-size:12px
+                                                                           placeholder=点击添加描述即可在左侧同步看到最终分享时的效果
+                                                                           ng-model=scene.description
+                                                                           class="description form-control" rows=2
+                                                                           id=description ng-focus=changeView()
+                                                                           name=description ng-change=maxLength30()
+                                                                           stop-propagation></textarea></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h6 class="des mt20">场景类型</h6>
+                            <div class="setting-group setting-flip">
+                                <div class=setting-line>
+                                    <div class="scene-type-contain select-up-show border">
+                                        <eqx-select class="select-great select-contain" model=scene.type>
+                                            <eqx-select-option value=type.value ng-repeat="type in types">
+                                                {{type.name}}
+                                            </eqx-select-option>
+                                        </eqx-select>
+                                    </div>
+                                </div>
+                                <h6 class="des mt20">翻页方式</h6>
+                                <div class=setting-line>
+                                    <div class="scene-type-contain select-up-show border">
+                                        <eqx-select class="select-great select-contain" change=changePageMode()
+                                                    model=scene.pageMode>
+                                            <eqx-select-option value=pagemode.id ng-repeat="pagemode in pagemodes">
+                                                {{pagemode.name}}
+                                            </eqx-select-option>
+                                        </eqx-select>
+                                    </div>
+                                    <div class="music-cycle border" ng-class="{checkedbg: !scene.property.triggerLoop}">
+                                        <div class=checkbox-square ng-class="{checked: scene.property.triggerLoop}"><em
+                                                class=eqf-yes2></em> <input type=checkbox ng-change=changeLoop()
+                                                                            ng-model=scene.property.triggerLoop
+                                                                            name=iCheck></div>
+                                        <em>循环播放</em></div>
+                                    <div class="music-cycle border" ng-class="{checkedbg: !scene.property.autoFlip}">
+                                        <div class=checkbox-square ng-class="{checked: scene.property.autoFlip}"><em
+                                                class=eqf-yes2></em> <input type=checkbox ng-change=changeAutoFlip()
+                                                                            ng-model=scene.property.autoFlip></div>
+                                        <em>自动播放</em></div>
+                                    <div class=flip-num style=width:120px ng-if=scene.property.autoFlip><input
+                                            type=number ng-change=changeAutoFlip() class=form-control min=1 max=60
+                                            limit-input ng-model=scene.property.autoFlipTime stop-propagation> <span
+                                            class=speed>秒</span></div>
+                                </div>
+                                <div class=setting-line ng-show="user.type!=1">
+                                    <div class="music-cycle border" style=margin-left:0;width:178px
+                                         ng-class="{checkedbg: !scene.property.forbidHandFlip}">
+                                        <div class=checkbox-square ng-class="{checked: scene.property.forbidHandFlip}">
+                                            <em class=eqf-yes2></em> <input type=checkbox ng-change=changeHandFlip()
+                                                                            ng-model=scene.property.forbidHandFlip
+                                                                            name=iCheck></div>
+                                        <em>禁止滑动进入下一页</em></div>
+                                </div>
+                                <div><h6 class=des style=float:left>场景音乐</h6><h6 class="des mt20"
+                                                                                 style=margin-left:200px>场景页码</h6></div>
+                                <div class=setting-line style=margin-bottom:50px>
+                                    <div class=scene-music style=position:relative><span
+                                            class="form-control bg-music ellipsis" style="padding-top: 9px"
+                                            ng-click=openAudioModal()>{{(!!scene.bgAudio) ? (scene.bgAudio.name ? scene.bgAudio.name : ('已添加')) : ('场景音乐')}}</span>
+                                        <span class="eqf-top-music music-icon" ng-click=openAudioModal()></span></div>
+                                    <div class="music-cycle border"
+                                         ng-class="{checkedbg: !scene.property.slideNumber,uncheckedbg:scene.property.slideNumber}">
+                                        <div class=checkbox-square ng-class="{checked: scene.property.slideNumber}"><em
+                                                class=eqf-yes2></em> <input type=checkbox ng-change=changeProgess()
+                                                                            ng-model=scene.property.slideNumber></div>
+                                        <em>显示</em></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form class=form-horizontal role=form eqd-scroll style="height: 100%" name=myForm
+                      ng-show="tabid=='shareset'" novalidate>
+                    <div class="basic-setting clearfix">
+                        <div class="content clearfix"><h6 class="des mt20">场景访问状态</h6>
+                            <div class="setting-group setting-flip">
+                                <div class=setting-line>
+                                    <div class="scene-type-contain border">
+                                        <eqx-select class="select-great select-contain" change=changeSceneState()
+                                                    model=sceneStatue>
+                                            <eqx-select-option value=1>允许访问</eqx-select-option>
+                                            <eqx-select-option value=2>不允许访问</eqx-select-option>
+                                            <eqx-select-option value=3 ng-if="scene.applyTemplate!=2">加密访问
+                                            </eqx-select-option>
+                                        </eqx-select>
+                                    </div>
+                                    <div class=flip-num ng-if="sceneStatue == 3"><input type=text maxlength=4
+                                                                                        class="form-control password"
+                                                                                        id=accessCode
+                                                                                        placeholder=请设置4位数字的密码
+                                                                                        ng-change=fourNumberPassword();changeCode();
+                                                                                        ng-model=scene.accessCode
+                                                                                        maxlength=4
+                                                                                        ng-change=fourNumberPassword()
+                                                                                        stop-propagation
+                                                                                        ng-disabled="scene.applyPromotion == '1' || oldSceneApplyState.applyPromotion == '1' || oldSceneApplyState.applyPromotion == '2' || scene.applyTemplate == '1' || oldSceneApplyState.applyTemplate == '1' || oldSceneApplyState.applyTemplate == '2' || scene.isShow == '1' || scene.promIds">
+                                    </div>
+                                </div>
+                                <div class="setting-line mt20">
+                                    <div class="form-col2 border" style=width:200px
+                                         ng-class="{checkedbg: scene.property.showShareCount!=1,uncheckedbg:scene.property.showShareCount==1}">
+                                        <div class=checkbox-square
+                                             ng-class="{checked: scene.property.showShareCount==1}"><em
+                                                class=eqf-yes2></em> <input id=eqShowGround type=checkbox class=option
+                                                                            ng-true-value=1 ng-false-value=0
+                                                                            ng-model=scene.property.showShareCount>
+                                        </div>
+                                        <em>在微信中分享时显示分享次数</em></div>
+                                </div>
+                                <div class="setting-line mb20" style=line-height:36px><span class=fl>我是第X位</span>
+                                    <div class=share-des><input name=name type=text class="form-control name" id=name
+                                                                placeholder={{shareCountPlaceholder}}
+                                                                ng-model=scene.property.shareDes stop-propagation></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form eqd-scroll style="height: 100%" class="form-horizontal setting-group" role=form name=myForm
+                      ng-show="tabid=='companyset'" novalidate>
+                    <div class="basic-setting clearfix"><h6 class="des mt20">加载设置</h6>
+                        <div class="setting-line mr20"
+                             style="border-bottom:1px solid #ccd5db;height:56px;margin-top:20px">
+                            <div class="form-col2 border" ng-class="{checked: !loadingLogo,uncheckedbg: loadingLogo}">
+                                <div class=checkbox-square ng-click=changeLogo() ng-class="{checked: loadingLogo}"><em
+                                        class=eqf-yes2></em> <input type=checkbox></div>
+                                <em>自定义加载logo</em></div>
+                            <div class="setting-logo border" ng-if=loadingLogo ng-click=uploadLoadingLogo()>
+                                <div class=load-logo-contain><img ng-if=!scene.loadingLogo
+                                                                  ng-src={{HB_STATIC}}assets/images/create/pic.svg>
+                                    <img ng-if=scene.loadingLogo ng-src="{{PREFIX_FILE_HOST + scene.loadingLogo}}">
+                                </div>
+                                <span class=des>设置加载logo</span></div>
+                            <div class=logo-tip ng-if=loadingLogo style="position: absolute;right: 180px">118*118px
+                            </div>
+
+                        </div>
+                        <h6 class="des mt20">尾页与底标<a ng-if="user.type == 1" ng-click=freeUpgrade()
+                                                     style=padding-left:10px;color:#a3afb7>
+                            <ins>免费</ins>
+                        </a></h6>
+                        <table class=bottom-table>
+                            <tr ng-click=switchToAdState($scope.eqADTypeChoice.FREEPAGE,true);
+                                ng-class="{uncheckedbg:(eqShowType=='eqFree')}">
+                                <td class=choise>
+                                    <div class=radio-square ng-class="{checked: (eqShowType=='eqFree')}"><em></em></div>
+                                    <em>技术支持尾页</em></td>
+                                <td class=price>免费</td>
+                            </tr>
+
+                        </table>
+                        <div class=setting-line ng-show="scene.property.eqAdType == 3">
+                            <div class=setting-logo style=margin-left:0><input type=text class=form-control
+                                                                               ng-model=scene.property.bottomLabel.name
+                                                                               ng-change=changeBottomLabel()
+                                                                               id=changeMessage placeholder=名称
+                                                                               stop-propagation></div>
+                            <div class=setting-logo style=width:450px><input type=text class=form-control
+                                                                             ng-model=scene.property.bottomLabel.url
+                                                                             ng-change=changeBottomLabel()
+                                                                             id=linkAddress placeholder=http://eqxiu.com
+                                                                             stop-propagation></div>
+                        </div>
+                        <div class=last-page-contain ng-if="eqShowType=='eqFree'">
+                            <div eqd-scroll style="height: 100%" disable-mouse=true prevent-exception=true>
+                                <ul>
+                                    <li class=last-cover-img
+                                        style="text-align:center;border-radius:4px;border:1px solid #ccd5db"
+                                        ng-click=chooseLastPage(null)><span class="lp-list default-last-page"
+                                                                            style=line-height:152px
+                                                                            ng-class="{checked: !scene.property.lastPageId}">默认</span>
+                                        <div class=checkbox-square ng-class={checked:!scene.property.lastPageId}><em
+                                                class=eqf-yes2></em></div>
+                                    </li>
+                                    <li class=last-cover-img ng-repeat="pageTpl in pageTpls"
+                                        ng-click=chooseLastPage(pageTpl.id)><img
+                                            ng-src="{{PREFIX_FILE_HOST + pageTpl.properties.thumbSrc}}"
+                                            src=/static/haibao/assets/images/create/pic.svg load-err>
+                                        <div class=checkbox-square
+                                             ng-class="{checked:scene.property.lastPageId == pageTpl.id}"><em
+                                                class=eqf-yes2></em></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class=last-page-contain ng-if="eqShowType=='eqLink' && scene.property.eqAdType == 3">
+                            <div eqd-scroll style="height: 100%" disable-mouse=true prevent-exception=true>
+                                <ul>
+                                    <li ng-repeat="bottomPageTpl in bottomPageTpls"
+                                        ng-click=chooseCustomBottomLabel(bottomPageTpl.id)><img
+                                            src=/static/haibao/assets/images/create/pic.svg> <img class=bottom-img
+                                                                                                  ng-src="{{PREFIX_FILE_HOST + bottomPageTpl.properties.thumbSrc}}">
+                                        <div class=checkbox-square
+                                             ng-class="{checked: scene.property.eqAdType == 3 && scene.property.bottomLabel.id == bottomPageTpl.id}">
+                                            <em class=eqf-yes2></em></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h6 ng-if=false class="des mt20">第三方统计</h6>
+                        <div ng-if=false class=setting-line>
+                            <div class="form-col3 border">
+                                <div class=checkbox-square ng-click=openStatisticData()
+                                     ng-class="{checked: QCloudStatus}"><em class=eqf-yes2></em> <input type=checkbox
+                                                                                                        ng-disabled=!isAllowedToAccessOpenQCloud>
+                                </div>
+                                <em>开启腾讯云分析（次日可在场景详情中查看）</em></div>
+                            <div class=logo-tip style="position: absolute;right: 80px"><a href=/privilege target=_blank
+                                                                                          style=color:#a3afb7;padding-left:10px>
+
+                            </a></div>
+                        </div>
+                        <div ng-if=false class=setting-line style=color:red>服务异常，请重新申请。</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class=setting-operations>
+            <div class=option-box>
+                <button ng-click=saveSceneSettings(scene) class="btn green">确定</button>
+                <button ng-click=cancelSceneSetting() class="btn gray" style=margin-left:10px>取消</button>
+            </div>
+        </div>
+    </div>
+    <div ng-class={showin:showActiveTip} class=showxiu ng-init="hideActiveTip = true;">
+        <div class=modal-header>
+            <button type=button class=close data-dismiss=modal aria-label=Close ng-click="showActiveTip=false;"><span
+                    aria-hidden=true>×</span></button>
+            <h4 class=modal-title>参加活动</h4></div>
+        <div class=modal-body><p style="line-height: 30px">参加活动并保存场景后，不可取消或选择其他活动</p></div>
+        <div class=modal-footer><input type=checkbox style=margin-top:0;margin-right:5px ng-model=hideActiveTip><span
+                style=margin-right:10px>不再提示</span> <a type=button class="btn btn-primary"
+                                                       ng-click=changeAppendActive(true)>确定</a></div>
+    </div>
+</div>

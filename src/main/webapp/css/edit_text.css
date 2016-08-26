@@ -1,0 +1,163 @@
+/*===编辑文本框相关样式====*/
+.divinput{
+    width: 318px;
+    min-height: 40px;
+    line-height:40px;
+    font-size: 20px;
+    border: 1px dashed #ccc;
+    position: absolute;
+    cursor: move;
+    left:0;
+    top:100px;
+}
+.divinput.active{
+    border:1px solid #08a1ef;
+}
+#controlstext {
+    height: 24px;
+    width: 120px;
+    border: 1px dashed #ccc;
+    cursor: move;
+}
+.bomb-box{
+    width:100px;
+    height:570px;
+    position: absolute;
+    right:14%;
+    top:86px;
+}
+#text-tool{
+    width:260px;
+    height:540px;
+    box-shadow: 0 0 6px #aaa;
+    position: absolute;
+    top:0;
+    right:10px;
+    background: #f0f3f4;
+    display: none;
+}
+.t-t-top{
+    height:32px;
+    line-height:32px;
+    padding-left:10px;
+    background: #31364a;
+    color: #fff;
+    cursor: move;
+}
+.t-t-top i{
+    width:32px;
+    height:32px;
+    text-align: center;
+    cursor: pointer;
+}
+.t-t-top i:hover{
+    color: red;
+}
+.t-t-nav{
+    height:28px;
+    padding-top:6px;
+    background: #76838f;
+}
+.t-t-nav li{
+    width:76px;
+    margin:0 5px;
+    height:28px;
+    line-height:28px;
+    float: left;
+    text-align: center;
+    cursor: pointer;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    color: #fff;
+}
+.t-t-nav li:hover,
+.t-t-nav li.hover{
+    background: #f0f3f4;
+    color: #76838f;
+}
+#assembly-box{
+    padding:10px 0;
+}
+.assembly-box{
+    overflow: hidden;
+    display: none;
+}
+.assembly-box a{
+    width: 100px;
+    height:30px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    background: #48d5b2;
+    border-radius: 3px;
+    position: absolute;
+    bottom:10px;
+    left:20px;
+}
+.assembly-box a:hover{
+    opacity:0.7;
+}
+.assembly-box a.danger{
+    left:140px;
+    background: #ff7267;
+}
+
+#add-css ul li{
+    line-height:40px;
+    border-bottom:1px solid #ccc;
+    padding-left:40px;
+    cursor: pointer;
+}
+#add-css ul li:hover{
+    background: #fff;
+}
+#add-trigger{
+    text-align: center;
+}
+.public-tit{
+    display: block;
+    margin:5px 0;
+    line-height:30px;
+    text-indent:20px;
+    background: #ddd;
+    color: #333;
+}
+#add-animate{
+    height:30px;
+    line-height:30px;
+    overflow: hidden;
+    margin: 10px 20px;
+    border: 1px solid #ddd;
+    text-indent:10px;
+    color: #444;
+    cursor: pointer;
+}
+#add-animate b{
+    display: block;
+    background: #eaeaea;
+}
+#add-animate li:nth-child(odd){
+    background: #eaeaea;
+}
+
+
+
+/*横条文字编辑功能区*/
+#text-edit{
+    width:500px;
+    height:40px;
+    box-shadow: 0 3px 5px #aaa;
+    position: absolute;
+    left:-600px;
+    top:10px;
+    background: #fff;
+    display: none
+}
+
+
+
+
+
+
+
+

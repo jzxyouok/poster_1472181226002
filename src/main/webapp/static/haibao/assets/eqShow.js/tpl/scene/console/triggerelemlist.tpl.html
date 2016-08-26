@@ -1,0 +1,37 @@
+<div class=trigger-list>
+    <div class=modal-header><h4 class=modal-title>选择触发哪些元素显示或隐藏</h4></div>
+    <div class=modal-body>
+        <ul highlight-element>
+            <li class=trigger-elem ng-repeat="triggerElement in triggerElements track by $index"
+                id="{{'trigger_' + triggerElement.id}}">
+                <div>
+                    <div class="square one-line" ng-if="elemDef.id != triggerElement.id">
+                        <div class=checkbox-square ng-class="{checked: triggerElement.checked}"><em
+                                class=eqf-clickmore></em> <input type=checkbox ng-model=triggerElement.checked
+                                                                 ng-change="changed(triggerElement)"></div>
+                        <label>{{triggerElement.name}}</label>
+                        <div class=fr ng-if=triggerElement.checked><a style="padding-right: 5px" class=fl
+                                                                      ng-click="switchShow(triggerElement, currentIndex);"
+                                                                      ng-show="triggerElement.triggerType==1">显示</a> <a
+                                style="padding-right: 5px" class=fl ng-click="switchShow(triggerElement, currentIndex);"
+                                ng-show="triggerElement.triggerType==2">隐藏</a>
+                            <div class=switch style=float:left
+                                 ng-class="{'switch-open':triggerElement.triggerType==1,'switch-close':triggerElement.triggerType==2}"
+                                 ng-click="switchShow( triggerElement, currentIndex)">
+                                <div class=circle-con><i class=circle></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="elemDef.id == triggerElement.id">
+                        <div class=checkbox-square ng-class="{checked: triggerElement.checked}"><em
+                                class=eqf-clickmore></em> <input type=checkbox ng-model=triggerElement.checked
+                                                                 ng-change="changed(triggerElement,true)"></div>
+                        <label>{{triggerElement.name}}</label>
+                        <div class=fr ng-if=triggerElement.checked><a style="padding-right: 45px" class=fl>隐藏</a></div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class=modal-footer><a class="btn btn-primary" ng-click=confirmList()><span>确定</span></a></div>
+</div>

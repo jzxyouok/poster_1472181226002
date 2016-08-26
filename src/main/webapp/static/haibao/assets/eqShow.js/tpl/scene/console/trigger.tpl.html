@@ -1,0 +1,150 @@
+<div ng-if="activeTab == 'trigger'" ng-controller=TriggerConsoleCtrl>
+    <div style=height:410px>
+        <div eqd-scroll style="height: 100%" disable-mouse=true prevent-exception=true>
+            <div class=trigger-area eqx-trigger>
+                <div class=trigger-panels>
+                    <div class="style_list_angel clearfix pl20"><label
+                            style="width: 100px;margin-top:5px">浏览页面时，当</label>
+                        <div class="flo_lef touming">
+                            <eqx-select class="select-sm border-width select-contain" model=sendType
+                                        change=changeTriggerType(v)>
+                                <eqx-select-option value=v ng-repeat="v in sendTypes">{{v.title}}</eqx-select-option>
+                            </eqx-select>
+                        </div>
+                    </div>
+                    <div class="style_list_angel clearfix pl20" ng-show="sendType.value!=2"><label style=margin-top:5px>页面元素</label>
+                        <div class="flo_lef touming">
+                            <eqx-select class="select-sm border-width select-contain" model=sourceElem
+                                        change=getTriggerSources(sourceElem)>
+                                <eqx-select-option value=null>点击选择元素</eqx-select-option>
+                                <eqx-select-option value=triggerSource ng-repeat="triggerSource in triggerSources">
+                                    {{triggerSource.name}}
+                                </eqx-select-option>
+                            </eqx-select>
+                        </div>
+                    </div>
+                </div>
+                <div class=event-list>
+                    <div ng-repeat="triggerEvent in triggerEvents track by $index" ng-init="sendIndex = $index">
+                        <div class=select-exist-elem ng-show="triggerEvent.value == 1">
+                            <section>
+                                <div class="style_list pl20" ng-class={active:opea.show} ng-init="opea.show=true"
+                                     ng-click="opea.show=!opea.show">{{triggerEvent.title}} <span
+                                        ng-click="addTriggerItem(triggerEvent, $index, $event);opea.show=!opea.show;">&nbsp;&nbsp;&nbsp;&nbsp;编辑</span>
+                                    <b class=caret ng-if=opea.show></b> <b class="caret off" ng-if=!opea.show></b> <span
+                                            style=margin-left:35px class=eqf-wrong
+                                            ng-click="removeTrigger($index, $event)"></span></div>
+                                <div ng-if=opea.show>
+                                    <form role=form>
+                                        <div class="style_list_angel ml20 mr20"><label>延迟时间</label>
+                                            <div class="touming clearfix"><p class=num><input limit-input
+                                                                                              class="input_kuang short"
+                                                                                              type=number step=0.1 min=0
+                                                                                              max=20
+                                                                                              ng-model="triggerEvent.delay">
+                                            </p>
+                                                <div class=slider ui-slider-t ng-model=triggerEvent.delay min=0
+                                                     max=20></div>
+                                            </div>
+                                        </div>
+                                        <div class="select-trigger-item ml20 mr20">
+                                            <ul ng-show=triggerEvent.handles.length>
+                                                <li ng-repeat="triggerElement in triggerEvent.triggerElements">
+                                                    <div style="padding: 10px 20px"
+                                                         ng-if="sourceElem.id!=triggerElement.id || sendType.value==2">
+                                                        <span hover-element id=triggerElement.id
+                                                              style="cursor: pointer"><span
+                                                                id="{{'tip_' + triggerElement.id}}"></span> {{$index+1}}</span>
+                                                        <div class=fr><span style="padding-right: 5px" class=fl
+                                                                            ng-click="switchShow(triggerElement, sendIndex)"
+                                                                            ng-show="triggerElement.handleType.type==1">显示</span>
+                                                            <span style="padding-right: 5px" class=fl
+                                                                  ng-click="switchShow(triggerElement, sendIndex)"
+                                                                  ng-show="triggerElement.handleType.type==2">隐藏</span>
+                                                            <div class=switch style=float:left
+                                                                 ng-class="{'switch-open':triggerElement.handleType.type==1,'switch-close':triggerElement.handleType.type==2}"
+                                                                 ng-click="switchShow( triggerElement, sendIndex)">
+                                                                <div class=circle-con><i class=circle></i></div>
+                                                            </div>
+                                                            <span style="padding-left: 10px" class=eqf-wrong
+                                                                  ng-click="cancelTriggerElem(triggerElement.id, sendIndex);"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div style="padding: 10px 20px"
+                                                         ng-if="sendType.value!=2 && sourceElem.id==triggerElement.id">
+                                                        <span hover-element id=triggerElement.id
+                                                              style="cursor: pointer"><span
+                                                                id="{{'tip_' + triggerElement.id}}"></span> {{$index+1}}</span>
+                                                        <div class=fr><span style="padding-right: 45px"
+                                                                            class=fl>隐藏</span> <span
+                                                                style="padding-left: 10px" class=eqf-wrong
+                                                                ng-click="cancelTriggerElem(triggerElement.id, sendIndex);"></span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </form>
+                                </div>
+                            </section>
+                        </div>
+                        <div class=random-event ng-show="triggerEvent.value == 2">
+                            <section>
+                                <div class="style_list pr20 pl20" ng-class={active:opea.show} ng-init="opea.show=true"
+                                     ng-click="opea.show=!opea.show">{{triggerEvent.title}} <b class=caret
+                                                                                               ng-if=opea.show></b> <b
+                                        class="caret off" ng-if=!opea.show></b> <span style=margin-left:34px
+                                                                                      class=eqf-wrong
+                                                                                      ng-click="removeTrigger($index, $event)"></span>
+                                </div>
+                                <div ng-if=opea.show>
+                                    <form role=form>
+                                        <div class="style_list_angel ml20 mr20"><label>延迟时间</label>
+                                            <div class="touming clearfix"><p class=num><input limit-input
+                                                                                              class="input_kuang short"
+                                                                                              type=number step=0.1 min=0
+                                                                                              max=20
+                                                                                              ng-model="triggerEvent.delay">
+                                            </p>
+                                                <div class=slider ui-slider-t ng-model=triggerEvent.delay min=0
+                                                     max=20></div>
+                                            </div>
+                                        </div>
+                                        <div class=select-trigger-item>
+                                            <div ng-show=triggerEvent.handles.length>
+                                                <div ng-repeat="handle in triggerEvent.handles">
+                                                    <div ng-repeat="id in handle.ids"><span
+                                                            style="cursor:pointer;padding: 10px 20px" hover-element
+                                                            id=id><span>随机图片</span> {{$index+1}}</span> <a
+                                                            style="display: inline"
+                                                            ng-click="cancelTriggerElem(id, sendIndex);">取消</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <div class="trigger-btn pl20" leave-panel>
+                    <div class=event-panel style="margin-bottom: 5px">
+                        <div class=add-trigger ng-mousedown=$event.stopPropagation();
+                             ng-click="obj.showTriggerPanel = true;$event.stopPropagation();">添加触发 <span
+                                class=clickmore></span></div>
+                        <div>
+                            <ul ng-show=obj.showTriggerPanel>
+                                <li ng-repeat="eventType in eventTypes"
+                                    ng-click="addTriggerEvent(eventType, triggerEvents.length || 0);obj.showTriggerPanel = false;">
+                                    {{eventType.title}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=btn-option><a class="btn btn-sm green" ng-click=confirm()>确定</a> <a class="btn btn-sm out-red"
+                                                                                   ng-click=clear()>清除</a></div>
+</div>

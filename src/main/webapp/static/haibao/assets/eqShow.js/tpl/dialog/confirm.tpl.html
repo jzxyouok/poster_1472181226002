@@ -1,0 +1,6 @@
+<div class=modal-body ng-if=confirmObj.msg>
+    <div class=confirm-msg ng-bind-html=confirmObj.msg></div>
+</div>
+<div class="btn-contain btn-small"><a ng-click=ok(); class=btn-main ng-class={deletePage:insistDelete}>{{confirmObj.confirmName
+    || ('确定')}}</a> <a ng-click=cancel(); class=btn-grey0 ng-class={cancelDeletePage:cancelDelete}>{{confirmObj.cancelName
+    || ('取消')}}</a></div>

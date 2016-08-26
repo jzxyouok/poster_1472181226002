@@ -1,0 +1,24 @@
+<div class=effect-img><img ng-src="{{finger.bgImage.path}}"> <img class=finger-zw ng-src="{{finger.zwImage.path}}"> <img
+        class=finger-line ng-src="{{HB_STATIC + 'view/images/finger_line.png'}}" finger-move></div>
+<div class=effect-form>
+    <form class=form-contain role=form>
+        <div class="form-list clearfix"><label class=form-label>背景图片：</label>
+            <div class=form-input>
+                <eqx-select class="select-sm border-width select-contain" model=finger.bgImage
+                            change=replaceImg(finger)>
+                    <eqx-select-option value=null>自定义</eqx-select-option>
+                    <eqx-select-option value=bgImage ng-repeat="bgImage in fingerBackgrounds">{{bgImage.name}}
+                    </eqx-select-option>
+                </eqx-select>
+            </div>
+        </div>
+        <div class="form-list clearfix"><label class=form-label>指纹图片：</label>
+            <div class=form-input>
+                <eqx-select class="select-sm border-width select-contain" model=finger.zwImage>
+                    <eqx-select-option value=zwImage ng-repeat="zwImage in fingerZws">{{zwImage.name}}
+                    </eqx-select-option>
+                </eqx-select>
+            </div>
+        </div>
+    </form>
+</div>

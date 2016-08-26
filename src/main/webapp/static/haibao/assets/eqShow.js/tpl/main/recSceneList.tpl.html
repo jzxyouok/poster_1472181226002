@@ -1,0 +1,84 @@
+<ul class="rec-scene">
+    <li ng-repeat="scene in myScenes" ng-init="sceneIndex = $index"
+        class="mb20 clearfix tab-box-shadow animation-opacity" ng-style="{'animation-delay' : $index * 50 + 'ms'}">
+        <div class="scene-img scene_contain" style="overflow:hidden" ng-hover="" resource="scene"><a
+                ng-click="showPreview($event,scene)" style="display:block">
+            <div class="ribbon ribbon-badge"
+                 ng-if="scene.bizType !=30 &amp;&amp; !scene.show &amp;&amp; !scene.publishTime "><span
+                    class="ribbon-inner unpublish">未发布</span></div>
+            <div ng-if="scene.bizType !=30 &amp;&amp; !scene.show &amp;&amp; scene.publishTime &amp;&amp; scene.updateTime > scene.publishTime"
+                 class="ribbon ribbon-badge"><span class="ribbon-inner new">有修改</span></div>
+            <div ng-if="!scene.show &amp;&amp; scene.isExpedited == 1" class="ribbon ribbon-badge"><span
+                    class="ribbon-inner check">加急审核中</span></div>
+            <div ng-if="!scene.show &amp;&amp; scene.status == -1" class="ribbon ribbon-badge"><span
+                    class="ribbon-inner check">未通过审核</span></div>
+            <div ng-if="!scene.show &amp;&amp; scene.status == -2" class="ribbon ribbon-badge"><span
+                    class="ribbon-inner check">审核中</span></div>
+            <div ng-show="scene.bizType ==30" class="ribbon ribbon-badge" style="z-index:3"><span
+                    class="ribbon-inner new" style="background-color:#44cb83">手机场景</span></div>
+            <div class="f1-card">
+                <div ng-show="!scene.show" class="front face" ng-style="getStyle(scene.cover)"></div>
+                <div ng-show="scene.show &amp;&amp; scene.staticStatus !== 1" class="face front qrcode" qr-code=""
+                     qr-url="{{canvasUrl + '/v/' + scene.code}}" data-event="{{scene.bizType==30?2222:2213}}"></div>
+                <div ng-show="scene.show &amp;&amp; scene.staticStatus === 1" class="face front qrcode" qr-code=""
+                     qr-url="{{canvasUrlStatic + 's/' + scene.code}}"
+                     data-event="{{scene.bizType==30?2222:2213}}"></div>
+            </div>
+        </a></div>
+        <div class="scene-data">
+            <div class="scene-data-header">
+                <div ng-show="manageGroupName" class="scene-group fr" ng-mouseover="moveGroup = true"
+                     ng-mouseleave="moveGroup = false"><a class="move">移动至<em class="eqf-clickmore"
+                                                                              style="padding-left:5px"></em></a>
+                    <div class="group-list zoomIn-change clearfix" ng-show="moveGroup== true">
+                        <div eqd-scroll="" style="position:relative;overflow:hidden;max-height:150px">
+                            <div><a class="ellipsis" ng-repeat="group in groups"
+                                    ng-click="moreGroup(group.id,scene.id,sceneIndex)">{{group.groupName}}</a> <a
+                                    ng-show="groups.length > 0" class="ellipsis"
+                                    ng-click="moreGroup(0,scene.id,sceneIndex)">未分组</a> <a class="ellipsis"
+                                                                                           ng-click="addGroup(scene.id)"><em
+                                    class="eqf-plus2" style="padding-right:5px"></em>添加分组</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="scene-info"><span class="item-title">{{scene.name}}</span>
+                    <p class="item_title" ng-class="{'scene-description': scene.description}"
+                       ng-model="scene.description">{{scene.description?scene.description:("未添加场景描述")}}</p></div>
+            </div>
+            <div class="scene-data-footer clearfix">
+                <div class="user-param"><a ng-click="showStatistics(scene.id);"
+                                           class="background-color-width-change button"
+                                           data-event="{{scene.bizType==30?2225:2216}}"><em class="eqf-eye"
+                                                                                            style="font-size:12px"></em><span>{{scene.showCount | fixnum}}</span></a>
+                    <a class="background-color-width-change button" ng-show="scene.dataCount > 0"
+                       ng-click="showData(scene.id);"><em class="eqf-date" style="font-size:12px"></em><span>{{scene.dataCount | fixnum}}</span></a>
+                </div>
+                <div class="user-operate-site set" role="menu" ng-if="!branchid"><a
+                        class="button background-color-width-change delete"
+                        ng-if="(user.type == 21 &amp;&amp; userPermit.indexOf(',1204,') >= 0) || user.type != 21"
+                        ng-click="deleteScene($event,scene.id,scene.staticStatus)"
+                        data-event="{{scene.bizType==30?2227:2218}}"><em
+                        class="eqf-scene-delete"></em><span>删除</span></a> <a
+                        class="button background-color-width-change operation"
+                        ng-if="scene.bizType !=30 &amp;&amp; scene.status != -1 &amp;&amp; scene.status != -2 &amp;&amp; ((user.type == 21 &amp;&amp; userPermit.indexOf(',1203,') >= 0) || user.type !=21) "
+                        ng-click="copyScene($event,scene.id)" data-event="2219"><em
+                        class="eqf-scene-copy"></em><span>复制</span></a>   <a
+                        class="button background-color-width-change sample"
+                        ng-if="scene.bizType !=30 &amp;&amp; scene.isTpl == 3 &amp;&amp; (userProperty.type ==2 || userProperty.type ==5) &amp;&amp; scene.status != -1 &amp;&amp; scene.status != -2"
+                        ng-click="clearCompanyTpl($event,scene.id,$index)"><em class="eqf-scene-company"></em><span>取消企业样例</span></a>
+                    <a class="button background-color-width-change sample"
+                       ng-if="scene.bizType !=30 &amp;&amp; scene.isTpl == 0 &amp;&amp; (userProperty.type ==2 || userProperty.type ==5) &amp;&amp; scene.status != -1 &amp;&amp; scene.status != -2"
+                       ng-click="creatCompanyTpl($event,scene.id,$index)"><em class="eqf-scene-company"></em><span>生成企业样例</span></a>
+                    <a class="button background-color-width-change operation"
+                       ng-if="scene.bizType !=30 &amp;&amp; (!scene.publishTime || scene.updateTime > scene.publishTime) &amp;&amp; scene.status != -1 &amp;&amp; scene.status != -2"
+                       ng-click="publishScene($event,scene)"><em class="eqf-scene-send"></em><span>发布</span></a> <a
+                            class="button background-color-width-change" ng-click="sceneSettings($event,scene.id,scene)"
+                            data-event="{{scene.bizType==30?2228:2221}}"><em
+                            class="eqf-scene-setting"></em><span>设置</span></a> <a
+                            class="button background-color-width-change" ng-click="editScene($event,scene.id,scene)"
+                            data-event="{{scene.bizType==30?2223:2214}}"><em
+                            class="eqf-xiuziti"></em><span>编辑</span></a></div>
+            </div>
+        </div>
+    </li>
+</ul>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dmesoft.haibao.modules.haibao.dao.ScenepageDao">
+    
+	<sql id="scenepageColumns">
+		a.id AS "id",
+		a.sceneid_bigint AS "sceneidBigint",
+		a.scenecode_varchar AS "scenecodeVarchar",
+		a.pagecurrentnum_int AS "pagecurrentnumInt",
+		a.content_text AS "contentText",
+		a.pagename_varchar AS "pagenameVarchar",
+		a.properties_text AS "propertiesText",
+		a.mytypl_id AS "mytyplId",
+		a.thumbsrc_varchar AS "thumbsrcVarchar",
+		a.my_type_cate AS "myTypeCate",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="scenepageJoins">
+	</sql>
+    
+	<select id="get" resultType="Scenepage">
+		SELECT 
+			<include refid="scenepageColumns"/>
+		FROM cj_scenepage a
+		<include refid="scenepageJoins"/>
+		WHERE a.id = #{id}
+	</select>
+
+
+	<select id="query1" resultType="Scenepage">
+		SELECT
+			a.pagecurrentnum_int as pagecurrentnumInt , a.id
+	  	FROM cj_scenepage a
+
+	  	<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			AND a.sceneid_bigint = #{sceneidBigint}
+			AND a.create_by = #{createBy.id}
+			AND a.id &lt;&gt; #{id}
+			AND a.pagecurrentnum_int > #{pagecurrentnumInt}
+		</where>
+
+			order by pagecurrentnum_int asc
+
+	</select>
+
+	<select id="findList" resultType="Scenepage">
+		SELECT 
+			<include refid="scenepageColumns"/>
+		FROM cj_scenepage a
+		<include refid="scenepageJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sceneidBigint != null and sceneidBigint != ''">
+				AND a.sceneid_bigint = #{sceneidBigint}
+			</if>
+			<if test="scenecodeVarchar != null and scenecodeVarchar != ''">
+				AND a.scenecode_varchar = #{scenecodeVarchar}
+			</if>
+			<if test="pagecurrentnumInt != null and pagecurrentnumInt != ''">
+				AND a.pagecurrentnum_int = #{pagecurrentnumInt}
+			</if>
+			<if test="contentText != null and contentText != ''">
+				AND a.content_text LIKE 
+					<if test="dbName == 'oracle'">'%'||#{contentText}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{contentText}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{contentText},'%')</if>
+			</if>
+			<if test="pagenameVarchar != null and pagenameVarchar != ''">
+				AND a.pagename_varchar LIKE 
+					<if test="dbName == 'oracle'">'%'||#{pagenameVarchar}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{pagenameVarchar}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{pagenameVarchar},'%')</if>
+			</if>
+			<if test="propertiesText != null and propertiesText != ''">
+				AND a.properties_text LIKE 
+					<if test="dbName == 'oracle'">'%'||#{propertiesText}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{propertiesText}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{propertiesText},'%')</if>
+			</if>
+			<if test="mytyplId != null and mytyplId != ''">
+				AND a.mytypl_id = #{mytyplId}
+			</if>
+			<if test="myTypeCate != null and myTypeCate != ''">
+				AND a.my_type_cate = #{myTypeCate}
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="delFlag != null and delFlag != ''">
+				AND a.del_flag = #{delFlag}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Scenepage">
+		SELECT 
+			<include refid="scenepageColumns"/>
+		FROM cj_scenepage a
+		<include refid="scenepageJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO cj_scenepage(
+			id,
+			sceneid_bigint,
+			scenecode_varchar,
+			pagecurrentnum_int,
+			content_text,
+			pagename_varchar,
+			properties_text,
+			mytypl_id,
+			thumbsrc_varchar,
+			my_type_cate,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{sceneidBigint},
+			#{scenecodeVarchar},
+			#{pagecurrentnumInt},
+			#{contentText},
+			#{pagenameVarchar},
+			#{propertiesText},
+			#{mytyplId},
+			#{thumbsrcVarchar},
+			#{myTypeCate},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE cj_scenepage SET 	
+			sceneid_bigint = #{sceneidBigint},
+			scenecode_varchar = #{scenecodeVarchar},
+			pagecurrentnum_int = #{pagecurrentnumInt},
+			content_text = #{contentText},
+			pagename_varchar = #{pagenameVarchar},
+			properties_text = #{propertiesText},
+			mytypl_id = #{mytyplId},
+			thumbsrc_varchar = #{thumbsrcVarchar},
+			my_type_cate = #{myTypeCate},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE cj_scenepage SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

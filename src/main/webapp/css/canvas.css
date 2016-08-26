@@ -1,0 +1,11 @@
+/*====================编辑画布====================*/
+
+.m-m-content{
+	width: 320px;
+	height:568px;
+	background: #fff;
+	position: absolute;
+	top:92px;
+	left:22px;
+	border: 1px solid #48d5b2;
+}

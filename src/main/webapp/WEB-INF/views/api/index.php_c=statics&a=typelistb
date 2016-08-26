@@ -1,0 +1,2 @@
+
+{"success":true,"code":200,"msg":"操作成功","obj":null,"map":null,"list":[{"id":13,"name":"促销","value":"101","type":"scene_type","sort":1,"status":1,"remark":null},{"id":14,"name":"宣传","value":"103","type":"scene_type","sort":2,"status":1,"remark":null},{"id":15,"name":"活动","value":"105","type":"scene_type","sort":3,"status":1,"remark":null},{"id":16,"name":"政策","value":"102","type":"scene_type","sort":4,"status":1,"remark":null},{"id":17,"name":"节日","value":"104","type":"scene_type","sort":5,"status":1,"remark":null}]}

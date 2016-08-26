@@ -1,0 +1,41 @@
+<div class="modal-header no-line">
+    <button type=button class=close data-dismiss=modal aria-label=Close ng-click=cancel()><span
+            aria-hidden=true>×</span></button>
+    <h4 class=modal-title>统计 <a class=bbs-help-tip-media target=_blank
+                                href="http://bbs.eqxiu.com/forum.php?mod=viewthread&tid=15676&page=1&extra=#pid122999"></a>
+        <span class=action ng-show=!authError>记录并显示当前作品的展示次数</span> <span ng-show=authError>{{authError}}</span></h4>
+</div>
+<div class="dialog-contain counter">
+    <div class=tab-same><span class=spanborder ng-class="{'spanborder': model.properties.icon == 'eqf-eye3'}"><a
+            ng-click="chooseEqfont('eqf-eye3')"><span class=eqf-eye3></span></a></span></div>
+    <div class="form_console dialog-content">
+        <div class=modify_area>
+            <div class=counter-group><span class=title>颜色</span>
+                <div class=counter-choice><a class=color-picker ng-style="{backgroundColor: model.properties.color}"
+                                             ng-model=model.properties.color colorpicker=rgba></a> <input
+                        class=color-picker-input ng-model=model.properties.color type="text"></div>
+            </div>
+            <div class=counter-group><span class=title>字号</span>
+                <div class=counter-choice>
+                    <div class=btn-group><label class="btn btn-counter" ng-model=model.properties.size
+                                                btn-radio="'counter-l'">大</label><label class="btn btn-counter"
+                                                                                        ng-model=model.properties.size
+                                                                                        btn-radio="'counter-m'">中</label><label
+                            class="btn btn-counter" ng-model=model.properties.size btn-radio="'counter-s'">小</label>
+                    </div>
+                </div>
+            </div>
+            <div class=counter-group><span class=title>布局</span>
+                <div class=counter-choice>
+                    <div class=btn-group><label class="btn btn-counter" ng-model=model.properties.layout
+                                                btn-radio="'counter-lr'">左右</label><label class="btn btn-counter"
+                                                                                          ng-model=model.properties.layout
+                                                                                          btn-radio="'counter-tb'">上下</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer no-line"><a class=modal-cancle ng-click=cancel()>取消</a> <a class="btn btn-primary"
+                                                                                    ng-click=confirm()>确定</a></div>

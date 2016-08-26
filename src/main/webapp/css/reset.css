@@ -1,0 +1,100 @@
+/*
+	@ reset.css v1.0 版
+	@ Author kangql_web@163.com （QQ：376870251）
+	@ 仅供学习交流使用
+*/
+html{width:100%;
+	height:100%;
+	display: block;
+}
+body{ min-width:1000px;max-width:1920px;
+	height:100%; margin:0 auto; color:#999; background:rgba(208,207,216,1);
+	overflow:hidden;
+	font: 12px/24px Arial, 'Microsoft Yahei',"宋体", sans-serif;}
+/** 清除内外边距 **/
+body, div, p, h1, h2, h3, h4, h5, h6, blockquote,  /* structural elements 结构元素 */
+dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+pre,  /* text formatting elements 文本格式元素 */
+form, fieldset, legend, button, input, textarea,  /* form elements 表单元素 */
+table,th,td /* table elements 表格元素 */{margin:0;padding:0;}
+/*h1, h2, h3, h4, h5, h6 { font-size: 100%; }*/
+address, cite, em, i { font-style: normal; } /* 将斜体扶正 */
+small { font-size: 12px; } /* 小于 12px 的中文很难阅读，让 small 正常化 */
+img{border:none;vertical-align:top;/*防止IE6图片有空隙*/-webkit-touch-callout: none; }
+a{display: inline-block}
+/** 重置列表元素 **/
+li { list-style: none; }
+
+*{box-sizing: inherit;}
+/*定义超链接*/
+a:link{text-decoration: none; color:#999}	/* 未被访问*/
+a:visited{text-decoration: none; color:#999}/* 已被访问*/
+a:hover{text-decoration: none; color:#a59250}	/* 鼠标经过*/
+a:active {text-decoration: none;color:#999}	/* 鼠标激活*/
+a:focus{outline:none}
+
+/*设置动画过度时间*/
+a{
+	-webkit-transition: all .4s ease;
+	-moz-transition: all .4s ease;
+	-o-transition: all .4s ease;
+	-ms-transition: all .4s ease;
+	transition: all .4s ease;
+}
+
+/** 重置表单元素 **/
+legend { color: #000; } /* for ie6 */
+fieldset{ border: 0; } /* img 搭车：让a链接里的 img 无边框 */
+button, input, select, textarea { font-size: 100%; line-height:normal; } /* 使得表单元素在 ie 下能继承字体大小 */
+/**placeholder**/
+::-webkit-input-placeholder { /* WebKit browsers */  text-align:left;color: #a59250; text-indent:4px;  }
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */  text-align:left;color: #a59250;text-indent:4px;  }
+::-moz-placeholder { /* Mozilla Firefox 19+ */  text-align:left;color: #a59250;text-indent:4px;  }
+:-ms-input-placeholder { /* Internet Explorer 10+ */  text-align:left;color: #a59250;text-indent:4px; }
+
+
+/** 重置表格元素 **/
+table{ border-collapse: collapse; border-spacing: 0; }
+input[type="button"],input[type="submit"],input[type="reset"]{cursor:pointer;}
+input,select,textarea{outline:none;border:none; background: none;vertical-align:middle; /*文本框文字居中*/}
+/*input 行高可以设置14px.高度用padding控制，或者设置line-height:35px\9   \9是所有ie*/
+
+/**自定义**/
+.box{
+	width: 100%;
+	height:auto;
+	overflow: hidden;
+}
+.fl{float:left}
+.fr{float:right}
+
+/* ie6 7 8(q) bug  */
+iframe{display:block;}
+
+/* 清浮动 */
+.clearfix:after {
+	visibility:hidden;
+	display:block;
+	font-size:0;
+	content:" ";
+	clear:both;
+	height:0;
+}
+.clearfix {zoom:1; /* for IE6 IE7 */  }
+
+
+/*字体图标加载*/
+@font-face {
+	font-family: 'icomoon';
+	src:url('../fonts/icomoon.eot?-gderrw');
+	src:url('../fonts/icomoon.eot?#iefix-gderrw') format('embedded-opentype'),
+	url('../fonts/icomoon.woff?-gderrw') format('woff'),
+	url('../fonts/icomoon.ttf?-gderrw') format('truetype'),
+	url('../fonts/icomoon.svg?-gderrw#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"]{
+	font-family: 'icomoon';
+}

@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dmesoft.haibao.modules.haibao.dao.SceneDao">
+    
+	<sql id="sceneColumns">
+		a.id AS "id",
+		a.scenecode_varchar AS "scenecodeVarchar",
+		a.scenename_varchar AS "scenenameVarchar",
+		a.scenetype_int AS "scenetypeInt",
+		a.hitcount_int AS "hitcountInt",
+		a.musicurl_varchar AS "musicurlVarchar",
+		a.videocode_varchar AS "videocodeVarchar",
+		a.showstatus_int AS "showstatusInt",
+		a.thumbnail_varchar AS "thumbnailVarchar",
+		a.movietype_int AS "movietypeInt",
+		a.desc_varchar AS "descVarchar",
+		a.ip_varchar AS "ipVarchar",
+		a.shenhe AS "shenhe",
+		a.tagid_int AS "tagidInt",
+		a.sourceid_int AS "sourceidInt",
+		a.biztype_int AS "biztypeInt",
+		a.hbid_int AS "hbidInt",
+		a.hbcode AS "hbcode",
+		a.datacount_int AS "datacountInt",
+		a.musictype_int AS "musictypeInt",
+		a.usecount_int AS "usecountInt",
+		a.fromsceneid_bigint AS "fromsceneidBigint",
+		a.publishtime AS "publishtime",
+		a.rank AS "rank",
+		a.lastpageid AS "lastpageid",
+		a.is_tpl AS "isTpl",
+		a.is_public AS "isPublic",
+		a.property AS "property",
+		a.applypromotion AS "applypromotion",
+
+		a.applytemplate AS "applytemplate",
+		a.is_show AS "isShow",
+		a.is_payloadlog AS "isPayloadlog",
+		a.vi_current_times AS "viCurrentTimes",
+		a.vi_beyond_time AS "viBeyondTime",
+		a.vi_timeout AS "viTimeout",
+		a.vi_hittimes_set AS "viHittimesSet",
+		a.vi_scenecode AS "viScenecode",
+		a.loadinglogo AS "loadinglogo",
+		a.accesscode_varchar AS "accesscodeVarchar",
+		a.loadinglogo_varchar AS "loadinglogoVarchar",
+		a.groupid_int AS "groupidInt",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="sceneJoins">
+	</sql>
+    
+	<select id="get" resultType="Scene">
+		SELECT 
+			<include refid="sceneColumns"/>
+		FROM cj_scene a
+		<include refid="sceneJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Scene">
+		SELECT 
+			<include refid="sceneColumns"/>
+		FROM cj_scene a
+		<include refid="sceneJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="scenecodeVarchar != null and scenecodeVarchar != ''">
+				AND a.scenecode_varchar = #{scenecodeVarchar}
+			</if>
+			<if test="scenenameVarchar != null and scenenameVarchar != ''">
+				AND a.scenename_varchar = #{scenenameVarchar}
+			</if>
+			<if test="scenetypeInt != null and scenetypeInt != ''">
+				AND a.scenetype_int = #{scenetypeInt}
+			</if>
+			<if test="showstatusInt != null and showstatusInt != ''">
+				AND a.showstatus_int = #{showstatusInt}
+			</if>
+			<if test="movietypeInt != null and movietypeInt != ''">
+				AND a.movietype_int = #{movietypeInt}
+			</if>
+			<if test="descVarchar != null and descVarchar != ''">
+				AND a.desc_varchar LIKE 
+					<if test="dbName == 'oracle'">'%'||#{descVarchar}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{descVarchar}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{descVarchar},'%')</if>
+			</if>
+			<if test="ipVarchar != null and ipVarchar != ''">
+				AND a.ip_varchar = #{ipVarchar}
+			</if>
+			<if test="shenhe != null and shenhe != ''">
+				AND a.shenhe = #{shenhe}
+			</if>
+			<if test="tagidInt != null and tagidInt != ''">
+				AND a.tagid_int = #{tagidInt}
+			</if>
+			<if test="sourceidInt != null and sourceidInt != ''">
+				AND a.sourceid_int = #{sourceidInt}
+			</if>
+			<if test="biztypeInt != null and biztypeInt != ''">
+				AND a.biztype_int = #{biztypeInt}
+			</if>
+			<if test="hbidInt != null and hbidInt != ''">
+				AND a.hbid_int = #{hbidInt}
+			</if>
+			<if test="hbcode != null and hbcode != ''">
+				AND a.hbcode = #{hbcode}
+			</if>
+			<if test="datacountInt != null and datacountInt != ''">
+				AND a.datacount_int = #{datacountInt}
+			</if>
+			<if test="usecountInt != null and usecountInt != ''">
+				AND a.usecount_int = #{usecountInt}
+			</if>
+			<if test="fromsceneidBigint != null and fromsceneidBigint != ''">
+				AND a.fromsceneid_bigint = #{fromsceneidBigint}
+			</if>
+			<if test="rank != null and rank != ''">
+				AND a.rank = #{rank}
+			</if>
+			<if test="lastpageid != null and lastpageid != ''">
+				AND a.lastpageid = #{lastpageid}
+			</if>
+			<if test="isTpl != null and isTpl != ''">
+				AND a.is_tpl = #{isTpl}
+			</if>
+			<if test="isPublic != null and isPublic != ''">
+				AND a.is_public LIKE 
+					<if test="dbName == 'oracle'">'%'||#{isPublic}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{isPublic}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{isPublic},'%')</if>
+			</if>
+			<if test="isShow != null and isShow != ''">
+				AND a.is_show = #{isShow}
+			</if>
+			<if test="isPayloadlog != null and isPayloadlog != ''">
+				AND a.is_payloadlog = #{isPayloadlog}
+			</if>
+			<if test="viScenecode != null and viScenecode != ''">
+				AND a.vi_scenecode = #{viScenecode}
+			</if>
+			<if test="loadinglogo != null and loadinglogo != ''">
+				AND a.loadinglogo = #{loadinglogo}
+			</if>
+			<if test="accesscodeVarchar != null and accesscodeVarchar != ''">
+				AND a.accesscode_varchar = #{accesscodeVarchar}
+			</if>
+			<if test="loadinglogoVarchar != null and loadinglogoVarchar != ''">
+				AND a.loadinglogo_varchar = #{loadinglogoVarchar}
+			</if>
+			<if test="groupidInt != null and groupidInt != ''">
+				AND a.groupid_int = #{groupidInt}
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="delFlag != null and delFlag != ''">
+				AND a.del_flag = #{delFlag}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Scene">
+		SELECT 
+			<include refid="sceneColumns"/>
+		FROM cj_scene a
+		<include refid="sceneJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO cj_scene(
+			id,
+			scenecode_varchar,
+			scenename_varchar,
+			scenetype_int,
+			hitcount_int,
+			musicurl_varchar,
+			videocode_varchar,
+			showstatus_int,
+			thumbnail_varchar,
+			movietype_int,
+			desc_varchar,
+			ip_varchar,
+			shenhe,
+			tagid_int,
+			sourceid_int,
+			biztype_int,
+			hbid_int,
+			hbcode,
+			datacount_int,
+			musictype_int,
+			usecount_int,
+			fromsceneid_bigint,
+			publishtime,
+			rank,
+			lastpageid,
+			is_tpl,
+			is_public,
+			property,
+			applypromotion,
+
+			applytemplate,
+			is_show,
+			is_payloadlog,
+			vi_current_times,
+			vi_beyond_time,
+			vi_timeout,
+			vi_hittimes_set,
+			vi_scenecode,
+			loadinglogo,
+			accesscode_varchar,
+			loadinglogo_varchar,
+			groupid_int,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{scenecodeVarchar},
+			#{scenenameVarchar},
+			#{scenetypeInt},
+			#{hitcountInt},
+			#{musicurlVarchar},
+			#{videocodeVarchar},
+			#{showstatusInt},
+			#{thumbnailVarchar},
+			#{movietypeInt},
+			#{descVarchar},
+			#{ipVarchar},
+			#{shenhe},
+			#{tagidInt},
+			#{sourceidInt},
+			#{biztypeInt},
+			#{hbidInt},
+			#{hbcode},
+			#{datacountInt},
+			#{musictypeInt},
+			#{usecountInt},
+			#{fromsceneidBigint},
+			#{publishtime},
+			#{rank},
+			#{lastpageid},
+			#{isTpl},
+			#{isPublic},
+			#{property},
+			#{applypromotion},
+
+			#{applytemplate},
+			#{isShow},
+			#{isPayloadlog},
+			#{viCurrentTimes},
+			#{viBeyondTime},
+			#{viTimeout},
+			#{viHittimesSet},
+			#{viScenecode},
+			#{loadinglogo},
+			#{accesscodeVarchar},
+			#{loadinglogoVarchar},
+			#{groupidInt},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE cj_scene SET 	
+			scenecode_varchar = #{scenecodeVarchar},
+			scenename_varchar = #{scenenameVarchar},
+			scenetype_int = #{scenetypeInt},
+			hitcount_int = #{hitcountInt},
+			musicurl_varchar = #{musicurlVarchar},
+			videocode_varchar = #{videocodeVarchar},
+			showstatus_int = #{showstatusInt},
+			thumbnail_varchar = #{thumbnailVarchar},
+			movietype_int = #{movietypeInt},
+			desc_varchar = #{descVarchar},
+			ip_varchar = #{ipVarchar},
+			shenhe = #{shenhe},
+			tagid_int = #{tagidInt},
+			sourceid_int = #{sourceidInt},
+			biztype_int = #{biztypeInt},
+			hbid_int = #{hbidInt},
+			hbcode = #{hbcode},
+			datacount_int = #{datacountInt},
+			musictype_int = #{musictypeInt},
+			usecount_int = #{usecountInt},
+			fromsceneid_bigint = #{fromsceneidBigint},
+			publishtime = #{publishtime},
+			rank = #{rank},
+			lastpageid = #{lastpageid},
+			is_tpl = #{isTpl},
+			is_public = #{isPublic},
+			property = #{property},
+			applypromotion = #{applypromotion},
+
+			applytemplate = #{applytemplate},
+			is_show = #{isShow},
+			is_payloadlog = #{isPayloadlog},
+			vi_current_times = #{viCurrentTimes},
+			vi_beyond_time = #{viBeyondTime},
+			vi_timeout = #{viTimeout},
+			vi_hittimes_set = #{viHittimesSet},
+			vi_scenecode = #{viScenecode},
+			loadinglogo = #{loadinglogo},
+			accesscode_varchar = #{accesscodeVarchar},
+			loadinglogo_varchar = #{loadinglogoVarchar},
+			groupid_int = #{groupidInt},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE cj_scene SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dmesoft.haibao.modules.haibao.dao.UpfilesysDao">
+    
+	<sql id="upfilesysColumns">
+		a.id AS "id",
+		a.filetype_int AS "filetypeInt",
+		a.filesrc_varchar AS "filesrcVarchar",
+		a.sizekb_int AS "sizekbInt",
+		a.filethumbsrc_varchar AS "filethumbsrcVarchar",
+		a.biztype_int AS "biztypeInt",
+		a.ext_varchar AS "extVarchar",
+		a.filename_varchar AS "filenameVarchar",
+		a.hbsrc_varchar AS "hbsrcVarchar",
+		a.tagid_int AS "tagidInt",
+		a.hbsrcthumb_varchar AS "hbsrcthumbVarchar",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="upfilesysJoins">
+	</sql>
+    
+	<select id="get" resultType="Upfilesys">
+		SELECT 
+			<include refid="upfilesysColumns"/>
+		FROM cj_upfilesys a
+		<include refid="upfilesysJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Upfilesys">
+		SELECT 
+			<include refid="upfilesysColumns"/>
+		FROM cj_upfilesys a
+		<include refid="upfilesysJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="filetypeInt != null and filetypeInt != ''">
+				AND a.filetype_int = #{filetypeInt}
+			</if>
+			<if test="filesrcVarchar != null and filesrcVarchar != ''">
+				AND a.filesrc_varchar = #{filesrcVarchar}
+			</if>
+			<if test="biztypeInt != null and biztypeInt != ''">
+				AND a.biztype_int = #{biztypeInt}
+			</if>
+			<if test="tagidInt != null and tagidInt != ''">
+				AND a.tagid_int = #{tagidInt}
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+			<if test="delFlag != null and delFlag != ''">
+				AND a.del_flag = #{delFlag}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Upfilesys">
+		SELECT 
+			<include refid="upfilesysColumns"/>
+		FROM cj_upfilesys a
+		<include refid="upfilesysJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO cj_upfilesys(
+			id,
+			filetype_int,
+			filesrc_varchar,
+			sizekb_int,
+			filethumbsrc_varchar,
+			biztype_int,
+			ext_varchar,
+			filename_varchar,
+			hbsrc_varchar,
+			tagid_int,
+			hbsrcthumb_varchar,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{filetypeInt},
+			#{filesrcVarchar},
+			#{sizekbInt},
+			#{filethumbsrcVarchar},
+			#{biztypeInt},
+			#{extVarchar},
+			#{filenameVarchar},
+			#{hbsrcVarchar},
+			#{tagidInt},
+			#{hbsrcthumbVarchar},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE cj_upfilesys SET 	
+			filetype_int = #{filetypeInt},
+			filesrc_varchar = #{filesrcVarchar},
+			sizekb_int = #{sizekbInt},
+			filethumbsrc_varchar = #{filethumbsrcVarchar},
+			biztype_int = #{biztypeInt},
+			ext_varchar = #{extVarchar},
+			filename_varchar = #{filenameVarchar},
+			hbsrc_varchar = #{hbsrcVarchar},
+			tagid_int = #{tagidInt},
+			hbsrcthumb_varchar = #{hbsrcthumbVarchar},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE cj_upfilesys SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

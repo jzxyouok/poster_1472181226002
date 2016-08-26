@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dmesoft.haibao.modules.haibao.dao.ScenedataDao">
+    
+	<sql id="scenedataColumns">
+		a.id AS "id",
+		a.sceneid_bigint AS "sceneidBigint",
+		a.pageid_bigint AS "pageidBigint",
+		a.elementid_int AS "elementidInt",
+		a.elementtitle_varchar AS "elementtitleVarchar",
+		a.elementtype_int AS "elementtypeInt",
+		a.other_info AS "otherInfo",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="scenedataJoins">
+	</sql>
+    
+	<select id="get" resultType="Scenedata">
+		SELECT 
+			<include refid="scenedataColumns"/>
+		FROM cj_scenedata a
+		<include refid="scenedataJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Scenedata">
+		SELECT 
+			<include refid="scenedataColumns"/>
+		FROM cj_scenedata a
+		<include refid="scenedataJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sceneidBigint != null and sceneidBigint != ''">
+				AND a.sceneid_bigint = #{sceneidBigint}
+			</if>
+			<if test="pageidBigint != null and pageidBigint != ''">
+				AND a.pageid_bigint = #{pageidBigint}
+			</if>
+			<if test="elementidInt != null and elementidInt != ''">
+				AND a.elementid_int = #{elementidInt}
+			</if>
+			<if test="elementtypeInt != null and elementtypeInt != ''">
+				AND a.elementtype_int = #{elementtypeInt}
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="delFlag != null and delFlag != ''">
+				AND a.del_flag = #{delFlag}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Scenedata">
+		SELECT 
+			<include refid="scenedataColumns"/>
+		FROM cj_scenedata a
+		<include refid="scenedataJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO cj_scenedata(
+			id,
+			sceneid_bigint,
+			pageid_bigint,
+			elementid_int,
+			elementtitle_varchar,
+			elementtype_int,
+			other_info,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{sceneidBigint},
+			#{pageidBigint},
+			#{elementidInt},
+			#{elementtitleVarchar},
+			#{elementtypeInt},
+			#{otherInfo},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE cj_scenedata SET 	
+			sceneid_bigint = #{sceneidBigint},
+			pageid_bigint = #{pageidBigint},
+			elementid_int = #{elementidInt},
+			elementtitle_varchar = #{elementtitleVarchar},
+			elementtype_int = #{elementtypeInt},
+			other_info = #{otherInfo},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE cj_scenedata SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

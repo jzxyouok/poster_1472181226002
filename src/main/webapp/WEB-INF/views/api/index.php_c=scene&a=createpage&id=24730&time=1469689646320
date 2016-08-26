@@ -1,0 +1,51 @@
+
+{
+					"success": true,
+					"code": 200,
+					"msg": "success",
+					"obj": {
+						"id": 24731,
+						"sceneId": 8831324,
+						"num": 3,
+						"name": null,
+						"properties": null,
+						"elements": null,
+						"scene": {
+							"id": 8831324,
+							"name": "test",
+							"createUser": "1",
+							"createTime": 1425998747000,
+							"type": 101,
+							"pageMode": 0,
+							"image": {
+								"imgSrc": "default_thum.jpg",
+								"isAdvancedUser": false
+							},
+							"isTpl": 0,
+							"isPromotion": 0,
+							"status": 1,
+							"openLimit": 0,
+							"submitLimit": 0,
+							"startDate": null,
+							"endDate": null,
+							"accessCode": null,
+							"thirdCode": null,
+							"updateTime": 1426039827000,
+							"publishTime": 1426039827000,
+							"applyTemplate": 0,
+							"applyPromotion": 0,
+							"sourceId": null,
+							"code": "U707787E47",
+							"description": "",
+							"sort": 0,
+							"pageCount": 0,
+							"dataCount": 0,
+							"showCount": 0, 
+							"userLoginName": null,
+							"userName": null
+						}
+					},
+					"map": null,
+					"list": null,
+					"iscopy":"false-----24730"
+				}

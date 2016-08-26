@@ -1,0 +1,38 @@
+<div class=scratch-pre>
+    <div class="effect-img scratch-img" scratch-effect><img ng-src="{{scratch.image.path}}"></div>
+</div>
+<div class="effect-form scratch-form" style="margin-left: 210px">
+    <form class=form-contain role=form>
+        <div class="form-list clearfix"><label class=form-label>覆盖效果</label>
+            <div class=form-input>
+                <eqx-select class="select-sm border-width select-contain" model=scratch.image
+                            change=replaceImage(scratch)>
+                    <eqx-select-option value=null>自定义</eqx-select-option>
+                    <eqx-select-option value=scracthImage ng-repeat="scracthImage in scratches">{{scracthImage.name}}
+                    </eqx-select-option>
+                </eqx-select>
+            </div>
+        </div>
+        <div class="form-list clearfix"><label class=form-label>透明度</label>
+            <div class=form-input>
+                <eqd-input-number ng-model=scratch.opacity min=0 max=100 unit=% ng-mouseenter="currentTipsIndex = 1"
+                                  ng-mouseleave="currentTipsIndex = 0"></eqd-input-number>
+            </div>
+            <div class="tooltip right" role=tooltip ng-show="currentTipsIndex == 1">
+                <div class=tooltip-arrow></div>
+                <div class=tooltip-inner>双击鼠标可以输入数值，按住鼠标左键左右滑动可快速调整数值</div>
+            </div>
+        </div>
+        <div class="form-list clearfix"><label class=form-label>涂抹比例</label>
+            <div class=form-input>
+                <eqd-input-number ng-model=scratch.percentage min=0 max=100 unit=% ng-mouseenter="currentTipsIndex = 1"
+                                  ng-mouseleave="currentTipsIndex = 0"></eqd-input-number>
+            </div>
+        </div>
+        <div class="form-list clearfix"><label class=form-label>提示文字</label>
+            <div class=form-input><input type=text ng-model=scratch.tip placeholder=提示文字 check-count=40
+                                         ng-keyup="$event.keyCode == 13 ? confirm() : null" autofocus stop-propagation
+                                         style="width: 290px"></div>
+        </div>
+    </form>
+</div>

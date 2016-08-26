@@ -1,0 +1,2 @@
+
+{"success":true,"code":200,"msg":"操作成功","obj":null,"map":null,"list":[{"id":13,"name":"行业","type":"101","sort":1,"status":1,"remark":null},{"id":14,"name":"企业","type":"103","sort":2,"status":1,"remark":null},{"id":15,"name":"风格","type":"105","sort":3,"status":1,"remark":null},{"id":16,"name":"个人","type":"102","sort":4,"status":1,"remark":null},{"id":17,"name":"节日","type":"104","sort":5,"status":1,"remark":null}]}

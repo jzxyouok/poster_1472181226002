@@ -1,0 +1,140 @@
+
+<div id=main class=min-contain>
+    <div class=info-show>
+         <div class=same-content>
+
+            <!--&lt;!&ndash;<div class=info-title style=padding-bottom:80px><span ng-click="switchSample('scene')"&ndash;&gt;-->
+                                                                  <!--&lt;!&ndash;ng-class="{active:isActive == 'scene'}">场景样例</span>&ndash;&gt;-->
+                <!--&lt;!&ndash;<span&ndash;&gt;-->
+                    <!--&lt;!&ndash;ng-click="switchSample('fill')" ng-class="{active:isActive == 'fill'}">填空样例</span>&ndash;&gt;-->
+
+            <!--</div>-->
+            <div class=info ng-if="isActive == 'scene'">
+                <div class=creat-scene ng-if="isActive == 'scene'">
+
+                    <button type="button" class="btn btn-block btn-danger" ng-click=createScene()><em
+                            class=eqf-plus2></em><span style="font-size:12px;">&nbsp;&nbsp;新建</span></button>
+
+
+
+                </div>
+                <ul class="clearfix tab-line">
+                    <li><a ng-class="{active : 0 == childcat}" ng-click=allpage(null,null)>全部</a></li>
+                    <li ng-repeat="pageTplType in pageTplTypesList"><a ng-click=getPageTplsByType(pageTplType.value)
+                                                                       ng-class="{active : pageTplType.value == childcat}">{{pageTplType.name}}</a>
+                    </li>
+
+                </ul>
+            </div>
+            <!--<div class=info ng-if="isActive == 'fill'">-->
+                <!--<ul class="clearfix tab-line">-->
+                    <!--<li ng-repeat="fill in fillTypeList"><a ng-click=getPageTplsByType(fill.type)-->
+                                                            <!--ng-class="{active : fill.type == childcat}">{{fill.name}}</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+    <div class=same-content  style="background-color:#fff; ">
+        <div class="sample-childcat clearfix mt20" ng-if=newArrayGroupCat>
+            <ul class="cat-list tab-box-shadow" ng-repeat="childGroup in newArrayGroupCat" style="width:100%">
+                <li ng-repeat="cat in childGroup" ng-click=getPageTpls(type,cat.bizType,cat.id,1,12)
+                    ng-class="{active:cat.id == categoryId}"><a>{{cat.name}}</a><span>|</span></li>
+            </ul>
+        </div>
+        <div class="sample-childcat clearfix mt20" ng-if="0 == childcat && childAllList">
+            <ul class="cat-list tab-box-shadow all-tab" ng-repeat="childList in childAllList">
+                <li ng-click=getPageTpls(type,childList.bizType,childList.tagId,1,12)><a data-banner=12201
+                                                                                         data-bid={{childList.tagId}}><img
+                        ng-src="{{childList.bgImage}}">
+                    <div class=bg ng-class="{imgOpa:childList.tagId == categoryId}"></div>
+                </a></li>
+            </ul>
+        </div>
+        <div class="scene-type clearfix">
+            <div class=search-tab ng-if="isActive == 'scene' && childcat != 1">
+                <div class=search ng-class={hover:name} style=right:0><input type=text maxlength=40 placeholder=请输入搜索内容
+                                                                             ng-model=$parent.name
+                                                                             ng-change=changeName(name)
+                                                                             ng-keypress=EnterPress(event,name)
+                                                                             ng-keydown=EnterPress(name)> <span
+                        ng-if=searchButton class="search-icon eqf-search" ng-click=submit(name)></span> <span
+                        ng-if=!searchButton class="search-icon eqf-wrong" ng-click=clearSearch()></span></div>
+            </div>
+
+
+            <div class=scene-select ng-class={selected:!selete} ng-click="new=true;filterTpl(new,'default')">
+                <a><span>默认排序</span></a>
+            </div>
+            <div class=scene-select ng-class={selected:selete,iconChange:new} ng-init="new=true;"
+                 ng-click="new =!new; filterTpl(new,'new')">
+                <a><span>最新发布</span><em
+                    class="eqf-more all-change"></em></a>
+            </div>
+        </div>
+        <div style=position:relative>
+            <ul class="square-scene clearfix">
+                <!--<li class="tab-box-shadow creat-blank all-change" ng-if=blankSample ng-click=createScene()-->
+                    <!--style=cursor:pointer>-->
+                    <!--<div class="creat-content background-color-width-change"><i-->
+                            <!--class=eqf-plus2></i><span>创建一个空白场景</span></div>-->
+                <!--</li>-->
+                <li ng-repeat="tpl in tpls" class="tab-box-shadow animation-zoom all-change" ng-show=tpls
+                    ng-style="{'animation-delay' : $index * 50 + 'ms'}">
+                    <div class="ribbon ribbon-badge" ng-if="tpl.isCompanyTemp == 1 && !tpl.price"><span
+                            class="ribbon-inner isCompany">企业专属</span></div>
+                    <div class="ribbon ribbon-badge" ng-if="tpl.isCompanyTemp == 1 && tpl.price && !tpl.disCountFlag">
+                        <span class="ribbon-inner isCompany">{{tpl.price}}秀点</span></div>
+                    <div class="ribbon discount-detail" ng-if="tpl.isCompanyTemp == 1 && tpl.price && tpl.disCountFlag">
+                        <div class=discount-bg><span class=discount-del>&nbsp{{tpl.price}}秀点&nbsp</span> <span
+                                class=discount-normal><em>{{tpl.disCountPrice}}</em>秀点</span></div>
+                    </div>
+                    <div class="ribbon discount-detail"
+                         ng-if="!!tpl.price && tpl.isCompanyTemp !=1 && tpl.disCountFlag">
+                        <div class="discount-red discount-bg"><span class=discount-del>&nbsp{{tpl.price}}秀点&nbsp</span>
+                            <span class=discount-normal><em>{{tpl.disCountPrice}}</em>秀点</span></div>
+                    </div>
+                    <div class="ribbon ribbon-badge" ng-if="!!tpl.price && tpl.isCompanyTemp !=1 && !tpl.disCountFlag">
+                        <span class="ribbon-inner check">{{tpl.price}}秀点</span></div>
+                    <div class=image>
+                        <div ng-show=!tpl.show class="front face" ng-style=getStyle(tpl.cover)
+                             style=background-size:cover></div>
+                        <div ng-show=tpl.show class=ercode qr-code qr-url="{{canvasUrl + '/v/' + tpl.code}}"></div>
+                        <div class=overlay ng-show=!tpl.show>
+                            <div class=edit><a class=edit-same ng-click=openPreview(tpl);><em class=eqf-eye
+                                                                                              style=font-size:20px></em>
+                                <span>预览</span></a> <a class=edit-same ng-click=createScene(tpl)><em class=eqf-xiuziti
+                                                                                                     style=font-size:18px></em>
+                                <span>就这个</span></a></div>
+                        </div>
+                    </div>
+                    <div class=project-info><p class=ellipsis>{{tpl.name}}</p>
+
+                        <div class="buttons sample clearfix" ng-if=!branchid>
+                            <div class="set sample-scene"><span class=scene-name>{{tpl.userName}}</span></div>
+                            <a class="erweima button" ng-hover resource=tpl><em class=eqf-QRcode></em></a></div>
+                    </div>
+                    <div class=head-img><em
+                            class=eqf-top-contact></em></span></div>
+                </li>
+            </ul>
+            <div style="text-align:center;margin:50px 0" ng-if="tpls.length < 1"><h2 class=mb20>该条件下暂无样例，您可以：</h2>
+                <p style=font-size:12px;padding-bottom:10px>更换关键词重新搜索</p>
+
+                <img ng-src={{HB_STATIC}}assets/images/notfound.svg></div>
+        </div>
+        <div class="clearfix page-turn" style=margin-top:10px ng-show="totalItems > 12 && tpls.length">
+            <div class=fl>
+                <pagination style="float: left" first-text=首页 last-text=尾页 previous-text=&lsaquo; next-text=&rsaquo;
+                            max-size=10 items-per-page=12 total-items=totalItems ng-model=currentPage
+                            ng-change=pageChanged(currentPage) boundary-links=true rotate=true
+                            num-pages=numPages></pagination>
+                <div class=current_page><span class=fl>到</span> <input type=text ng-model=toPage
+                                                                       ng-keyup="$event.keyCode == 13 ? pageChanged(toPage) : null"><span
+                        class=fl>页</span> <a ng-click=pageChanged(toPage) class=go>确定</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="currentTpl.exemplarPreview ===true" preview-exemplar current-tpl=currentTpl create-scene=createScene(tpl);
+     biztype={{childcat}} tagid={{categoryId}}></div>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dmesoft.haibao.modules.haibao.dao.CounterDao">
+    
+	<sql id="counterColumns">
+		a.id AS "id",
+		a.scene_id AS "sceneId",
+		a.field_id AS "fieldId",
+		a.count AS "count",
+		a.ctime AS "ctime"
+	</sql>
+	
+	<sql id="counterJoins">
+	</sql>
+    
+	<select id="get" resultType="Counter">
+		SELECT 
+			<include refid="counterColumns"/>
+		FROM cj_counter a
+		<include refid="counterJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Counter">
+		SELECT 
+			<include refid="counterColumns"/>
+		FROM cj_counter a
+		<include refid="counterJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="sceneId != null and sceneId != ''">
+				AND a.scene_id = #{sceneId}
+			</if>
+			<if test="fieldId != null and fieldId != ''">
+				AND a.field_id = #{fieldId}
+			</if>
+			<if test="count != null and count != ''">
+				AND a.count = #{count}
+			</if>
+			<if test="ctime != null and ctime != ''">
+				AND a.ctime = #{ctime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Counter">
+		SELECT 
+			<include refid="counterColumns"/>
+		FROM cj_counter a
+		<include refid="counterJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO cj_counter(
+			id,
+			scene_id,
+			field_id,
+			count,
+			ctime
+		) VALUES (
+			#{id},
+			#{sceneId},
+			#{fieldId},
+			#{count},
+			#{ctime}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE cj_counter SET 	
+			scene_id = #{sceneId},
+			field_id = #{fieldId},
+			count = #{count},
+			ctime = #{ctime}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM cj_counter
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,20 @@
+<div panel-draggable id=comp_setting>
+    <div class=cancel><span class=set-title>组件设置</span><span class="set-close eqf-wrong" ng-click=cancel()></span></div>
+    <ul class="nav nav-tabs">
+        <li ng-class="{active:activeTab == 'style' || activeTab =='dropdown'}"><a class=all-change
+                                                                                  ng-click="(elemDef.type !=='z') ? showSettingTab('style'):showSettingTab('dropdown');">样式</a>
+        </li>
+        <li ng-hide="elemDef.type == 'g'" ng-class="{active:activeTab == 'anim'}"><a class=all-change
+                                                                                     ng-click="showSettingTab('anim');">动画</a>
+        </li>
+        <li ng-hide="elemDef.type == 'w01' || elemDef.type == 'w02' ||elemDef.type === 'z' || elemDef.type == 't' || elemDef.type == 'g'"
+            ng-class="{active:activeTab == 'trigger'}"><a class=all-change ng-click="showSettingTab('trigger');">触发</a>
+        </li>
+    </ul>
+    <div class=style_content>
+        <div ng-include="vm.tplUrl + 'scene/console/anim.tpl.html'"></div>
+        <div ng-include="vm.tplUrl + 'scene/console/style.tpl.html'"></div>
+        <div ng-include="vm.tplUrl + 'scene/console/trigger.tpl.html'"></div>
+        <div ng-include="vm.tplUrl + 'scene/console/dropdown.tpl.html'"></div>
+    </div>
+</div>

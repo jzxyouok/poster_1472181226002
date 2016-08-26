@@ -1,0 +1,119 @@
+<div>
+    
+    <div id=main class=min_contain>
+        
+
+        <div class=same-content>
+            <div class="scene-type clearfix">
+                <div class=search-tab>
+                   <div class=fl>
+                       <div class=creat ng-show=!branchid><a href=/#/scene class="clearfix opacity-width-change"
+                                                             data-event=2207><em class=eqf-plus2></em><span
+                               class=opacity-width-change>点击开始创建</span></a></div>
+                     </div>
+                    <div class=fl>
+                        <eqx-select class="cate-width select-sm select-contain" model=scene.type change=getMyScenes()>
+                            <eqx-select-option value=null>项目分类</eqx-select-option>
+                            <eqx-select-option value=type ng-repeat="type in scene.types">{{type.name}}
+                            </eqx-select-option>
+                        </eqx-select>
+                    </div>
+                    <div class="search fl" ng-class={hover:name}><input type=text maxlength=40 placeholder=请输入搜索内容
+                                                                        ng-model=name ng-change=changeName(name)
+                                                                        ng-keypress=EnterPress(event,name)
+                                                                        ng-keydown=EnterPress(name)> <span
+                            ng-if=searchButton class="search-icon eqf-search" ng-click=submit(name)
+                            data-event=2211></span> <span ng-if=!searchButton class="search-icon eqf-wrong"
+                                                          ng-click=clearSearch()></span></div>
+                    <div class=list-toggle ng-click=listToggle()><span ng-if="listType == false"
+                                                                       class="hint--right hint--rounded" data-hint=橱窗展示
+                                                                       data-event=2212><em
+                            class=eqf-top-background></em></span> <span ng-if="listType == true"
+                                                                        class="hint--right hint--rounded" data-hint=列表展示
+                                                                        data-event=2212><em
+                            class=eqf-scene-list></em></span></div>
+                </div>
+                <ul class=jiaoxue style="width:500px;position: static">
+                    <li style=position:relative class=pr20 ng-if=switchChild ng-class="{active:sceneList == 'system'}">
+                        <a ng-click="switchList('system');getSysScene();getNewSample('recommend');"
+                           data-event=2208>精选<em ng-if=guid class="effect-tip heart"></em></a></li>
+                    <li style=position:relative ng-if="companyType && switchChild" class=pr20
+                        ng-class="{active:sceneList == 'sample'}"><a
+                            ng-click="switchList('sample');getCompanyScene(user.id,'sample');getNewSample('company');">企业专属<em
+                            ng-if=comp class="effect-tip heart"></em></a></li>
+                    <li class="pr20 myscenemmore" ng-class="{active:sceneList == currentGroup.activeName}"
+                        ng-mouseover="showGroud = true" ng-mouseleave="showGroud = false"><a
+                            ng-click=currentNameGroup(currentGroup.clickName,currentGroup.currentId)>{{currentGroup.currentName}}
+                        <em class=eqf-clickmore></em></a>
+                        <ul class="jiaoxue scene-tag-grounp zoomIn-change"
+                            ng-if="groups.length > 0 && showGroud == true && switchChild" style="transform-origin: 0 0">
+                            <li class=pr20 ng-class="{active:currentGroup.clickId === null}"><a
+                                    ng-click=currentNameGroup() data-event=2210>我的场景</a> <i></i></li>
+                            <li class=pr20 ng-class="{active: currentGroup.clickId == group.id}"
+                                ng-repeat="group in groups"><a ng-click=currentNameGroup(group.groupName,group.id)
+                                                               data-event=2210>{{group.groupName}}</a> <i></i></li>
+                            <li style=padding-right:15px ng-class="{active: currentGroup.clickId === '0'}"
+                                ng-if=showWeiGroup><a ng-click="currentNameGroup('',0)" data-event=2210>未分组</a></li>
+                        </ul>
+                        <ul class="jiaoxue scene-tag-grounp zoomIn-change"
+                            ng-if="groups.length == 0 && showGroud == true && switchChild"
+                            style="transform-origin: 0 0">
+                            <li>还没有分组,去管理分组创建吧!</li>
+                        </ul>
+                    </li>
+                    <li ng-show="!manageGroupName && switchChild" ng-init="showcreate=false"><a
+                            ng-click="manageGroup();showcreate = !showcreate"
+                            class="hint--right hint--rounded manage-ground-setting" data-hint=管理分组>管理分组<em
+                            class=eqf-scene-settingII></em></a></li>
+                    <li ng-show="manageGroupName && switchChild"><a ng-click="manageGroup();showcreate=false"
+                                                                    class="manage-ground-setting manage-ground-complete"
+                                                                    data-event=2209>完成</a></li>
+                </ul>
+                <div class="grouddetail zoomIn-change" ng-if=showcreate style="transform-origin: 0 0">
+                    <ul class="jiaoxue addgroup">
+                        <li style=padding-right:15px ng-show=manageGroupName><a ng-click=addGroup()
+                                                                                class="hint--right hint--rounded"
+                                                                                data-hint=添加分组><em class=eqf-plus
+                                                                                                   style="margin-right: 8px"></em>添加分组</a>
+                        </li>
+                    </ul>
+                    <ul class="jiaoxue editdelete" ng-if="groups.length > 0">
+                        <li class=pr20 ng-class="{active: sceneList == group.id}" ng-repeat="group in groups"><span
+                                class=bottomborder><a ng-click=currentNameGroup(group.groupName,group.id)>{{group.groupName}}</a> <span
+                                ng-show=manageGroupName class="hint--right hint--rounded" data-hint=编辑分组
+                                style=margin-right:4px><em class=eqf-xiuziti
+                                                           ng-click=editGroup(group.id,group.groupName)></em></span> <span
+                                ng-show=manageGroupName class="hint--right hint--rounded" data-hint=删除分组><em
+                                class=eqf-wrong2 ng-click=deleteGroup(group.id,$index)></em></span></span> <i></i></li>
+                        <li style=padding-right:15px ng-class="{active: sceneList == 0}" ng-if=showWeiGroup>
+                            <div><a ng-click="currentNameGroup('',0)">未分组</a></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align:center;margin:50px 0" ng-if="myScenes.length < 1"><h2 class=pb20>暂无场景<a href=/#/scene
+                                                                                                           ng-if=!branchid
+                                                                                                           style=color:#08a1ef;font-size:14px;display:block
+                                                                                                           class="pl20 pb20 pt20">创建场景</a>
+            </h2><img ng-src={{HB_STATIC}}assets/images/notfound.svg></div>
+            <div class=mask>
+                <div ng-include="tplUrl + 'main/squareSceneList.tpl.html'" ng-show="listType == true"></div>
+                <div ng-include="tplUrl + 'main/recSceneList.tpl.html'" ng-show="listType == false"></div>
+            </div>
+            <div class="clearfix page-turn" ng-show="(sceneList != 'system') && totalItems > 12">
+                <pagination style="float: left" first-text=首页 last-text=尾页 previous-text=&lsaquo; next-text=&rsaquo;
+                            max-size=10 items-per-page=pageSize total-items=totalItems ng-model=page.currentPage
+                            ng-change=pageChanged(page.currentPage) boundary-links=true rotate=true
+                            num-pages=numPages></pagination>
+                <div class=current_page><span class=fl>到</span> <input type=text ng-model=toPage
+                                                                       ng-keyup="$event.keyCode == 13 ? pageChanged(toPage) : null"><span
+                        class=fl>页</span> <a ng-click=pageChanged(toPage) class=go>确定</a></div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<div ng-if="currentTpl.exemplarPreview ===true && sceneList == 'sample'" preview-exemplar current-tpl=currentTpl
+     create-scene="createScene(tpl, 'isComp');"></div>
+<div ng-if="currentTpl.exemplarPreview ===true && sceneList != 'sample'" preview-exemplar current-tpl=currentTpl
+     create-scene=createScene(tpl);></div>

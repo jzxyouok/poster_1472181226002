@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dmesoft.haibao.modules.haibao.dao.ScenePageSysDao">
+    
+	<sql id="scenePageSysColumns">
+		a.pageid_bigint AS "pageidBigint",
+		a.sceneid_bigint AS "sceneidBigint",
+		a.scenecode_varchar AS "scenecodeVarchar",
+		a.pagecurrentnum_int AS "pagecurrentnumInt",
+		a.createtime_time AS "createtimeTime",
+		a.content_text AS "contentText",
+		a.pagename_varchar AS "pagenameVarchar",
+		a.userid_int AS "useridInt",
+		a.biztype_int AS "biztypeInt",
+		a.tagid_int AS "tagidInt",
+		a.thumbsrc_varchar AS "thumbsrcVarchar",
+		a.hbsrc_varchar AS "hbsrcVarchar",
+		a.hbid_int AS "hbidInt",
+		a.usecount_int AS "usecountInt"
+	</sql>
+	
+	<sql id="scenePageSysJoins">
+	</sql>
+    
+	<select id="get" resultType="ScenePageSys">
+		SELECT 
+			<include refid="scenePageSysColumns"/>
+		FROM cj_scenepagesys a
+		<include refid="scenePageSysJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ScenePageSys">
+		SELECT 
+			<include refid="scenePageSysColumns"/>
+		FROM cj_scenepagesys a
+		<include refid="scenePageSysJoins"/>
+		<where>
+			
+			<if test="pageidBigint != null and pageidBigint != ''">
+				AND a.pageid_bigint = #{pageidBigint}
+			</if>
+			<if test="sceneidBigint != null and sceneidBigint != ''">
+				AND a.sceneid_bigint = #{sceneidBigint}
+			</if>
+			<if test="scenecodeVarchar != null and scenecodeVarchar != ''">
+				AND a.scenecode_varchar = #{scenecodeVarchar}
+			</if>
+			<if test="pagecurrentnumInt != null and pagecurrentnumInt != ''">
+				AND a.pagecurrentnum_int = #{pagecurrentnumInt}
+			</if>
+			<if test="createtimeTime != null and createtimeTime != ''">
+				AND a.createtime_time = #{createtimeTime}
+			</if>
+			<if test="contentText != null and contentText != ''">
+				AND a.content_text LIKE 
+					<if test="dbName == 'oracle'">'%'||#{contentText}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{contentText}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{contentText},'%')</if>
+			</if>
+			<if test="pagenameVarchar != null and pagenameVarchar != ''">
+				AND a.pagename_varchar LIKE 
+					<if test="dbName == 'oracle'">'%'||#{pagenameVarchar}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{pagenameVarchar}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{pagenameVarchar},'%')</if>
+			</if>
+			<if test="useridInt != null and useridInt != ''">
+				AND a.userid_int = #{useridInt}
+			</if>
+			<if test="biztypeInt != null and biztypeInt != ''">
+				AND a.biztype_int = #{biztypeInt}
+			</if>
+			<if test="tagidInt != null and tagidInt != ''">
+				AND a.tagid_int = #{tagidInt}
+			</if>
+			<if test="thumbsrcVarchar != null and thumbsrcVarchar != ''">
+				AND a.thumbsrc_varchar = #{thumbsrcVarchar}
+			</if>
+			<if test="usecountInt != null and usecountInt != ''">
+				AND a.usecount_int = #{usecountInt}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ScenePageSys">
+		SELECT 
+			<include refid="scenePageSysColumns"/>
+		FROM cj_scenepagesys a
+		<include refid="scenePageSysJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO cj_scenepagesys(
+			pageid_bigint,
+			sceneid_bigint,
+			scenecode_varchar,
+			pagecurrentnum_int,
+			createtime_time,
+			content_text,
+			pagename_varchar,
+			userid_int,
+			biztype_int,
+			tagid_int,
+			thumbsrc_varchar,
+			hbsrc_varchar,
+			hbid_int,
+			usecount_int
+		) VALUES (
+			#{pageidBigint},
+			#{sceneidBigint},
+			#{scenecodeVarchar},
+			#{pagecurrentnumInt},
+			#{createtimeTime},
+			#{contentText},
+			#{pagenameVarchar},
+			#{useridInt},
+			#{biztypeInt},
+			#{tagidInt},
+			#{thumbsrcVarchar},
+			#{hbsrcVarchar},
+			#{hbidInt},
+			#{usecountInt}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE cj_scenepagesys SET 	
+			pageid_bigint = #{pageidBigint},
+			sceneid_bigint = #{sceneidBigint},
+			scenecode_varchar = #{scenecodeVarchar},
+			pagecurrentnum_int = #{pagecurrentnumInt},
+			createtime_time = #{createtimeTime},
+			content_text = #{contentText},
+			pagename_varchar = #{pagenameVarchar},
+			userid_int = #{useridInt},
+			biztype_int = #{biztypeInt},
+			tagid_int = #{tagidInt},
+			thumbsrc_varchar = #{thumbsrcVarchar},
+			hbsrc_varchar = #{hbsrcVarchar},
+			hbid_int = #{hbidInt},
+			usecount_int = #{usecountInt}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM cj_scenepagesys
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

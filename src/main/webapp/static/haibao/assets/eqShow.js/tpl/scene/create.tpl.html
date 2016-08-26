@@ -1,0 +1,619 @@
+<div id=psdLoading>
+    <div class=loading-con><img ng-src={{hbStatic}}assets/images/puff.svg>
+        <div id=psdUploadStatus ng-show="psdUpload.total>0">{{psdUpload.currentNum}} / {{psdUpload.total}}</div>
+        <p>上传中，请稍后</p></div>
+    <div class=loading-bg></div>
+</div>
+<div class=create-bg style="position: fixed;top: 0;left: 0;right: 0;bottom: 0;background-color: #d0cfd8"></div>
+<div class=creat_head conver-to-image>
+    <div class="creat_head_con clearfix">
+        <div class=creat_logo><a href=/#/main ng-click=stopCopy()><img ng-src="{{logoSrc}}" alt=""></a></div>
+        <div class="creat_con clearfix">
+            <ul class="comp_panel clearfix">
+                <li comp-draggable=panel ctype=2 class="comp-draggable text" ng-click="createComp('2');"
+                    data-event=12002><span class="eqf-text-word eqf-btn"></span> <span class=tip>文本</span></li>
+                <li comp-draggable=panel ctype=3 class="comp-draggable bg" ng-click="createComp('3');" data-event=12003>
+                    <span class="eqf-top-background eqf-btn"></span> <span class=tip>背景</span></li>
+                <li comp-draggable=panel ctype=9 class="comp-draggable music" ng-click="createComp('9');"
+                    data-event=12004><span class="eqf-top-music eqf-btn"></span> <span class=tip>音乐</span></li>
+                <li comp-draggable=panel ctype=v class="comp-draggable vedio" ng-click="createComp('v');"
+                    data-event=12005><span class="eqf-top-video eqf-btn"></span> <span class=tip>视频</span></li>
+                <li comp-draggable=panel ctype=4 class="comp-draggable image" ng-click="createComp('4');"
+                    data-event=12006><span class="eqf-top-pic eqf-btn"></span> <span class=tip>图片</span></li>
+                <li comp-draggable=panel ctype=h class="comp-draggable image" ng-click="createComp('h');"
+                    data-event=12007><span class="eqf-shape eqf-btn"></span> <span class=tip>形状</span></li>
+                <li comp-draggable=panel ctype=p class="comp-draggable images" ng-click="createComp('p');"
+                    data-event=12008><span class="eqf-top-pics eqf-btn"></span> <span class=tip>图集</span></li>
+                <li class="interaction hint--bottom hint--rounded"><span class="eqf-refresh eqf-btn"></span>
+                    <div class=form-menus>
+                        <div class="popover bottom">
+                            <div class=arrow></div>
+                            <div class=popover-content>
+                                <ul class=menus>
+                                    <li comp-draggable=panel ctype=l
+                                        class="menu-item comp-draggable button hint--right hint--rounded"
+                                        data-hint=点击添加链接 ng-click="createComp('l');" data-event=12009><span
+                                            class=eqf-link></span> <span class=menu-item-name>链接</span></li>
+                                    <li comp-draggable=panel ctype=g
+                                        class="menu-item comp-draggable button hint--right hint--rounded"
+                                        data-hint=点击添加链接 ng-click="createComp('g');" data-event=120045
+                                        ng-if=isTplEditor><span class=eqf-link></span> <span
+                                            class=menu-item-name>广告</span></li>
+                                    <li comp-draggable=panel ctype=8
+                                        class="menu-item comp-draggable phone hint--right hint--rounded"
+                                        data-hint=点击添加电话 ng-click="createComp('8');" data-event=12009><span
+                                            class=eqf-glyphicon-earphone></span> <span class=menu-item-name>电话</span>
+                                    </li>
+                                    <li comp-draggable=panel ctype=trigger
+                                        class="menu-item comp-draggable button hint--right hint--rounded"
+                                        data-hint=点击添加触发 ng-click=openTriggerMode() data-event=12009><span
+                                            class=eqf-chufa></span> <span class=menu-item-name>触发</span></li>
+                                    <li comp-draggable=panel ctype=m
+                                        class="menu-item comp-draggable button hint--right hint--rounded"
+                                        data-hint=点击添加地图 ng-click="createComp('m');" data-event=12009><span
+                                            class=eqf-map></span> <span class=menu-item-name>地图</span></li>
+                                    <li comp-draggable=panel ctype=s
+                                        class="menu-item comp-draggable button hint--right hint--rounded"
+                                        data-hint=点击添加音效 ng-click="createComp('s');" data-event=12009><span
+                                            class=eqf-music></span> <span class=menu-item-name>音效</span></li>
+                                    <li class=menu-item><span class=eqf-clock-o></span> <span
+                                            class=menu-item-name>计数</span> <span class=caret></span>
+                                        <div class=menu-item-menu>
+                                            <div class="popover right">
+                                                <div class=arrow></div>
+                                                <div class=popover-content>
+                                                    <ul class=menus>
+                                                        <li comp-draggable=panel ctype=i
+                                                            class="menu-item comp-draggable textarea hint--right hint--rounded"
+                                                            data-hint=点击添加计数器 font=eqf-love
+                                                            ng-click="createComp('i', 'eqf-love');" data-event=12009>
+                                                            <span class=eqf-love></span> <span
+                                                                class=menu-item-name>喜欢</span></li>
+                                                        <li comp-draggable=panel ctype=i
+                                                            class="menu-item comp-draggable radio-input hint--right hint--rounded"
+                                                            data-hint=点击添加计数器 font=eqf-good
+                                                            ng-click="createComp('i', 'eqf-good');" data-event=12009>
+                                                            <span class=eqf-good></span> <span
+                                                                class=menu-item-name>顶起</span></li>
+                                                        <li comp-draggable=panel ctype=i
+                                                            class="menu-item comp-draggable radio-input hint--right hint--rounded"
+                                                            data-hint=点击添加计数器 font=eqf-flower2
+                                                            ng-click="createComp('i', 'eqf-flower2');" data-event=12009>
+                                                            <span class=eqf-flower2></span> <span class=menu-item-name>送花</span>
+                                                        </li>
+                                                        <li comp-draggable=panel ctype=i
+                                                            class="menu-item comp-draggable radio-input hint--right hint--rounded"
+                                                            data-hint=点击添加计数器 font=eqf-vote
+                                                            ng-click="createComp('i', 'eqf-vote');" data-event=12009>
+                                                            <span class=eqf-vote></span> <span
+                                                                class=menu-item-name>投票</span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class=menu-item><span class=eqf-date2></span> <span
+                                            class=menu-item-name>统计</span> <span class=caret></span>
+                                        <div class=menu-item-menu>
+                                            <div class="popover right">
+                                                <div class=arrow></div>
+                                                <div class=popover-content>
+                                                    <ul class=menus>
+                                                        <li comp-draggable=panel ctype=d
+                                                            class="menu-item comp-draggable textarea hint--right hint--rounded"
+                                                            data-hint=点击添加计数器 ng-click="createComp('d',
+                         'eqf-eye3');" data-event=12009><span class=eqf-eye3></span> <span
+                                                                class=menu-item-name>阅读量</span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class=menu-item><span style="font-size: 10px" class=eqf-wechat></span> <span
+                                            class=menu-item-name>微信 <span
+                                            style="position: absolute;top: 1px;transform: scale(0.8);color: red">beta</span></span>
+                                        <span style="margin-left: 1px" class=caret></span>
+                                        <div class=menu-item-menu>
+                                            <div class="popover right">
+                                                <div class=arrow></div>
+                                                <div class=popover-content>
+                                                    <ul class=menus>
+                                                        <li comp-draggable=panel ctype=w
+                                                            class="menu-item comp-draggable textarea hint--right hint--rounded"
+                                                            data-hint=点击添加微信昵称和头像
+                                                            ng-click="showFirstTimeTip('w');hideHeartTip('wechatWTip');"
+                                                            data-event=12009><span class=eqf-top-contact></span> <span
+                                                                class=menu-item-name>头像</span></li>
+                                                        <li comp-draggable=panel ctype=wp
+                                                            class="menu-item comp-draggable textarea hint--right hint--rounded"
+                                                            data-hint=点击添加微信图片
+                                                            ng-click="showFirstTimeTip('wp');hideHeartTip('wechatWTip');"
+                                                            data-event=12009><span class=eqf-top-pic></span> <span
+                                                                class=menu-item-name>照片</span></li>
+                                                        <li comp-draggable=panel ctype=wr
+                                                            class="menu-item comp-draggable textarea hint--right hint--rounded"
+                                                            data-hint=点击添加微信音频组件
+                                                            ng-click="showFirstTimeTip('wr');hideHeartTip('wechatWTip');"
+                                                            data-event=12009><span class=eqf-voice></span> <span
+                                                                class=menu-item-name>声音</span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <em ng-if=wechatWTip class="effect-tip heart ng-scope"></em> <span class=tip>互动</span></li>
+                <li class="form hint--bottom hint--rounded"><span class="eqf-top-list eqf-btn"></span>
+                    <div class=form-menus>
+                        <div class="popover bottom">
+                            <div class=arrow></div>
+                            <div class=popover-content>
+                                <ul class=menus>
+                                    <li class=menu-item><span class=eqf-glyphicon-list></span> <span
+                                            class=menu-item-name>快捷表单</span> <span class=caret></span>
+                                        <div class=menu-item-menu>
+                                            <div class="popover right">
+                                                <div class=arrow></div>
+                                                <div class=popover-content>
+                                                    <ul class=menus>
+                                                        <li comp-draggable=panel ctype=g101
+                                                            class="menu-item comp-draggable contact hint--right hint--rounded"
+                                                            data-hint=点击添加联系人 ng-click="createCompGroup('g101');"
+                                                            data-event=12010><span class=eqf-top-contact></span> <span
+                                                                class=menu-item-name>联系人</span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class=menu-item><span class=eqf-option></span> <span
+                                            class=menu-item-name>选项</span> <span class=caret></span>
+                                        <div class=menu-item-menu>
+                                            <div class="popover right">
+                                                <div class=arrow></div>
+                                                <div class=popover-content>
+                                                    <ul class=menus>
+                                                        <li comp-draggable=panel ctype=5
+                                                            class="menu-item comp-draggable textarea hint--right hint--rounded"
+                                                            data-hint=点击添加输入框 ng-click="createComp('5');"
+                                                            data-event=12010><span class=eqf-write></span> <span
+                                                                class=menu-item-name>输入框</span></li>
+                                                        <li ng-if=isRadioCheckboxRatingAccessable comp-draggable=panel
+                                                            ctype=r
+                                                            class="menu-item comp-draggable radio-input hint--right hint--rounded"
+                                                            data-hint=点击添加单选按钮 ng-click="createComp('r');"
+                                                            data-event=12010><span class=eqf-single></span> <span
+                                                                class=menu-item-name>单选</span></li>
+                                                        <li ng-if=isRadioCheckboxRatingAccessable comp-draggable=panel
+                                                            ctype=c
+                                                            class="menu-item comp-draggable radio-input hint--right hint--rounded"
+                                                            data-hint=点击添加多选按钮 ng-click="createComp('c');"
+                                                            data-event=12010><span class=eqf-morechoice></span> <span
+                                                                class=menu-item-name>多选</span></li>
+                                                        <li ng-if=isRadioCheckboxRatingAccessable comp-draggable=panel
+                                                            ctype=c
+                                                            class="menu-item comp-draggable radio-input hint--right hint--rounded"
+                                                            data-hint=点击添加多选按钮 ng-click="createComp('z');"
+                                                            data-event=12010><span class=eqf-select></span> <span
+                                                                class=menu-item-name>下拉列表</span></li>
+                                                        <li ng-if=isRadioCheckboxRatingAccessable comp-draggable=panel
+                                                            ctype=a
+                                                            class="menu-item comp-draggable radio-input hint--right hint--rounded"
+                                                            data-hint=点击添加评分组件 ng-click="createComp('a');"
+                                                            data-event=12010><span class=eqf-star></span> <span
+                                                                class=menu-item-name>评分</span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class=menu-item><span class=eqf-chart></span> <span
+                                            class=menu-item-name>图表</span> <span class=caret></span>
+                                        <div class=menu-item-menu>
+                                            <div class="popover right">
+                                                <div class=arrow></div>
+                                                <div class=popover-content>
+                                                    <ul class=menus>
+                                                        <li comp-draggable=panel ctype=t
+                                                            class="menu-item comp-draggable textarea hint--right hint--rounded"
+                                                            data-hint=点击添加饼状图 font=pie
+                                                            ng-click="createComp('t', 'pie'); hideHeartTip('showAddFormTip');"
+                                                            data-event=12010><span class=eqf-pie></span> <span
+                                                                class=menu-item-name>饼状图</span></li>
+                                                        <li comp-draggable=panel ctype=t
+                                                            class="menu-item comp-draggable radio-input hint--right hint--rounded"
+                                                            data-hint=点击添加柱状图 font=bar
+                                                            ng-click="createComp('t', 'bar'); hideHeartTip('showAddFormTip');"
+                                                            data-event=12010><span class=eqf-bar-chart></span> <span
+                                                                class=menu-item-name>柱状图</span></li>
+                                                        <li comp-draggable=panel ctype=t
+                                                            class="menu-item comp-draggable radio-input hint--right hint--rounded"
+                                                            data-hint=点击添加折线图 font=line
+                                                            ng-click="createComp('t', 'line'); hideHeartTip('showAddFormTip');"
+                                                            data-event=12010><span class=eqf-line2></span> <span
+                                                                class=menu-item-name>折线图</span></li>
+                                                        <li comp-draggable=panel ctype=t
+                                                            class="menu-item comp-draggable radio-input hint--right hint--rounded"
+                                                            data-hint=点击添加曲面图 font=curve
+                                                            ng-click="createComp('t', 'curve'); hideHeartTip('showAddFormTip');"
+                                                            data-event=12010><span class=eqf-circle-line></span> <span
+                                                                class=menu-item-name>曲面图</span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li comp-draggable=panel ctype=b
+                                        class="menu-item comp-draggable button hint--right hint--rounded"
+                                        data-hint=一个场景建议只添加一个
+                                        ng-click="createComp('b'); hideHeartTip('showAddFormTip');" data-event=12010>
+                                        <span class=eqf-boards></span> <span class=menu-item-name>留言板</span></li>
+                                    <li comp-draggable=panel ctype=6
+                                        class="menu-item comp-draggable button hint--right hint--rounded"
+                                        data-hint=一个场景建议只添加一个 ng-click="createComp('6');" data-event=12010><span
+                                            class=eqf-top-button></span> <span class=menu-item-name>提交按钮</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <em ng-if=showAddFormTip class="effect-tip heart ng-scope"></em> <span class=tip>表单</span></li>
+                <li ng-click="openPageEffectModal(tpl.obj.properties);showPage=true;hideEffTip()"
+                    class="comp-draggable images" data-event=12011><span class="eqf-top-star eqf-btn"></span> <span
+                        class=tip>特效</span></li>
+            </ul>
+        </div>
+        <div class=create-action>
+            <ul>
+                <li class="act-border setting gray-dark all-change" ng-click=openSetting() data-event=12012><span
+                        class=tip>设置</span></li>
+                <li class="act-border save gray-dark all-change" ng-click=saveScene(true) data-event=12013><span
+                        class=tip>保存</span></li>
+                <li class="publish gray-dark all-change" ng-click=publishScene() data-event=12014><span
+                        class=tip>保存</span></li>
+
+            </ul>
+        </div>
+        <div ng-hide=showToolBar();>
+            <div ng-show=isEditor style="position: absolute;right: 225px;top: 20px"><select ng-model=scene.isTpl>
+                <option value=0>非模板</option>
+                <option value=1>保存为pc模板</option>
+                <option value=2>保存为移动端模板</option>
+            </select></div>
+        </div>
+    </div>
+</div>
+<div class=create_scene>
+    <div class="main clearfix" mouse-comp-select>
+        <div class=content1>
+            <div class=create_left conver-to-image>
+                <ul class="nav nav-tabs">
+                    <li ng-class="{active:tabid=='template'}"><a ng-click=setTplTab() class=all-change data-event=12016>模板中心</a>
+                    </li>
+                    <li ng-class="{active:tabid=='myCollection'}"><a ng-click=getPageTplsByMyType(); class=all-change
+                                                                     data-event=12017>我的模板</a></li>
+                    <li ng-class="{active:tabid=='company'}"><a ng-click=getPageTplsByCompanyType();
+                                                                ng-show="userProperty.type ==2 || userProperty.type ==21 || userProperty.type ==5 || userProperty.type ==51"
+                                                                class=all-change>企业模板</a> <a
+                            ng-show="userProperty.type ==1" class=all-change ng-click="tabid='company'">企业模板</a></li>
+                </ul>
+                <div class=tab-panel style=height:100% ng-show="tabid=='template'">
+                    <div class="sel-contain all-change" style=left:10px>
+                        <eqx-select class=select-great model=pageTpl.format change=getPageTpls()>
+                            <eqx-select-option value=null>用途</eqx-select-option>
+                            <eqx-select-option value=type.id ng-repeat="type in tplFormatList">{{type.name}}
+                            </eqx-select-option>
+                        </eqx-select>
+                    </div>
+                    <div class="sel-contain all-change" style=left:103px>
+                        <eqx-select class=select-great model=pageTpl.style change=getPageTpls()>
+                            <eqx-select-option value=null>功能</eqx-select-option>
+                            <eqx-select-option value=type.id ng-repeat="type in tplStyleList">{{type.name}}
+                            </eqx-select-option>
+                        </eqx-select>
+                    </div>
+                    <div class="sel-contain all-change" style=left:196px>
+                        <eqx-select class=select-great model=pageTpl.interaction change=getPageTpls()>
+                            <eqx-select-option value=null>风格</eqx-select-option>
+                            <eqx-select-option value=type.id ng-repeat="type in tplInteractionList">{{type.name}}
+                            </eqx-select-option>
+                        </eqx-select>
+                    </div>
+                    <div ng-if=pageTpl.showColorPanel ng-change=getPageTpls() ng-click=$event.stopPropagation()
+                         ng-model=pageTpl.color page-tpl-color class="page-color-panel zoomIn-change"></div>
+                    <div style=left:10px;top:50px;position:absolute><input class=search placeholder=输入名称搜索模板
+                                                                           ng-keypress=enterPress($event) type=text
+                                                                           ng-model="pageTpl.name"><span
+                            ng-if=showSearch class="eqf-search search-icon" ng-click=getPageTpls()></span> <span
+                            ng-if=!showSearch class="eqf-wrong search-icon" ng-click=resetTplFilter()></span></div>
+                    <div class="page_tpl_container clearfix">
+                        <div eqd-scroll style="height: 100%" refresh=refreshTpl()>
+                            <ul class=tpl-container>
+                                <li class="page_tpl_item comp-draggable animation-zoom ng-scope"
+                                    ng-repeat="pageTpl in pageTpls track by $index" ng-click=insertPageTpl(pageTpl.id);
+                                    ng-style="{'animation-delay': $index%42 * 50 + 'ms'}" tooltip-placement=right
+                                    tooltip={{pageTpl.name}}><img
+                                        ng-src="{{PREFIX_FILE_HOST + pageTpl.properties.thumbSrc}}"
+                                        src="/static/haibao/assets/images/create/pic.svg" load-err> <span
+                                        class=bFlag_longPage ng-if=pageTpl.properties.longPage>长<i>{{pageTpl.properties.longPage}}</i></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class=tab-panel ng-show="tabid=='myCollection'" style=height:100%;padding-top:10px>
+                    <div class=empty-collection ng-if="!myPageTpls || myPageTpls.length==0"><p class=pb20>暂无模板</p><img
+                            ng-src={{HB_STATIC}}assets/images/create/collection.svg></div>
+                    <div eqd-scroll style="height: 100%" ng-if="myPageTpls && myPageTpls.length!=0"
+                         refresh=refreshTpl()>
+                        <ul class="page_tpl_container clearfix" style=position:relative;top:0>
+                            <li thumb-tpl my-tpl=pageTpl class="nr page_tpl_item comp-draggable my-tpl animation-zoom"
+                                ng-repeat="pageTpl in myPageTpls" title=点击使用 id=my-tpl
+                                ng-click=insertPageTpl(pageTpl.id);
+                                ng-style="{'animation-delay': $index * 50 + 'ms'}"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class=tab-panel style=height:100%;padding-top:10px ng-show="tabid=='recentlyUsed'">
+                    <div ng-if=!myRecentlyTpls class=empty-recent></div>
+                    <div eqd-scroll style="height: 100%" ng-if=myRecentlyTpls>
+                        <ul class="page_tpl_container clearfix" style=position:relative;top:0>
+                            <li class="nr page_tpl_item comp-draggable animation-zoom"
+                                ng-repeat="pageTpl in myRecentlyTpls track by $index"
+                                ng-style="{'animation-delay': $index * 50 + 'ms'}" ng-click=insertPageTpl(pageTpl.id);>
+                                <img ng-src="{{PREFIX_FILE_HOST + pageTpl.properties.thumbSrc}}"
+                                     src=/static/haibao/assets/images/create/pic.svg load-err> <span
+                                    class=bFlag_longPage ng-if=pageTpl.properties.longPage>长<i>{{pageTpl.properties.longPage}}</i></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class=tab-panel style=height:100%;padding-top:10px ng-show="tabid=='company'"
+                     ng-if="userProperty.type ==1">
+                    <div class=empty-collection>
+                        <div class="pb20 pl20 pr20"><a class=text-primary target=_blank href=/privilege>免费升级</a>企业会员尊享该功能
+                        </div>
+                        <img ng-src={{HB_STATIC}}assets/images/create/collection.svg></div>
+                </div>
+                <div class=tab-panel style=height:100%;padding-top:10px ng-show="tabid=='company'"
+                     ng-if="userProperty.type ==2 || userProperty.type ==21 || userProperty.type ==5 || userProperty.type ==51">
+                    <div class=empty-company ng-if="!myCompanyTpls || myCompanyTpls.length==0">
+                        <div>在页面管理中选中页面，点击企业模板，即可生成企业页面模板！</div>
+                    </div>
+                    <div eqd-scroll ng-if="myCompanyTpls && myCompanyTpls.length>0" style="height: 100%">
+                        <ul class="page_tpl_container clearfix" style=top:0;position:relative>
+                            <li thumb-tpl my-tpl=pageTpl style="position: relative" id=company-tpl
+                                class="nr page_tpl_item comp-draggable my-tpl animation-zoom"
+                                ng-repeat="pageTpl in myCompanyTpls" ng-style="{'animation-delay': $index * 50 + 'ms'}"
+                                ng-click=insertPageTpl(pageTpl.id);><span class=bFlag_longPage
+                                                                          ng-if=pageTpl.properties.longPage>长<i>{{pageTpl.properties.longPage}}</i></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class=workspace style="overflow: auto" page-scroll page-h={{pageLength}} comp-droppable
+                 ng-class="{'auto-flow':pageLength!=1}">
+                <div class=scaleTips>100%</div>
+                <div style="transform-origin: 0 0" edit-workspace scale={{scale}}>
+                    <div class=container multi-comp-drag>
+                        <div edit-common edit-keymap>
+                            <div class="nr sortable" ng-style="{'true': {'top':0}, false: {}}[isLong]" id=nr
+                                 element-anim paste-element></div>
+                            <div ng-if=showPhone class=phone><h4 class=name>{{scene.name}}</h4></div>
+                            <div ng-class="{box1:pageLength==1,box2:pageLength==2,box3:pageLength==3,box4:pageLength==4,box5:pageLength==5}"
+                                 class=box outer-box page-h={{pageLength}}>
+                                <div class=internal-box></div>
+                            </div>
+                            <div class=history ng-class={history2:showPhone}><a data-hint=撤消(ctrl+z)
+                                                                                ng-class="{active: canBack}"
+                                                                                class="hint--right hint--rounded"
+                                                                                ng-click=back() data-event=12027><i
+                                    class=eqf-bg style=font-size:12px></i></a> <a data-hint=恢复(ctrl+y)
+                                                                                  ng-class="{active: canForward}"
+                                                                                  class="hint--right hint--rounded"
+                                                                                  ng-click=forward() data-event=12028><i
+                                    class=eqf-back style=font-size:12px></i></a> <a data-hint=刷新预览
+                                                                                    class="active hint--right hint--rounded"
+                                                                                    ng-click="refreshPage(tpl.obj, pageNum, $event)"
+                                                                                    data-event=12029><i
+                                    class=eqf-play2></i></a> <a data-hint=复制当前页 style=margin-bottom:1px
+                                                                class="active hint--right hint--rounded"
+                                                                ng-click=duplicatePage() data-event=12030><i
+                                    class=eqf-scene-copy></i></a> <a data-hint=背景
+                                                                     ng-click="closeOtherPanel('showBackgroundPanel');openBgPanel();"
+                                                                     close-panel model=showBackgroundPanel
+                                                                     pause={{!controlView.showBgTag}}
+                                                                     class="hint--right hint--rounded"
+                                                                     ng-class={active:controlView.showBgTag}
+                                                                     data-event=12031><i class=eqf-top-background
+                                                                                         style=font-size:13px></i></a>
+                                <a data-hint=音乐 close-panel model=showMusicPanel pause={{!scene.bgAudio}}
+                                   class="hint--right hint--rounded"
+                                   ng-click="openAudioPanel();closeOtherPanel('showMusicPanel');"
+                                   ng-class={active:scene.bgAudio} data-event=12032><i class=eqf-top-music></i></a> <a
+                                        data-hint=特效 close-panel model=showEffectsPanel
+                                        pause="{{!(tpl.obj.properties.scratch || tpl.obj.properties.finger || tpl.obj.properties.fallingObject || tpl.obj.properties.effect)}}"
+                                        class="hint--right hint--rounded" style=margin-bottom:1px
+                                        ng-click="openEffects();closeOtherPanel('showEffectsPanel');"
+                                        ng-class="{active:(tpl.obj.properties.scratch || tpl.obj.properties.finger || tpl.obj.properties.fallingObject || tpl.obj.properties.effect)}"
+                                        data-event=12033><i class=eqf-top-star style=font-size:16px></i></a> <a
+                                        data-hint=网格设置 class="hint--right hint--rounded grid-guide"
+                                        ng-click="$event.stopPropagation();closeOtherPanel('gridGuideSetting.showFlag');"
+                                        ng-class="{active: (gridGuideSetting.showFlag || gridGuideSetting.isGridEnabled)}"
+                                        data-event=12034><i class=eqf-wangge style=font-size:13px></i></a> <a
+                                        data-hint=编辑区域缩放 ng-show="user.type==4"
+                                        ng-click="closeOtherPanel('showZoomPanel');hideHeartTip('scaleTip');"
+                                        close-panel pause=false model=showZoomPanel
+                                        class="hint--right hint--rounded active"><em class="imp heart"
+                                                                                     ng-if=scaleTip></em> <i
+                                        class=eqf-search style=font-size:15px></i></a> <a data-hint=手机边框
+                                                                                          class="hint--right hint--rounded"
+                                                                                          ng-click=switchPhone(isLong)
+                                                                                          ng-class="{active: showPhone}"
+                                                                                          data-event=12035><em
+                                        class="imp heart" ng-if=showPhoneTip></em> <i class=eqf-phone
+                                                                                      style=font-size:15px></i></a>
+                                <div data-hint=psd文件上传 class="hint--right hint--rounded psdUploadButton"
+                                     ng-if=isPsdUploadAccessable>
+                                    <div psd-upload=psdUpload></div>
+                                </div>
+                                <a id=warn data-hint=警告 class="hint--right hint--rounded" style=display:none><i
+                                        class=eqf-exclamation-sign></i></a>
+                                <div class=grid-guide-container ng-click=$event.stopPropagation();
+                                     ng-class="{'on': gridGuideSetting.showFlag}" grid-guide-setting></div>
+                                <div ng-controller=editBgCtrl
+                                     ng-include="tplUrl + 'scene/edit/editbg/editbg.tpl.html'"></div>
+                                <div class=effects-container ng-class="{'on':showEffectsPanel}">
+                                    <div class=effects-panel>
+                                        <div class=setting-group ng-click=openPageEffectModal(tpl.obj.properties)
+                                             data-event=12033>
+                                            <div class=setting-btn><span class=eqf-refresh></span></div>
+                                            <span>更换</span></div>
+                                        <div class=setting-group
+                                             ng-click="removeScratch($event);showEffectsPanel=false;" data-event=12033>
+                                            <div class=setting-btn><span class=eqf-scene-delete></span></div>
+                                            <span>删除</span></div>
+                                    </div>
+                                </div>
+                                <div class=music-container ng-class="{'on':showMusicPanel}">
+                                    <div class=music-panel>
+                                        <div class=setting-group ng-click=openAudioModal() data-event=12032>
+                                            <span>更换</span>
+                                            <div class=setting-btn><span class=eqf-refresh
+                                                                         ng-click=openPageEffectModal(tpl.obj.properties)></span>
+                                            </div>
+                                        </div>
+                                        <div class=setting-group ng-click="removeAudio($event);showMusicPanel=false;"
+                                             data-event=12032><span>删除</span>
+                                            <div class=setting-btn><span class=eqf-scene-delete></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=zoom-container ng-class="{'on':showZoomPanel}">
+                                    <div class=zoom-panel><a ng-click=zoom(true)><i class=eqf-bigger></i></a> <a
+                                            ng-click=zoom(false)><i class=eqf-small></i></a> <a
+                                            ng-click=recovery()>默认</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id=containment class=create_right ng-init="pagetab='page'" conver-to-image>
+                <ul class="nav nav-tabs" ng-show=isCompMange>
+                    <li ng-class="{active:pagetab=='page'}"><a ng-click="pagetab='page'">页面模板</a></li>
+                    <li ng-class="{active:pagetab=='comp'}"><a ng-click="pagetab='comp'">组件管理</a></li>
+                </ul>
+                <div class=nav_top ng-show="pagetab=='page'"
+                     ng-style="{true:{'background-color':'#f0f3f4'},false:{}}[isCompMange]">
+                    <div class=nav_top_list>
+                        <div class=save_template ng-include="tplUrl + 'scene/saveTemplate.tpl.html'"
+                             ng-controller=saveTemplateCtrl></div>
+                    </div>
+                </div>
+                <div class=nav_content ng-style="{true: {'top':'78px'}, false: {}}[isCompMange]"
+                     ng-show="pagetab=='page'">
+                    <div eqd-scroll style="height: 100%" prevent-exception=true disable-mouse=true>
+                        <ul class=page-uls id=pageList ui-sortable=sortableOptions ng-model=pages>
+                            <li class=blurClass ng-repeat="page in pages track by $index"
+                                ng-click="navTo(page, $index, $event);" ng-init=setEditableStatus($index,false)
+                                ng-class="{current: pageNum-1 == $index,createLongPage:page.properties.longPage}"
+                                blur-children><span class=number><em>{{$index+1}}</em></span> <span class=page-name
+                                                                                                    ng-click="pageNum-1 == $index?setEditableStatus($index,true,$event):return;"
+                                                                                                    ng-show=!editableStatus[$index]>{{page.name}}</span>
+                                <input style="width: 110px;display:inline-block; height: 25px; line-height: 25px; color: #999;margin-top:22px;margin-left:2px;box-shadow:none"
+                                       type=text ng-model=page.name ng-show=editableStatus[$index]
+                                       ng-blur="setEditableStatus($index,false);savePageNames(page, $index)"
+                                       ng-focus=getOriginPageName(page) check-count=30 custom-focus stop-propagation>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class=page-list-label ng-show="isTplEditor && controlView.pageList == true" panel-draggable>
+                        <div ng-include="tplUrl + 'scene/page/page-tpl.tpl.html'" ng-controller=PageTplController></div>
+                    </div>
+                    <div class=tpl-option></div>
+                </div>
+                <div class=nav_content ng-if="pagetab=='comp'"
+                     ng-include="tplUrl + 'scene/edit/workspace/compsManage.tpl.html'"
+                     ng-controller=CompsManageCtrl></div>
+                <div class=nav_bottom><a class=eqf-more close-panel model=showPage pause=false
+                                         ng-click="showPage=true;hidePageTip();"><em class="imp heart"
+                                                                                     ng-if=showAddPageTip></em></a> <a
+                        ng-click=longAction() class="insert hint--top hint--rounded fade-color" data-hint=添加一页
+                        data-event=12022>+</a>
+                    <div ng-show=showPage>
+                        <ul>
+                            <li ng-click="insertPage();showPage=false;" data-event=12022>新建页面</li>
+                            <li ng-click=addLongPage() data-event=12023>新建纵向长页面</li>
+                        </ul>
+                    </div>
+                </div>
+                <div ng-show=isTplEditor style="position: absolute;bottom: 20px;right: 268px;width: 100px">
+                    <div class=btn-main style="width: 100px" ng-click=chooseThumb()>选择本页缩略图</div>
+                    <img width=100 ng-src="{{PREFIX_FILE_HOST + tpl.obj.properties.thumbSrc}}"></div>
+            </div>
+            <div ng-include="tplUrl + 'scene/edit/select/select.tpl.html'" ng-controller=selectCtrl></div>
+        </div>
+    </div>
+    <div ng-class={showin:showHeadTip} class=showxiu>
+        <div class=modal-header>
+            <button type=button class=close data-dismiss=modal aria-label=Close ng-click="showHeadTip=false;"><span
+                    aria-hidden=true>×</span></button>
+            <h4 class=modal-title>头像</h4></div>
+        <div class=modal-body><p style="line-height: 30px">
+            可轻松显示浏览者或分享者的微信昵称和头像（属性栏中选择）。仅在微信中浏览时有效，非微信环境浏览时，将显示默认文字和图片（双击设置默认内容）</p></div>
+        <div class=modal-footer><input type=checkbox style=margin-top:0;margin-right:5px ng-model=hideHeadTip
+                                       ng-change="switchShowFontTip(hideHeadTip,'w')"><span
+                style=margin-right:10px>不再提示</span> <a type=button class="btn btn-primary"
+                                                       ng-click="createComp('w');showHeadTip=false;">确定</a></div>
+    </div>
+    <div ng-class={showin:showImageTip} class=showxiu>
+        <div class=modal-header>
+            <button type=button class=close data-dismiss=modal aria-label=Close ng-click="showImageTip=false;"><span
+                    aria-hidden=true>×</span></button>
+            <h4 class=modal-title>照片</h4></div>
+        <div class=modal-body><p style="line-height: 30px">
+            在微信中浏览时，轻触图片即可更换图片，更换后再分享，朋友就能看到您的美图。赶快试一试，同一场景，不同人分享，图片内容可以完全不一样哟！！仅在微信中浏览时有效，分享后的图片可在微信中保留三天，三天将会显示您的默认图片；非微信环境浏览时，将显示默认图片（双击设置默认内容）。</p>
+        </div>
+        <div class=modal-footer><input type=checkbox style=margin-top:0;margin-right:5px ng-model=hideImageTip
+                                       ng-change="switchShowFontTip(hideImageTip,'wp')"><span style=margin-right:10px>不再提示</span>
+            <a type=button class="btn btn-primary" ng-click="createComp('wp');showImageTip=false;">确定</a></div>
+    </div>
+    <div ng-class={showin:showVoiceTip} class=showxiu>
+        <div class=modal-header>
+            <button type=button class=close data-dismiss=modal aria-label=Close ng-click="showVoiceTip=false;"><span
+                    aria-hidden=true>×</span></button>
+            <h4 class=modal-title>声音</h4></div>
+        <div class=modal-body><p style="line-height: 30px">
+            在微信中浏览时，点击组件可听声音。长按“按住说话”即可录制声音，更换后再分享，朋友就能听到您的声音。赶快试一试，同一场景，不同人分享，声音内容可以完全不一样哟！！仅在微信中浏览时有效，分享后的声音可在微信中保留三天，三天将会播放默认声音；非微信环境浏览时，将播放默认声音。</p>
+        </div>
+        <div class=modal-footer><input type=checkbox style=margin-top:0;margin-right:5px ng-model=hideVoiceTip
+                                       ng-change="switchShowFontTip(hideVoiceTip,'wr')"><span style=margin-right:10px>不再提示</span>
+            <a type=button class="btn btn-primary" ng-click="createComp('wr');showVoiceTip=false;">确定</a></div>
+    </div>
+    <div ng-class={showin:addLong} class=showxiu>
+        <div class=modal-header>
+            <button type=button class=close data-dismiss=modal aria-label=Close ng-click="addLong=false;"><span
+                    aria-hidden=true>×</span></button>
+            <h4 class=modal-title>长页面</h4></div>
+        <div class=modal-body><p style="line-height: 30px">新增超长单页，可通过右下角“<span class=eqf-more></span>”按钮创建</p></div>
+        <div class=modal-footer><input type=checkbox style=margin-top:0;margin-right:5px ng-model=hideLong
+                                       ng-change="switchShowFontTip(hideLong,'long')"><span
+                style=margin-right:10px>不再提示</span> <a type=button class="btn btn-primary"
+                                                       ng-click="insertPage();addLong=false;">确定</a></div>
+    </div>
+    <div class=scene-setting ng-if=sceneSetting.showFlag scene-setting-component></div>
+</div>
+<div ng-class={showin:psdUpload.showPsdWarn} class=showxiu>
+    <div class=modal-header>
+        <button type=button class=close data-dismiss=modal aria-label=Close ng-click="psdUpload.showPsdWarn=false;">
+            <span aria-hidden=true>×</span></button>
+        <h4 class=modal-title>PSD上传</h4></div>
+    <div class=modal-body><p style="line-height: 30px">1. 建议上传单页PSD尺寸为640*1008px。<br>2.
+        为保证上传速度，PSD文件大小不超过30M，图层不能超过30个，且每个图层不能够超过5M。<br>3. 为保证图片质量，建议上传前尽量将效果合并至图层中。</p></div>
+    <div class=modal-footer><a type=button class="btn btn-primary" ng-click=psdUpload.openPsdFileChooseBox();>确定</a>
+    </div>
+</div>

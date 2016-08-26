@@ -1,0 +1,73 @@
+<div ng-if="activeTab == 'dropdown'" ng-controller=DropdownConsoleCtrl>
+    <div class=styleDropdown>
+        <section ng-show="elemDef.type =='z'">
+            <div class=mainAttribute>
+                <div class=component ng-show=isTplEditor><label class=componentLabel>填空名称</label><input class=flo_right
+                                                                                                        style="width: 165px"
+                                                                                                        check-count=16
+                                                                                                        ng-model=setModel.setlabel
+                                                                                                        type="text">
+                    <span class=countSpan>{{(setModel.setlabel?countCharacters(setModel.setlabel.trim()):0)}}/16</span>
+                </div>
+                <div class=component ng-show=isTplEditor><label class=componentLabel>填空状态</label><select class=flo_right
+                                                                                                         style="border:1px solid #C9C9C9;width:165px"
+                                                                                                         ng-model=setModel.setstatus
+                                                                                                         ng-change=""
+                                                                                                         ng-options="status.value as status.name for status in statusArr"></select>
+                </div>
+                <div class=component ng-show=isTplEditor><label class=componentLabel>填空备注</label><input class=flo_right
+                                                                                                        style="width: 165px"
+                                                                                                        ng-model=setModel.setremark
+                                                                                                        type="text">
+                </div>
+                <div class=component><label class=componentLabel>默认选项</label>
+                    <div><select class=componentSelect ng-change=checkPlaceholder();
+                                 ng-model=currentParam.selectedOption
+                                 ng-options="option.label for option in model.choices.options">
+                        <option value="">空</option>
+                    </select></div>
+                </div>
+                <div class=component><label class=componentLabel>占位文本</label><input class="flo_right placeHolderInput"
+                                                                                    type=text check-count=20
+                                                                                    ng-model=model.placeholderText
+                                                                                    ng-disabled="currentParam.placeholderAvaiable ===false">
+                    <span class=countSpan>{{(model.placeholderText?countCharacters(model.placeholderText.trim()):0)}}/20</span>
+                </div>
+                <div class=component style=height:37px><label class=componentLabel>必填</label>
+                    <div class=checkbox-square ng-class="{checked: elemDef.required}" style="margin-top: 2px"><em
+                            class=eqf-yes2></em> <input type=checkbox ng-true-value=required ng-model=elemDef.required
+                                                        name=iCheck></div>
+                </div>
+                <div class=component style="margin-right: 0px;border-bottom: 0px">
+                    <div>
+                        <div class=optionTitle><span text>选项</span></div>
+                        <div>
+                            <div eqd-scroll ng-style="{true:{'height':'115px'},false:{'height':'220px'}}[isTplEditor]"
+                                 disable-mouse=true prevent-exception=true>
+                                <div>
+                                    <div class=optionPart ng-repeat="option in model.choices.options"><input
+                                            class=optionInput type=text check-count=20 stop-propagation
+                                            ng-model="option.label"> <span class=optionSpan>{{(option.label?countCharacters(option.label.trim()):0)}}/20</span>
+                                        <div class=iconPart><a class=iconPlus><span class="eqf-plus iconBlue"
+                                                                                    ng-click=addNewOption($index)></span></a>
+                                            <a class=iconMinus><span class="eqf-delete2 iconRed"
+                                                                     ng-click=deleteTheOption($index)></span></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=anim_area
+                                 style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px)">
+                                <div class=add-anim style="padding-left: 0px"><a class="btn btn-sm green mr20"
+                                                                                 style=float:left
+                                                                                 ng-click=addNewOption(model.choices.options.length)><span
+                                        class=eqf-plus2></span>增加选项</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class=btn-option><a class="btn btn-sm green" ng-click=cancel()>确定</a> <a class="btn btn-sm out-red"
+                                                                                  ng-click=clear()>清除属性</a></div>
+</div>

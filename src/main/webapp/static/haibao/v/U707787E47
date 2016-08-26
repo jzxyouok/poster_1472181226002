@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8" />
+    <meta name="baidu-site-verification" content="2MKKT6mbuL" />
+    	<title>test</title>
+    <meta name="keywords" content="移动场景应用自营销管家,移动场景自营销管家,移动场景自营销工具,活动自营销管家,场景展示,免费的报名页,收集潜在客户,二次营销,轻CRM,提高移动场景营销效果" />
+    <meta id="metaDescription" name="description" content="test" />
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-store, must-revalidate">
+    <META HTTP-EQUIV="expires" CONTENT="Wed, 26 Feb 1997 08:21:57 GMT">
+    <META HTTP-EQUIV="expires" CONTENT="0">
+    <meta id="eqMobileViewport" name="viewport" content="width=320, initial-scale=1, maximum-scale=1, user-scalable=no" servergenerated="true">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  	<link rel="stylesheet" href="/view/css/eqShow-2.1.5.3.css"/>
+    <script> var  your_demain='http://localhost';
+   var  your_webname='移动海报制作系统';
+   var  logo_url='移动海报制作系统';
+     var  lastpagelink='http://localhost';
+	 var lastpagetext_color='#23a3d3';
+    var  lastpagetext='尾页';
+	var jubao_link='http://localhost/v-XXXXXX';
+   </script>
+     <link rel="stylesheet" href="/Public/css/my52.css"/>
+</head>
+<body>
+
+<div id="ppitest" style="width:1in;visible:hidden;padding:0px"></div>
+<div class="p-index main phoneBox" id="con" style="display: none;">
+    <div class="top"></div>
+    <div class="phone_menubar"></div>
+    <div class="scene_title_baner" style="display: none">
+        <div class="scene_title">test</div>
+    </div>
+    <div class="nr" id="nr">
+        <div id="audio_btn" class="off">
+            <div id="yinfu"></div>
+            <audio loop src="" id="media" autoplay="" preload></audio>
+        </div>
+        <div id="loading" class="loading">
+            <div class="loadbox">
+                <div class="loadlogo" style="background-image: url('/Uploads/default_thum.jpg ');"></div>
+                <div class="loadbg" ></div>
+            </div>
+        </div>
+            </div>
+    <div class="bottom"></div>
+</div>
+
+</body>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+    <script src="/Public/css/waiwan/jquery.min.js"></script>
+<script >
+ (function (window, $) {
+   window.PREFIX_URL = "http://"+window.location.host+"/";
+    window.PREFIX_S1_URL =  "http://"+window.location.host+"/";//"/json/";
+    window.PREFIX_S2_URL ="http://"+window.location.host+"/index.php";
+	window.PREFIX_S6_URL ="http://"+window.location.host+"/index.php";
+    window.PREFIX_HOST = "http://"+window.location.host+"/index.php";
+    window.PREFIX_HOST1 = "http://"+window.location.host+"/index.php";
+	window.PREFIX_SHOW_HOST = "http://"+window.location.host+"/index.php";
+	window.TRACK_HOST = "http://"+window.location.host+"/";
+    window.PREFIX_FILE_HOST = "http://"+window.location.host+"/Uploads/";
+	window.PREFIX_COMPANY_HOST_ARRAY = ["http://"+window.location.host, "http://"+window.location.host];
+	window.OLD_FILE_HOST="http://"+window.location.host+"/index.php";
+    window.HB_STATIC ="http://"+window.location.host+"/";
+   window.clientWidth = document.documentElement.clientWidth;
+    window.clientHeight = document.documentElement.clientHeight;    
+	window.PREFIX_HOST_ARRAY = [
+			"http://"+window.location.host,
+			"http://"+window.location.host,
+			"http://"+window.location.host,
+			"http://"+window.location.host
+		];
+       
+})(window, jQuery)
+</script>
+ <script type="text/javascript" src="/view/eqShow-preview-2.1.5.3.js?v=1439295824"></script>
+   
+<script>
+ 
+	var scene = {id:8831324,code:"U707787E47",name:"test",bgAudio:{"url":"{$sceneinfo['musicurl_varchar']}","name":"","id":202382032},pageMode:0,cover:"",property:'{"triggerLoop":true,"slideNumber":true,"autoFlipTime":3,"shareDes":"","eqAdType":1,"hideEqAd":false}'};
+	   	 eqShow.bootstrap();
+	   	
+</script>
+ <script>
+          wx.config({
+			  debug: false,
+			  appId: 'wxb4a79d390beb3fb5',
+			  timestamp: "1469690366",
+			  nonceStr: 'QJhfOtcApyZdDLkw',
+			  signature: 'c38d4843145b1e6641fbdb4435868de9fdf6c708',
+			  jsApiList: [
+				'onMenuShareTimeline',
+				'onMenuShareAppMessage'
+			  ]
+		  });
+          wx.ready(function () {
+		  
+			  var shareData64 = {
+				title: 'test',
+				desc: '',
+				link: PREFIX_URL+'v/U707787E47',
+				imgUrl:  PREFIX_FILE_HOST  +'default_thum.jpg'
+			  };
+			  wx.onMenuShareAppMessage(shareData64);
+			  wx.onMenuShareTimeline(shareData64);
+			  $("#media").get(0).play();
+          });
+		  
+		  
+		wx.error(function (res) {
+			//alert(res.errMsg);
+		});
+        </script>
+</html>

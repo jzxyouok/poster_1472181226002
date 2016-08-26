@@ -1,0 +1,231 @@
+.top-warp{
+	width: 100%;
+	min-width: 1000px;
+	height:50px;
+	position: fixed;
+	top: 0;
+	background: #31364a;
+	background:rgba(49,54,74,1);
+	z-index: 100;
+}
+.logo{
+	width: 160px;
+	height:42px;
+	line-height:42px;
+	float: left;
+	font-size: 20px;
+	padding:4px 10px;
+}
+.logo a{
+	color: #fff;
+}
+.t-right-menu{
+	width:200px;
+	height:50px;
+	line-height:50px;
+	float: right;
+}
+.top-menu{
+	width: 600px;
+	height:50px;
+	position: absolute;
+	left:50%;
+	margin-left:-300px;
+}
+.top-menu ul li{
+	width:60px;
+	height:42px;
+	text-align: center;
+	float: left;
+	cursor: pointer;
+	padding-top:8px;
+}
+.top-menu ul li:hover{
+	background: #484d64;
+	background: rgba(72,77,100,1);
+	color: white;
+}
+.top-menu ul li span{
+	display: block;
+	height: 16px;
+	font-size: 16px;
+}
+
+/*main-left*/
+.main{
+	height:100%;
+	margin-top:50px;
+}
+.m-left{
+	width: 286px;
+	height:100%;
+	float: left;
+	background: #f0f3f4;
+}
+.m-l-nav{
+	height:34px;
+	padding-top:4px;
+	background:#76838f;
+}
+.m-l-nav li{
+	width:128px;
+	height:34px;
+	line-height:34px;
+	margin:0 7px;
+	text-align: center;
+	float: left;
+	cursor: pointer;
+	color: #fff;
+	border-top-left-radius:4px;
+	border-top-right-radius:4px;
+
+}
+.m-l-nav li:hover,
+.m-l-nav li.hover{
+	background:#f0f3f4;
+	color: #76838f;
+}
+.m-l-con{
+	padding:5px;
+}
+.m-l-c-block  ul li{
+	width:82px;
+	height:auto;
+	float: left;
+	margin:5px;
+	border-radius: 3px;
+	overflow: hidden;
+}
+.m-l-c-block ul li img{
+	width:82px;
+	height:133px;
+	cursor: pointer;
+}
+.m-l-c-block ul li:hover{
+	opacity: .8;
+}
+
+
+/*main-middle*/
+.m-middle{
+	position: absolute;
+	width:364px;
+	height:105%;
+	min-height: 752px;
+	top:-5px;
+	left:50%;
+	margin-left:-182px;
+	background: url("../images/apple-bg.png") no-repeat center center;
+	background-size: contain;
+}
+
+/*画布旁功能区*/
+.m-m-menu{
+	position: absolute;
+	width:40px;
+	height:362px;
+	background: #717176;
+	background:rgba(104,104,108,.9);
+	right: -35px;
+	top:170px;
+}
+.m-m-menu ul li{
+	width: 40px;
+	height:40px;
+	line-height:40px;
+	text-align: center;
+	color: #fff;
+	cursor: pointer;
+}
+.m-m-menu ul li.copy{
+	border-bottom:1px solid #c1c1c1;
+}
+.m-m-menu ul li.list{
+	border-top:1px solid #c1c1c1;
+}
+.m-m-menu ul li.grey{
+	color: #aaa;
+}
+.m-m-menu ul li:hover{
+	background: #000;
+}
+
+/*main-right*/
+.m-right{
+	width:186px;
+	height:100%;
+	float: right;
+	background:#f0f3f4;
+	position: relative;
+}
+.m-r-top{
+	width:100%;
+	height:38px;
+	line-height:38px;
+	color: #fff;
+	text-indent:20px;
+	background:#76838f;
+}
+.m-r-top span{
+	display: block;
+	width:24px;
+	height:24px;
+	line-height:24px;
+	text-align:center;
+	float: right;
+	text-indent:0;
+	margin:7px;
+	background:#525c64;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.m-r-top span:hover{
+	background: #48d5b2;
+}
+.m-r-page-list{
+	padding:8px;
+	overflow: hidden;
+}
+.m-r-page-list ul li{
+	width: 168px;
+	height:66px;
+	line-height:66px;
+	font-size: 16px;
+	text-align: center;
+	margin:10px 0;
+	border:1px solid #d1d1d1;
+	cursor: pointer;
+}
+.m-r-page-list ul li:hover{
+	box-shadow:0 0 4px #aaa;
+	border: 1px solid #48d5b2;
+}
+.m-r-page-add{
+	width: 100%;
+	height:50px;
+	background:#31364a;
+	text-align: center;
+	line-height:50px;
+	font-size:40px;
+	color: #d6d7db;
+	position: absolute;
+	left:0;
+	bottom:50px;
+	cursor: pointer;
+}
+.m-r-page-add:hover{
+	opacity:.8;
+}
+
+
+/*所有鼠标经过动画效果*/
+.t-t-nav li,
+.m-l-nav li,
+#add-css ul li,
+.top-menu ul li{
+	-webkit-transition: all .4s ease;
+	-moz-transition: all .4s ease;
+	-o-transition: all .4s ease;
+	-ms-transition: all .4s ease;
+	transition: all .4s ease;
+}

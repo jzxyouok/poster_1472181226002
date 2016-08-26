@@ -1,0 +1,123 @@
+<ul class="square-scene clearfix" ng-show="sceneList != 'system' && sceneList != 'sample'">
+    <li ng-repeat="scene in myScenes" ng-init="sceneIndex = $index" class="tab-box-shadow animation-zoom"
+        ng-style="{'animation-delay' : $index * 50 + 'ms'}">
+        <div ng-show=manageGroupName class=scene-group ng-mouseover="moveGroup = true"
+             ng-mouseleave="moveGroup = false"><a class=move>移动至<em class=eqf-clickmore style=padding-left:5px></em></a>
+            <div class="group-list zoomIn-change clearfix" ng-show="moveGroup == true">
+                <div eqd-scroll style=position:relative;overflow:hidden;max-height:180px>
+                    <div><a class=ellipsis ng-repeat="group in groups" ng-click=moreGroup(group.id,scene.id,sceneIndex)>{{group.groupName}}</a>
+                        <a ng-show="groups.length > 0" class=ellipsis ng-click=moreGroup(0,scene.id,sceneIndex)>未分组</a>
+                        <a class=ellipsis ng-click=addGroup(scene.id)><em class=eqf-plus2 style=padding-right:5px></em>添加分组</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ribbon ribbon-badge" ng-if="!scene.show && !scene.publishTime && scene.bizType !=30"><span
+                class="ribbon-inner unpublish">未发布</span></div>
+        <div ng-show="scene.bizType ==30" class="ribbon ribbon-badge" style=z-index:3><span class="ribbon-inner new"
+                                                                                            style=background-color:#44cb83>手机场景</span>
+        </div>
+        <div ng-show="scene.bizType !=30 && !scene.show && scene.publishTime && scene.updateTime > scene.publishTime"
+             class="ribbon ribbon-badge"><span class="ribbon-inner new">有修改</span> <span
+                class="ribbon-inner new hint--bottom hint--rounded" data-hint=内容有修改，新修改未发布
+                style="transform: rotate(0deg);background:none"></span></div>
+        <div ng-if="!scene.show && scene.isExpedited == 1 && scene.status == -2" class="ribbon ribbon-badge"><span
+                class="ribbon-inner check">加急审核中</span></div>
+        <div ng-if="!scene.show && scene.isExpedited == 1 && scene.status == 1" class="ribbon ribbon-badge"><span
+                class="ribbon-inner check">前置审核中</span></div>
+        <div ng-if="!scene.show && scene.status == -1" class="ribbon ribbon-badge"><span class="ribbon-inner check">未通过审核</span>
+        </div>
+        <div ng-if="!scene.show && scene.status == -2 && scene.isExpedited != 1" class="ribbon ribbon-badge"><span
+                class="ribbon-inner check">审核中</span></div>
+        <div class=image>
+            <div ng-if=!scene.show class="front face" ng-style=getStyle(scene.cover)></div>
+            <div ng-if="scene.show && scene.staticStatus !== 1" class=ercode qr-code
+                 qr-url="{{canvasUrl + '/v/' + scene.code}}"></div>
+            <div ng-if="scene.show && scene.staticStatus ===1" class=ercode qr-code
+                 qr-url="{{canvasUrlStatic + 's/' + scene.code}}"></div>
+            <div class=overlay ng-show=!scene.show>
+                <div class=edit><a class=edit-same ng-click=showPreview($event,scene)
+                                   data-event="{{scene.bizType==30?2222:2213}}"><em
+                        class="eqf-eye background-color-width-change" style=font-size:18px></em> <span>预览</span></a> <a
+                        class=edit-same ng-if=!branchid ng-click=editScene($event,scene.id,scene)
+                        data-event="{{scene.bizType==30?2223:2214}}"><em
+                        class="eqf-xiuziti background-color-width-change" style=font-size:18px></em> <span>编辑</span></a>
+                    <a class=edit-same ng-click=showDetail(scene.id) data-event="{{scene.bizType==30?2224:2215}}"><em
+                            class="eqf-date background-color-width-change" style=font-size:18px></em>
+                        <span>详情</span></a></div>
+                <div class=sample
+                     ng-if="scene.bizType !=30 && !branchid && scene.isTpl == 0 && (userProperty.type ==2 || userProperty.type ==5) && scene.status != -1 && scene.status != -2 && scene.bizType !=30">
+                    <a ng-click=creatCompanyTpl($event,scene.id,$index)>成为企业样例</a></div>
+                <div class=sample
+                     ng-if="scene.bizType !=30 && scene.isTpl == 3 && (userProperty.type ==2 || userProperty.type ==5) && scene.status != -1 && scene.status != -2 && scene.bizType !=30">
+                    <a ng-click=clearCompanyTpl($event,scene.id,$index)>取消企业样例</a></div>
+            </div>
+        </div>
+        <div class=project-info><p class=ellipsis>{{scene.name}}</p><a class=show-count
+                                                                       ng-click=showStatistics(scene.id);
+                                                                       data-event="{{scene.bizType==30?2225:2216}}"><em
+                class=eqf-eye></em>{{scene.showCount | fixnum}}</a> <a ng-click=showData(scene.id); class=show-count
+                                                                       ng-if="scene.dataCount > 0"><em
+                class=eqf-date></em><span>{{scene.dataCount | fixnum}}</span></a>
+            <div class="buttons clearfix">
+                <div class=set ng-if=!branchid><a class="delete background-color-width-change button"
+                                                  ng-if="(user.type == 21 && userPermit.indexOf(',1204,') >= 0) || user.type != 21"
+                                                  ng-click=deleteScene($event,scene.id,scene.staticStatus)
+                                                  data-event="{{scene.bizType==30?2227:2218}}"><em
+                        class=eqf-scene-delete></em><span>删除</span></a> <a
+                        ng-if="scene.bizType !=30 && scene.status != -1 && scene.status != -2 && ((user.type == 21 && userPermit.indexOf(',1203,') >= 0) || user.type !=21)"
+                        ng-click=copyScene($event,scene.id) class="button background-color-width-change operation"
+                        data-event=2219><em class=eqf-scene-copy></em><span>复制</span></a>
+                      <a ng-if="scene.bizType !=30 && (!scene.publishTime || scene.updateTime > scene.publishTime)
+                        && scene.status != -1 && scene.status != -2" ng-click=publishScene($event,scene)
+                                                                         class="button background-color-width-change operation"><em
+                        class=eqf-scene-send></em><span>发布</span></a> <a class="button background-color-width-change"
+                                                                         ng-click=sceneSettings($event,scene.id,scene)
+                                                                         data-event="{{scene.bizType==30?2228:2221}}"><em
+                        class=eqf-scene-setting></em><span>设置</span></a></div>
+                <a class="erweima button" ng-hover resource=scene data-event="{{scene.bizType==30?2226:2217}}"><em
+                        class=eqf-QRcode></em></a></div>
+        </div>
+    </li>
+</ul>
+<ul class="square-scene clearfix" ng-show="sceneList == 'system' || sceneList == 'sample'">
+    <li ng-repeat="scene in myScenes track by $index" class="tab-box-shadow animation-zoom"
+        ng-style="{'animation-delay' : $index * 50 + 'ms'}">
+        <div class="ribbon ribbon-badge" ng-if="!!scene.price && sceneList == 'system' && !scene.disCountFlag"><span
+                class="ribbon-inner check">{{scene.price}}秀点</span></div>
+        <div class="ribbon discount-detail" ng-if="!!scene.price && sceneList == 'system' && scene.disCountFlag">
+            <div class="discount-red discount-bg"><span class=discount-del>&nbsp{{scene.price}}秀点&nbsp</span> <span
+                    class=discount-normal><em>{{scene.disCountPrice}}</em>秀点</span></div>
+        </div>
+        <div class="ribbon ribbon-badge" ng-if="sceneList == 'sample' && !scene.price && !scene.disCountFlag"><span
+                class="ribbon-inner isCompany">企业专属</span></div>
+        <div class="ribbon discount-detail" ng-if="sceneList == 'sample' && scene.price && scene.disCountFlag">
+            <div class=discount-bg><span class=discount-del>&nbsp{{scene.price}}秀点&nbsp</span> <span
+                    class=discount-normal><em>{{scene.disCountPrice}}</em>秀点</span></div>
+        </div>
+        <div class="ribbon ribbon-badge" ng-if="sceneList == 'sample' && scene.price && !scene.disCountFlag"><span
+                class="ribbon-inner isCompany">{{scene.price}}秀点</span></div>
+        <div class=image>
+            <div ng-if=!scene.show class="front face" ng-style=getStyle(scene.cover)></div>
+            <div ng-if=scene.show class=ercode qr-code qr-url="{{canvasSampleUrl + '/v/' + scene.code}}"></div>
+            <div class=overlay ng-show=!scene.show>
+                <div class=edit><a class=edit-same target=_blank ng-click=openPreview(scene);><em
+                        class="eqf-eye background-color-width-change" style=font-size:18px></em> <span>预览</span></a> <a
+                        ng-if="sceneList == 'sample'" class=edit-same ng-click="createScene(scene,'isComp')"><em
+                        class="eqf-xiuziti background-color-width-change" style=font-size:18px></em>
+                    <span>就这个</span></a> <a ng-if="sceneList != 'sample'" class=edit-same
+                                            ng-click=createScene(scene)><em
+                        class="eqf-xiuziti background-color-width-change" style=font-size:18px></em>
+                    <span>就这个</span></a></div>
+            </div>
+        </div>
+        <div class=project-info><p class=ellipsis>{{scene.name}}</p>
+            <p class="ellipsis discount-overdue" ng-if=scene.disCountFlag>限时打折,距离活动结束还有{{scene.disCountTime}}天</p>
+            <div class="buttons clearfix">
+                <div class="set sample-scene"><span class=scene-name>{{scene.userName}}</span></div>
+                <a class="erweima button" ng-hover resource=scene><em class=eqf-QRcode></em></a></div>
+        </div>
+        <div class=head-img> <em
+                class=eqf-top-contact></em></span></div>
+    </li>
+</ul>

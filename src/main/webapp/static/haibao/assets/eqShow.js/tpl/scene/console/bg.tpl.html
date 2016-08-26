@@ -1,0 +1,152 @@
+<div class="modal-header no-line">
+    <button type=button class=close data-dismiss=modal aria-label=Close ng-click=cancel()><span
+            aria-hidden=true>×</span></button>
+    <h4 class=modal-title>素材库 <a ng-show="fileType =='0'" class=bbs-help-tip-media target=_blank
+                                 href="http://bbs.eqxiu.com/forum.php?mod=viewthread&tid=1921&page=1&extra=#pid6652"></a>
+        <a ng-show="fileType =='1'" class=bbs-help-tip-media target=_blank
+           href="http://bbs.eqxiu.com/forum.php?mod=viewthread&tid=1934&page=1&extra=#pid6696"></a> <span
+                ng-show=!authError class=action>单击使用</span> <span ng-show=authError class=action>{{authError}}</span>
+    </h4></div>
+<div class=dialog-contain>
+    <div class="dialog-content bg_console sound-flex clearfix">
+        <div class=cate-title>
+            <ul class="nav tabs-left" style=padding-top:0>
+                <li ng-class="{active: systemImages}"><a href="" ng-show="fileType == '0'"
+                                                         ng-click="switchToSystemImages('true');getSystemFiles();"
+                                                         data-toggle=tab>背景库</a> <a href="" ng-show="fileType == '1'"
+                                                                                    ng-click="switchToSystemImages('true');getSystemFiles();"
+                                                                                    data-toggle=tab>图片库</a></li>
+                <li ng-class="{active: !systemImages && !userTagId}"><a href="" ng-show="fileType == '0'"
+                                                                        ng-click="switchToSystemImages('false');getUserFiles(0)"
+                                                                        data-toggle=tab>我的背景</a> <a href=""
+                                                                                                    ng-show="fileType == '1'"
+                                                                                                    ng-click="switchToSystemImages('false');getUserFiles(0)"
+                                                                                                    data-toggle=tab>我的图片</a>
+                </li>
+                <li class="add-tag clearfix" ng-if="type != 'p' && type !='n'"><a ng-click=createTag();
+                                                                                  style=border-bottom:none><span
+                        class=eqf-plus></span>&nbsp;<em>添加分组</em></a></li>
+                <li class="my-bg-upload bg-img-upload blue">
+                    <div class="hint--top hint--rounded" data-hint=大小不超过3M，支持格式：jpg、png、gif，一次最多上传6张><span
+                            class=eqf-update></span><em>上传</em> <input type=file nv-file-select="" uploader=uploader
+                                                                       options multiple
+                                                                       style="width:200px;height: 55px;overflow: hidden;position: absolute;top: 0;right: 0;left:-70px;bottom:0;cursor: pointer;opacity:0">
+                    </div>
+                </li>
+            </ul>
+            <ul class="nav tabs-left user-tabs" style=padding-top:0>
+                <li ng-class="{active: userTagId == tag.id && !systemImages}" ng-repeat="tag in tagList"
+                    ng-click="switchToSystemImages('false');getUserFiles(tag.id)" ng-hover resource=tag><a href=""
+                                                                                                           data-toggle=tab><span
+                        class="eqf-wrong2 del-tag" ng-if="tag.show && type != 'p'
+                         && type != 'n'" style=float:right;margin-top:15px;opacity:0.8
+                        ng-click="deleteTag(tag.id, $index)"></span> {{tag.name}}</a></li>
+            </ul>
+        </div>
+        <div class="cate-list bg-rig">
+            <div id=bg_contain>
+                <div class="tab-pane active tab-head" ng-show=systemImages>
+                    <div class=img_list>
+                        <div class="category_list clearfix">
+                            <ul class="category_list_container clearfix">
+                                <li class=category_item ng-class="{'active': sysCatId == '0'}"
+                                    ng-click="getSysCatAndList('0')"><span>最新</span></li>
+                                <li class=category_item ng-class="{'active': sysCatId == sysCategory.value}"
+                                    ng-repeat="sysCategory in sysCategoryList|filter:{'lang':'zh_CN'}"
+                                    ng-click=getSysCatAndList(sysCategory.value)>{{sysCategory.name}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="cat_two_list clearfix">
+                            <ul>
+                                <li ng-repeat="sysTag in sysTagList" ng-class="{'active': sysTagId == sysTag.id}"
+                                    ng-click=getSysImgByTag(sysTag.id); style=cursor:pointer>{{sysTag.name}}
+                                </li>
+                                <li ng-if="bFlagType == '3' && sysCatId=='1301'" class=category_item
+                                    ng-class="{'active': sysTagId == 'pure'}" ng-click="getSysImgByTag('pure')"><span>纯色背景</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="userTagId=='history'" class="tab-pane active tab-head"></div>
+                <div class="tab-pane active tab-head"
+                     ng-show="!systemImages && type != 'p' && type != 'n' && userTagId!='history'">
+                    <div class=my-bg><span style=float:right ng-if=!userTagId><a class=manage-all
+                                                                                 ng-show=!mangeObj.manageAll
+                                                                                 ng-click="mangeObj.manageAll = true;"><em>管理</em></a> <a
+                            class=mul-del ng-show=mangeObj.manageAll ng-click=deleteFile();><em>删除</em></a> <a
+                            class=cancel-all ng-show=mangeObj.manageAll
+                            ng-click="cancelSelect();mangeObj.manageAll = false;"><em>取消选择</em></a></span> <span
+                            style=float:right ng-if=userTagId><span ng-if="userTagId && mangeObj.manageAll"
+                                                                    style=cursor:pointer class=cancel-all
+                                                                    ng-click=unbindTag(userTagId);>移除</span> <a
+                            class=cancel-all ng-show=mangeObj.manageAll
+                            ng-click="cancelSelect();mangeObj.manageAll = false;"><em>取消选择</em></a> <a class=manage-all
+                                                                                                       ng-show=!mangeObj.manageAll
+                                                                                                       ng-click="mangeObj.manageAll = true;"><em>管理</em></a></span>
+                        <span><a class="assign-group drop-area"
+                                 ng-click="showObj.showGroup=!showObj.showGroup"><em>分组</em>&nbsp;&nbsp;&nbsp; <span
+                                class=eqf-down2></span></a></span></div>
+                    <div class=group-panel ng-if="showObj.showGroup && tagList.length" auto-close>
+                        <ul>
+                            <li ng-repeat="tag in tagList" ng-click=assignTag(tag.id)>{{tag.name}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class=img_list>
+                    <div class="img_list_container photo_list">
+                        <ul class="img_box clearfix" ng-class="{'img-box-his':userTagId=='history'}">
+                            <li ng-if="!systemImages && uploader.queue.length" class=imgList
+                                ng-repeat="item in uploader.queue.slice().reverse()">
+                                <div class=progress
+                                     style="position: absolute;top: 50%;margin-top: -10px;width: 90%;margin-left: 5%">
+                                    <div style=background-color:#08a1ef class=progress-bar role=progressbar
+                                         ng-style="{ 'width': item.progress + '%' }"></div>
+                                </div>
+                            </li>
+                            <li id=userlist ng-if="sysTagId != 'pure'&& sysCatId != 'pure'" class=imageList
+                                ng-repeat="img in imgList"
+                                ng-click="replaceByClick(img, $shape, $event);switchSelect(img, $shape, $event);"
+                                resource=img style="'position: relative"><span ng-show="img.libType == 1"
+                                                                               class=imagesYiTo><a
+                                    href="http://www.yituw.com/searchs/DoSearch/?search=search&Srange_zh=chinese+new+year+2016&mode=&keyword=chinese+new+year+2016&Srange="
+                                    target=_blank tooltip-placement=right tooltip=亿图网正版授权 class=YiToLogo
+                                    ng-click=$event.stopPropagation();><img
+                                    ng-src="{{HB_STATIC}}assets/images/1tu.png"></a></span> <img
+                                    ng-src="{{PREFIX_FILE_HOST + img.tmbPath}}" responsive-image file=img
+                                    ng-class="{'add-shadow': img.show && systemImages && type != 'p' && type != 'n'}">
+                                <div class=img-mask
+                                     ng-show="type == 'p' || type == 'n' || ((selectedImages.length || img.show || img.selected || mangeObj.manageAll) && !systemImages)">
+                                    <a class="del-file ope-img"
+                                       ng-if="!mangeObj.manageAll && !userTagId && type != 'p' && type != 'n'"
+                                       ng-click=deleteFile(img.id)><span class="eqf-wrong2 ope-icon"></span></a> <a
+                                        class="sel-file ope-img"
+                                        ng-class="{'sel-active': img.selected, 'hide-del': mangeObj.manageAll || userTagId || type == 'p' || type == 'n'}"><span
+                                        class="eqf-yes ope-icon"></span></a></div>
+                            </li>
+                            <li id=userlist class=imageList ng-repeat="img in imgList"
+                                ng-if="sysTagId == 'pure'|| sysCatId == 'pure'" resource=img
+                                ng-click=replaceByClick(img)
+                                ng-class="{'add-shadow': img.show && systemImages && type != 'p' && type != 'n'}">
+                                <div ng-style="{'background-color': img.color}"
+                                     style="position: relative;height:100%;width:63px;margin: 0 auto"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer bg-pagination clearfix no-line">
+            <div class="fl mr20" ng-show="numPages > 1 && userTagId!='history'">
+                <pagination style="float: left" previous-text=&lsaquo; next-text=&rsaquo; first-text=首页 last-text=尾页
+                            max-size=5 items-per-page=pageSize total-items=totalItems ng-model=$parent.currentPage
+                            boundary-links=true rotate=true num-pages=numPages></pagination>
+                <div class=current_page><span class=fl>到</span> <input type=text ng-model=$parent.toPage
+                                                                       ng-keyup="$event.keyCode == 13 ? getImgByPage() : null"><span
+                        class=fl>页</span> <a ng-click=getImgByPage() class=go>确定</a></div>
+            </div>
+            <a class=modal-cancle ng-click=cancel()>取消</a> <a class="btn btn-primary" ng-click=replaceImage();>确定</a>
+        </div>
+    </div>
+</div>

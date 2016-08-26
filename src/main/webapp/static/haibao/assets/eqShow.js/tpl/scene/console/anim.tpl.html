@@ -1,0 +1,102 @@
+<div ng-if="activeTab == 'anim'" ng-controller=AnimConsoleCtrl>
+    <div style=height:410px>
+        <div eqd-scroll style="height: 100%" disable-mouse=true prevent-exception=true>
+            <div class=anim_area>
+                <div class=anim-panels style=padding-top:10px ng-if=animations.length>
+                    <section ng-repeat="animation in animations track by $index">
+                        <div class="style_list pr20 pl20 border-bottom"
+                             ng-class="{'border-top':($index==0 || opea.show),active:opea.show}"
+                             ng-init="opea.show=true" ng-click="opea.show=!opea.show"><em>动画</em>&nbsp;{{$index+1}}
+                            <div class="animation-opera fr"><span title=删除此动画 class=eqf-wrong style=margin-right:10px
+                                                                  ng-click="removeAnim($index, $event)"></span> <b
+                                    class=caret ng-if=opea.show></b> <b class="caret off" ng-if=!opea.show></b></div>
+                        </div>
+                        <div class="pl20 pr20" style=background-color:#fff>
+                            <div ng-if=opea.show class="style_list_angel clearfix"><label>方式</label>
+                                <div class="flo_lef touming"><select style="width:100px;border:1px solid #C9C9C9"
+                                                                     ng-model=types[$index]
+                                                                     ng-change="animation.type=types[$index].id; changeAnimation(animation, $index)"
+                                                                     ng-options="animType.name group by animType.cat for animType in animTypeEnum">
+                                    <option value=-1>无</option>
+                                </select></div>
+                            </div>
+                            <div ng-if="opea.show && animation.type == 7" class="style_list_angel clearfix">
+                                <label>速度</label>
+                                <div class="clearfix touming">
+                                    <div class=num style=text-align:right;margin-top:4px><input type=checkbox value=""
+                                                                                                ng-model=animation.linear
+                                                                                                ng-true-value=1
+                                                                                                onfocus=this.select()
+                                                                                                style="margin-right:2px;margin-top:0px"><em>匀速</em>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="animation.type != -1 && animation.type != null && opea.show">
+                                <form role=form>
+                                    <div class="style_list_angel clearfix"
+                                         ng-show="animation.type == 1 || animation.type == 2 || animation.type == 17 || animation.type == 19">
+                                        <label style=padding-top:8px>方向</label>
+                                        <div class="flo_lef touoming"><select style=color:#999 class=form-control
+                                                                              ng-model=directions[$index]
+                                                                              ng-change="animation.direction=directions[$index].id;changeAnimation(animation, $index)"
+                                                                              ng-options="animDirection.name for animDirection in animDirectionEnum"></select>
+                                        </div>
+                                    </div>
+                                    <div class=style_list_angel ng-show="animation.type != 'typer'"><label>时间</label>
+                                        <div class="touming clearfix"><p class=num><input limit-input
+                                                                                          class="input_kuang short"
+                                                                                          type=number step=0.1 min=0
+                                                                                          max=20
+                                                                                          ng-model=animation.duration
+                                                                                          onfocus="this.select()"></p>
+                                            <div class=slider ui-slider-t ng-model=animation.duration fixed=1 min=0
+                                                 max=20></div>
+                                        </div>
+                                    </div>
+                                    <div class=style_list_angel ng-show="animation.type == 'typer'"><label>间隔时间</label>
+                                        <div class="touming clearfix"><p class=num><input limit-input
+                                                                                          class="input_kuang short"
+                                                                                          type=number step=0.1 min=0
+                                                                                          max=20
+                                                                                          ng-model=animation.interval
+                                                                                          onfocus="this.select()"></p>
+                                            <div class=slider ui-slider-t ng-model=animation.interval fixed=1 min=0
+                                                 max=20></div>
+                                        </div>
+                                    </div>
+                                    <div class=style_list_angel><label>延迟</label>
+                                        <div class="touming clearfix"><p class=num><input limit-input
+                                                                                          class="input_kuang short"
+                                                                                          type=number step=0.1 min=0
+                                                                                          max=20 class=form-control
+                                                                                          onfocus=this.select()
+                                                                                          ng-model="animation.delay">
+                                        </p>
+                                            <div class=slider ui-slider-t ng-model=animation.delay fixed=1 min=0
+                                                 max=20></div>
+                                        </div>
+                                    </div>
+                                    <div class=style_list_angel ng-show="animation.type != 'typer'"><label>次数</label>
+                                        <div class="touming clearfix"><p class=num style=float:left;margin-right:10px>
+                                            <input ng-disabled=animation.count limit-input class="input_kuang short"
+                                                   type=number min=1 max=10 class=form-control
+                                                   ng-model=animation.countNum onfocus="this.select()"></p>
+                                            <div class=checkbox-square style=margin-left:50px
+                                                 ng-class="{checked: animation.count}"><em class=eqf-yes2></em> <input
+                                                    type=checkbox ng-model=animation.count></div>
+                                            <em>循环</em></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class=add-anim><a class="btn btn-sm green mr20" style=float:left ng-click=addAnim($event)><span
+                        class=eqf-plus2></span>添加动画</a> <a class="btn btn-sm blue" ng-click=previewAnim($event)><span
+                        class=eqf-play2></span>预览动画</a></div>
+            </div>
+        </div>
+    </div>
+    <div class=btn-option><a class="btn btn-sm green" ng-click=cancel()>确定</a> <a class="btn btn-sm out-red"
+                                                                                  ng-click=clear()>清除动画</a></div>
+</div>

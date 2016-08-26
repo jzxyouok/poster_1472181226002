@@ -1,0 +1,16 @@
+<div class=clearfix>
+    <div class=eqc-mask ng-click=showList($event)>
+        <div class=eqc-name>{{current.name}}</div>
+        <span class="more eqf-clickmore"></span></div>
+    <div class="eqc-drop-down-list transform-change">
+        <div class=list>
+            <div class=eqc-scroll prevent-exception=true disable-mouse=true eqd-scroll={{scrollType}}>
+                <ul class=clearfix ng-click=selectItem($event)>
+                    <li ng-repeat="item in list" ng-class="{active: item == current}"
+                        ng-style="{fontFamily: item.fontFamily}" class=eqc-target>{{item.name}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

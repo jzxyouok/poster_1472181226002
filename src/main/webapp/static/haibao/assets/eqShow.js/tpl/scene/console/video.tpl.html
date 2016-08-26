@@ -1,0 +1,29 @@
+<div class="modal-header no-line">
+    <button type=button class=close data-dismiss=modal aria-label=Close ng-click=cancel()><span
+            aria-hidden=true>×</span></button>
+    <h4 class=modal-title>视频组件 <a class=bbs-help-tip-media target=_blank
+                                  href="http://bbs.eqxiu.com/forum.php?mod=viewthread&tid=1926&extra="></a> <span
+            ng-show=!authError class=action>把视频通用代码复制到框中即可使用</span> <span ng-show=authError>{{authError}}</span></h4>
+</div>
+<div class=dialog-contain>
+    <div class="video_console dialog-content">
+        <div class=modify_area style=height:auto>
+            <div class=video_tip><span>视频通用代码：</span> <span class=video_code><a href="/Public/help.htm" target=_blank><ins>什么是视频通用代码？</ins></a></span>
+            </div>
+            <div class=video_tip><textarea style=border-radius:0px class=video_src ng-model=model.src
+                                           ng-keyup="$event.keyCode == 13 ? confirm() : null"></textarea></div>
+            <div class=video_tip><span>将视频的通用代码粘贴到文本框里即可。</span><a href="/Public/help.htm" target=_blank>
+                <ins>查看帮助</ins>
+            </a></div>
+            <div class=video_tip><span>支持的视频：</span><a href="http://www.youku.com/" target=_blank>
+                <ins>优酷</ins>
+            </a>、<a href="http://www.tudou.com/" target=_blank>
+                <ins>土豆</ins>
+            </a>、<a href="http://v.qq.com/" target=_blank>
+                <ins>腾讯视频</ins>
+            </a></div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer no-line"><a class=modal-cancle ng-click=cancel()>取消</a> <a class="btn btn-primary"
+                                                                                    ng-click=confirm()>确定</a></div>

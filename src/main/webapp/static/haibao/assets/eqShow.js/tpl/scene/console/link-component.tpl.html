@@ -1,0 +1,60 @@
+<div class="modal-header no-line">
+    <button type=button class=close data-dismiss=modal aria-label=Close ng-click=cancel()><span
+            aria-hidden=true>×</span></button>
+    <h4 class=modal-title>链接组件 <a class=bbs-help-tip-media target=_blank
+                                  href="http://bbs.eqxiu.com/forum.php?mod=viewthread&tid=13069&extra"></a> <span
+            class=action ng-show=!authError>两种链接：可以跳转到场景外部的链接，或者内部导航链接</span> <span
+            ng-show=authError>{{authError}}</span></h4></div>
+<div class="dialog-contain link-component">
+    <div class=tab-same><span ng-repeat="button in buttons track by $index" ng-class="{spanborder: $index == btnIndex}"><a
+            ng-style=button.btnStyle ng-click="chooseTabButton(button, $index)">{{button.text}}</a></span>
+        <div ng-class="{'spanborder': model.imgSrc}" class="auto-upload hint--top hint--rounded"
+             data-hint=上传图片大小不超过3M，支持上传格式：jpg、png、gif ng-click=openImageModal()><em class=eqf-top-pic></em><em>自定义</em>
+        </div>
+    </div>
+    <div class="link-modal dialog-content">
+        <form class=form-contain>
+            <div class="form-list clearfix" ng-if=!model.imgSrc><label for=buttonName class=form-label>按钮名称：</label>
+                <div class=form-input><input id=buttonName class=btn-name style=width:300px type=text
+                                             ng-model=model.title check-count=40
+                                             ng-keyup="$event.keyCode == 13 ? confirm() : null" autofocus
+                                             stop-propagation></div>
+            </div>
+            <div class="form-list clearfix" ng-if=model.imgSrc><label class=form-label>按钮图片：</label>
+                <div class="form-image btn-small"><img ng-src="{{PREFIX_FILE_HOST + model.imgSrc}}" alt="按钮图片"> <a
+                        class="btn-main btn-picture" style=text-align:center;font-size:12px ng-click=openImageModal()>更换图片</a>
+                </div>
+            </div>
+            <div class="form-list clearfix" style="position: relative"><label for=externalRadio class=form-label><input
+                    type=radio name=externalRadio id=externalRadio ng-model=model.url.link value=external
+                    ng-change=changed() style="margin:0px 5px 0 0"><span>网站地址：</span></label>
+                <div class=form-input><input style=width:300px type=text ng-model=model.url.externalLink
+                                             name=externalLink id=externalLink placeholder=网站地址
+                                             ng-disabled="url.link == 'internal'" ng-change="selectRadio('external')"
+                                             limit-link-length stop-propagation> <a
+                        style="font-size: 16px;display: inline-block; margin-top: 5px;background-image: url('assets/images/create/delete.png'); width: 14px; height: 14px"
+                        ng-show="url.link == 'external'" class=delete-link ng-click="removeLink('external')"></a></div>
+                <a href="http://dwz.cn/"
+                   style="text-decoration: underline;color: #08A1EF;position: absolute;top: 10px;right: -30px;font-size:12px"
+                   target=_blank>生成短链接</a></div>
+            <div class="form-list clearfix"><label for=internalRadio class=form-label><input type=radio
+                                                                                             name=internalRadio
+                                                                                             id=internalRadio
+                                                                                             value=internal
+                                                                                             ng-model=model.url.link
+                                                                                             ng-change=changed()
+                                                                                             style="margin:0px 5px 0 0"><span>场景页面：</span></label>
+                <div class=form-input>
+                    <eqx-select class="select-sm border-width select-contain" model=model.url.internalLink
+                                change="selectRadio('internal')">
+                        <eqx-select-option value=null>选择场景页面</eqx-select-option>
+                        <eqx-select-option value=page.id ng-repeat="page in pageList">{{page.name}}</eqx-select-option>
+                    </eqx-select>
+                    <a style="display: inline-block;font-size: 16px; background-image: url('assets/images/create/delete.png'); width: 14px; height: 14px"
+                       ng-show="url.link == 'internal'" ng-click="removeLink('internal')"></a></div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer no-line"><a class=modal-cancle ng-click=cancel()>取消</a> <a class="btn btn-primary"
+                                                                                    ng-click=confirm()>确定</a></div>

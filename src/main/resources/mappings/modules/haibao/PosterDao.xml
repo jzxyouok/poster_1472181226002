@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dmesoft.haibao.modules.haibao.dao.PosterDao">
+
+	<resultMap type="Poster" id="RM_Poster">
+		<id column="id" property="id"/>
+		<result column="poster_name" property="name"/>
+		<result column="path" property="path"/>
+	</resultMap>
+
+	<insert id="insert" parameterType="Poster">
+		INSERT INTO t_poster(id, poster_name, path) VALUES(#{id}, #{name}, #{path})
+	</insert>
+
+	<select id="get" parameterType="string" resultMap="RM_Poster">
+		SELECT
+			id, poster_name, path
+		FROM
+			t_poster
+		WHERE
+			id = #{value}
+	</select>
+
+	<update id="update" parameterType="Poster">
+		UPDATE t_poster SET
+		<if test="name != null and name != ''">
+			poster_name = #{name},
+		</if>
+		<if test="path != null and path != ''">
+			path = #{path},
+		</if>
+			id = #{id}
+		WHERE
+			id = #{id}
+	</update>
+</mapper>

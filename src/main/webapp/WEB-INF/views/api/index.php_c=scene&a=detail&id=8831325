@@ -1,0 +1,55 @@
+
+{
+			"success": true,
+			"code": 200,
+			"msg": "success",
+			"obj": {
+				"id": 8831325,
+				"name": "",
+				"createUser": "1",
+				"createTime": "1469774914000",
+				"type": 101,
+				"pageMode": 2,
+				"eqcode": "",
+				"cover": "default_thum.jpg",
+				
+								
+				"image": {
+					"imgSrc": "default_thum.jpg",
+					"isAdvancedUser": 0,
+                    "lastPageId":0,
+                    "hideEqAd":0},
+				"isTpl": 0,
+				"isPromotion": 0,
+				"isShow": 0,
+				"status": 1,
+				"tagId"   : 0,
+				"openLimit": 0,
+				"submitLimit": 0,
+				"startDate": null,
+				"endDate": null,
+				"accessCode": null, 
+				"loadingLogo": null,
+				"thirdCode": null,
+				"updateTime": "2016-07-29 14:48:34",
+				"publishTime": null,
+				"price": 0,
+				"applyTemplate": 0,
+				"applyPromotion": 0,
+				"sourceId": null,
+				"code": "U707498KD9",
+				"description":"",
+				"sort": 0,
+				"bgAudio": {
+					"url": "",
+					"type": "3"
+					},
+				"pageCount": 0,
+				"dataCount": 0,
+				"showCount": 0,
+				"userLoginName": null,
+				"userName": null
+			},
+			"map": null,
+			"list": null
+		}
