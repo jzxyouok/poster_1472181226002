@@ -69,9 +69,6 @@ public class PosterController extends BaseController {
 		String path = posterService.getPosterUrl(posterId);
 		request.getRequestDispatcher("/" + path).forward(request, response);
 	}
-	public static void main(String[] args) {
-		System.out.println(System.currentTimeMillis());
-	}
 
 	/**
 	 * 修改海报
