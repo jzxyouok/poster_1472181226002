@@ -1,4 +1,4 @@
-package cn.dmesoft.haibao.modules.haibao.web;
+package cn.dmesoft.haibao.modules.oa.web;
 
 import java.beans.PropertyEditorSupport;
 import java.io.IOException;
@@ -22,10 +22,10 @@ import com.alibaba.druid.util.StringUtils;
 
 import cn.dmesoft.haibao.common.utils.DateUtils;
 import cn.dmesoft.haibao.common.web.BaseController;
-import cn.dmesoft.haibao.modules.haibao.entity.BaseRes;
-import cn.dmesoft.haibao.modules.haibao.entity.Poster;
-import cn.dmesoft.haibao.modules.haibao.enums.BaseResCodeEnum;
-import cn.dmesoft.haibao.modules.haibao.service.PosterService;
+import cn.dmesoft.haibao.modules.oa.entity.BaseRes;
+import cn.dmesoft.haibao.modules.oa.entity.Poster;
+import cn.dmesoft.haibao.modules.oa.enums.BaseResCodeEnum;
+import cn.dmesoft.haibao.modules.oa.service.PosterService;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package cn.dmesoft.haibao.modules.haibao.aspectj;
+package cn.dmesoft.haibao.modules.oa.aspectj;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,8 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import cn.dmesoft.haibao.modules.haibao.entity.BaseRes;
-import cn.dmesoft.haibao.modules.haibao.enums.BaseResCodeEnum;
+
+import cn.dmesoft.haibao.modules.oa.entity.BaseRes;
+import cn.dmesoft.haibao.modules.oa.enums.BaseResCodeEnum;
 
 /**
  * 请求拦截切面
@@ -24,7 +25,7 @@ public class RequestAspectj {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Around("execution(public cn.dmesoft.haibao.modules.haibao.entity.BaseRes cn.dmesoft.haibao..web.PosterController.*(..))")
+	@Around("execution(public cn.dmesoft.haibao.modules.oa.entity.BaseRes cn.dmesoft.haibao..web.*Controller.*(..))")
 	public Object surroundProcess(ProceedingJoinPoint joinPoint) {
 		Object res = null;
 		Object[] args = joinPoint.getArgs();

@@ -1,4 +1,4 @@
-package cn.dmesoft.haibao.modules.haibao.enums;
+package cn.dmesoft.haibao.modules.oa.enums;
 
 /**
  * 响应码枚举

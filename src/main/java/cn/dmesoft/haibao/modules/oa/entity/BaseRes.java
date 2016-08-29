@@ -1,10 +1,10 @@
-package cn.dmesoft.haibao.modules.haibao.entity;
+package cn.dmesoft.haibao.modules.oa.entity;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.dmesoft.haibao.modules.haibao.enums.BaseResCodeEnum;
+import cn.dmesoft.haibao.modules.oa.enums.BaseResCodeEnum;
 
 /**
  * 响应对象

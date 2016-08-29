@@ -1,4 +1,4 @@
-package cn.dmesoft.haibao.modules.haibao.service;
+package cn.dmesoft.haibao.modules.oa.service;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -8,13 +8,17 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import cn.dmesoft.haibao.common.service.CrudService;
-import cn.dmesoft.haibao.modules.haibao.dao.PosterDao;
-import cn.dmesoft.haibao.modules.haibao.entity.Poster;
-import cn.dmesoft.haibao.modules.haibao.web.PosterController;
+
+import cn.dmesoft.haibao.common.service.BaseService;
+import cn.dmesoft.haibao.modules.oa.dao.PosterDao;
+import cn.dmesoft.haibao.modules.oa.entity.Poster;
+import cn.dmesoft.haibao.modules.oa.web.PosterController;
 
 /**
  * 
@@ -23,7 +27,7 @@ import cn.dmesoft.haibao.modules.haibao.web.PosterController;
  */
 @Service
 @Transactional(readOnly = false)
-public class PosterService extends CrudService<PosterDao, Poster> {
+public class PosterService extends BaseService {
 
 	private static String SAVE_DIR_PATH = null;
 
@@ -32,6 +36,9 @@ public class PosterService extends CrudService<PosterDao, Poster> {
 
 	@Value("${html_behind}")
 	private String htmlBehind;
+
+	@Resource
+	private PosterDao posterDao;
 
 	static {
 		String dirPath = PosterController.class.getClassLoader().getResource("").getPath();
@@ -47,7 +54,7 @@ public class PosterService extends CrudService<PosterDao, Poster> {
 	public void savePoster(Poster poster) throws Exception {
 		poster.setId(UUID.randomUUID().toString().replace("-", ""));
 		writeHtmlToLocalFile(poster);
-		dao.insert(poster);
+		posterDao.insert(poster);
 	}
 
 	/***
@@ -58,7 +65,7 @@ public class PosterService extends CrudService<PosterDao, Poster> {
 	 */
 	public Map<String, String> updatePoster(Poster poster) throws Exception {
 		Map<String, String> fieldError = new HashMap<String, String>();
-		Poster posterDB = dao.get(poster.getId());
+		Poster posterDB = posterDao.get(poster.getId());
 		if (posterDB == null) {
 			fieldError.put("id", "海报ID不存在");
 			return fieldError;
@@ -66,7 +73,7 @@ public class PosterService extends CrudService<PosterDao, Poster> {
 		String oldPath = posterDB.getPath();
 		posterDB.setContent(poster.getContent());
 		writeHtmlToLocalFile(posterDB);
-		dao.update(posterDB);
+		posterDao.update(posterDB);
 		File file = new File(SAVE_DIR_PATH + oldPath);
 		if (file.exists()) {
 			file.delete();
@@ -76,7 +83,7 @@ public class PosterService extends CrudService<PosterDao, Poster> {
 	}
 
 	public String getPosterUrl(String posterId) {
-		Poster posterDB = dao.get(posterId);
+		Poster posterDB = posterDao.get(posterId);
 		return posterDB == null? null : posterDB.getPath();
 	}
 

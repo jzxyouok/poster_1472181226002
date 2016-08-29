@@ -1,8 +1,8 @@
-package cn.dmesoft.haibao.modules.haibao.dao;
+package cn.dmesoft.haibao.modules.oa.dao;
 
 import cn.dmesoft.haibao.common.persistence.CrudDao;
 import cn.dmesoft.haibao.common.persistence.annotation.MyBatisDao;
-import cn.dmesoft.haibao.modules.haibao.entity.Poster;
+import cn.dmesoft.haibao.modules.oa.entity.Poster;
 
 /**
  * 

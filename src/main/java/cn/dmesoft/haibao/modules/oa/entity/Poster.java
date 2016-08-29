@@ -1,4 +1,4 @@
-package cn.dmesoft.haibao.modules.haibao.entity;
+package cn.dmesoft.haibao.modules.oa.entity;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
